@@ -19,3 +19,6 @@ EOF
 
 #web ui available on
 #http://0.0.0.0:8025/
+
+# TODO: make maildir files owned not by root
+https://stackoverflow.com/questions/30052019/docker-creates-files-as-root-in-mounted-volume
