@@ -1,0 +1,25 @@
+autogen definitions fsm;
+
+method = case;
+type   = reentrant;
+cookie = "const char *cmd";
+/* Потому что 'struct server_state_t' -- не впихнуть! */
+cookie = "void *state";
+
+prefix = server_fsm;
+
+/* Состояния init и done уже есть */
+
+state  = user_known, authorization, session;
+event = timeout, cmd_proceed, cmd_quit, cmd_user, cmd_passw, password_accepted, password_invalid, too_many_attempts;
+
+transition =
+{ tst  = init;	tev = cmd_user; next = user_known; },
+{ tst  = user_known; tev = cmd_passw; next = authorization; },
+{ tst  = authorization; tev = password_accepted; next = session; },
+{ tst  = authorization; tev = password_invalid; next = init; },
+{ tst  = authorization; tev = too_many_attempts; next = done; },
+{ tst = session; tev = cmd_proceed;  next = session;},
+{ tst  = "*"; tev = timeout;  next = done; },
+{ tst  = "*"; tev = cmd_quit; next = done; };
+

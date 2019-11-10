@@ -3,20 +3,6 @@ mail client
 #evolution
 sudo apt install evolution
 
-#mailhog
-https://github.com/42BV/docker-mailhog
-#Run with volume mounted to save messages to disk in Maildir format:
-docker run -d -p 587:587 -p 8025:8025 -v $PWD/maildir:/srv/Maildir --name mailhog 42bv/mailhog
-
-#send message from cmd
-docker exec -i mailhog mhsendmail --smtp-addr="localhost:587" <<EOF
-From: Me <me@example.com>
-To: You <you@example.com>
-Subject: Test Message
-
-Hello there!
-EOF
-
 #web ui available on
 #http://0.0.0.0:8025/
 

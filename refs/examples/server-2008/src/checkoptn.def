@@ -1,0 +1,26 @@
+AutoGen Definitions options;
+prog-name     = test_server;
+prog-title    = "Test program";
+long-opts;
+
+main = { main-type = shell-process; };
+
+flag = {
+    name      = port;/* Порт, который слушает сервер */
+    value     = p;              /* Краткий флаг (-p) */
+    arg-type  = number;
+    arg-range = 110;
+    arg-range = "1024->65000";
+    max       = 1;           /* Не более одного раза */
+    min       = 1;          /* Обязательный параметр */
+    descrip   = "Port to bind";
+};
+
+flag = {
+    name      = file;           /* Файл с командами */
+    value     = f;             /* Краткий флаг (-f) */
+    arg-type  = string;
+    max       = 1;          /* Не более одного раза */
+    min       = 1;         /* Обязательный параметр */
+    descrip   = "File to proceed";
+};

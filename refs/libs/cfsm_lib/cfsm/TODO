@@ -1,0 +1,54 @@
+manpage!!!
+
+output for other languages (just a matter of templates)
+	pure python
+	CPython module (worth it?)
+	java
+
+improve the grammar to get rid of current_state/event crap
+
+optionally generate callback stubs into a separate file too
+
+explicitly numbered events / states
+
+per-transtion function calls/preconditions
+
+oneshot events
+one-visit states
+
+implement transition checks as a packed (bit vector) adjacency matrix
+rather than a rat's nest of switch() statements
+  further to this - generalise all code into a libcfsm and only generate
+  starting data (have per-transition lists of function pointers)
+
+improve graphviz output
+	display preconditions
+	display transition calls
+
+more regress tests
+	test parser
+	test consistency checks
+
+better documentation
+	manpages
+	BNF for parser
+
+state_reset() function
+	(probably don't need this)
+
+reentrance protection?
+	set a flag in the fsm struct in state_advance
+
+"template" state/events:
+    state *
+      on-exit blah
+    event INPUT_*_OPEN
+      ...
+
+wildcard events:
+    state foo
+        on-event ABC* -> blah
+
+wildcard next states
+
+$Id: TODO,v 1.15 2007/07/07 00:28:01 djm Exp $
