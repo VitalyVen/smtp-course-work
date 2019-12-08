@@ -6,16 +6,12 @@ READ_TIMEOUT = 300
 
 from transitions import Machine
 import socket
-import random
 import collections
 
 HELO_pattern = re.compile("^HELO (.*\.\w+)")
 
-
 class SMTP_FSM(object):
 
-    # Define some stateself.sock Most of the time, narcoleptic superheroes are just like
-    # everyone else. Except for...
     states = ['init', 'greeting', 'hello', 'from', 'to', 'data']
 
     def __init__(self, name):
@@ -25,18 +21,18 @@ class SMTP_FSM(object):
         self.machine.add_transition(trigger='GREETING_handler', source='init', dest='greeting')
 
     def HELO_handler(self, socket, address, domain):
+        print("domain: {} connected".format(domain))
         socket.send("250 {} OK \n".format(domain).encode())
 
     def GREETING_handler(self, socket):
-        socket.send("220 SMTP VETAL 0.0.0.0.0.0.1 \n".encode())
-
+        socket.send("220 SMTP BORIS KOSTYA 0.0.0.0.0.0.1 \n".encode())
 
 class ClientSocket():
     def __init__(self, connection, address):
         self.connection = connection
         self.address = address
     def readline(self):
-        # add timeout to the connection if no commands are recieved
+        #TODO: handle long message
         self.connection.settimeout(READ_TIMEOUT)
         return self.connection.recv(4096).decode()
 
@@ -68,11 +64,15 @@ class MailServer():
         except socket.timeout:
             self.sock.close()
         else:
+            #TODO:
+            #check possible states from cl.machine.state
+            #match exact state with re patterns
+            #call handler for this state
             matched = re.match(HELO_pattern, line)
-        if matched:
-            domain = matched.group(1)
-            cl.mail = domain
-            cl.machine.HELO_handler(cl.socket, cl.socket.address, domain)
+            if matched:
+                domain = matched.group(1)
+                cl.mail = domain
+                cl.machine.HELO_handler(cl.socket, cl.socket.address, domain)
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
 
@@ -82,8 +82,7 @@ class ClientsCollection(collections.UserDict):
 
 if __name__ == '__main__':
     clients = ClientsCollection()
-    with MailServer(2556) as serv:
-
+    with MailServer(port=2556) as serv:
         while True:
             client_sockets = clients.sockets()
             rfds, wfds, errfds = select.select([serv.sock]+client_sockets, [], [], 5)
@@ -93,7 +92,7 @@ if __name__ == '__main__':
                         connection, client_address = fds.accept()
                         client = Client(socket=ClientSocket(connection, client_address))
                         client.machine.GREETING_handler(client.socket)
-                        clients[connection] = (client)
+                        clients[connection] = client
                     else:
                         serv.handle_client(clients[fds])
 
