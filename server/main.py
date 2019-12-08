@@ -7,6 +7,7 @@ READ_TIMEOUT = 300
 from transitions import Machine
 import socket
 import collections
+import threading
 
 HELO_pattern = re.compile("^HELO (.*\.\w+)")
 
@@ -80,19 +81,30 @@ class ClientsCollection(collections.UserDict):
     def sockets(self):
         return list(self.data.keys())
 
+def thread_socket(serv,clients,name):
+    while True:
+        client_sockets = clients.sockets()
+        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, [], [], 100)
+        if len(rfds) != 0:
+            for fds in rfds:
+                if fds is serv.sock:
+                    connection, client_address = fds.accept()
+                    client = Client(socket=ClientSocket(connection, client_address))
+                    client.machine.GREETING_handler(client.socket)
+                    clients[connection] = client
+                else:
+                    print('Thread {}'.format(name))
+                    serv.handle_client(clients[fds])
+
 if __name__ == '__main__':
     clients = ClientsCollection()
     with MailServer(port=2556) as serv:
+        threads = list()
+        for i in range(5):
+            thread_sock = threading.Thread(target=thread_socket, args=(serv,clients,i,))
+            thread_sock.daemon=True
+            threads = list()
+            thread_sock.start()
         while True:
-            client_sockets = clients.sockets()
-            rfds, wfds, errfds = select.select([serv.sock]+client_sockets, [], [], 5)
-            if len(rfds) != 0:
-                for fds in rfds:
-                    if fds is serv.sock:
-                        connection, client_address = fds.accept()
-                        client = Client(socket=ClientSocket(connection, client_address))
-                        client.machine.GREETING_handler(client.socket)
-                        clients[connection] = client
-                    else:
-                        serv.handle_client(clients[fds])
+            pass
 
