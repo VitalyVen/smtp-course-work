@@ -46,7 +46,6 @@ class SMTP_FSM(object):
         self.machine.add_transition(trigger='MAIL_FROM_handler', source='hello', dest='mail_from')
         self.machine.add_transition(trigger='RSPT_TO_handler', source='mail_from', dest='rcpt_to')
         self.machine.add_transition(trigger='DATA_handler', source='rcpt_to', dest='data')
-        self.machine.get_graph().draw('data/my_state_diagram.png', prog='dot')
     def GREETING_handler(self, socket):
         socket.send("220 SMTP BORIS KOSTYA 0.0.0.0.0.0.1 \n".encode())
 
@@ -112,7 +111,7 @@ class Client():
             file.write(self.mail)
 
 class MailServer():
-    def __init__(self, host='localhost', port=2556, threads=1):
+    def __init__(self, host='localhost', port=2556, threads=5):
         self.host = host
         self.port = port
         self.threads_cnt = threads
