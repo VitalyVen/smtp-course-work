@@ -1,7 +1,6 @@
 import re
 import pytest
 import socket
-import * from main
 def test_readline():
     #launch me with pytest from root dir
 
