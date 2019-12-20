@@ -24,4 +24,13 @@ print(new_socket.recv())
 new_socket.sendall(b'quit\r\n')
 print(new_socket.recv())
 
-
+#
+# b'220 iva1-db9fc35c0844.qloud-c.yandex.net ESMTP (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)\r\n'
+# b'250-iva1-db9fc35c0844.qloud-c.yandex.net\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-SIZE 42991616\r\n250-AUTH LOGIN PLAIN XOAUTH2\r\n250-DSN\r\n250 ENHANCEDSTATUSCODES\r\n'
+# b'235 2.7.0 Authentication successful.\r\n'
+# b'250 2.1.0 <MusicDevelop@yandex.ru> ok\r\n'
+# b'250 2.1.5 <MusicDevelop@yandex.ru> recipient ok\r\n'
+# b'354 Enter mail, end with "." on a line by itself\r\n'
+# b'250 2.0.0 Ok: queued on iva1-db9fc35c0844.qloud-c.yandex.net as 1576799901-ptmcIpTstA-wLWGReg9\r\n'
+#
+# Process finished with exit code 0
