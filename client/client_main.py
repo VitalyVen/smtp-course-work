@@ -135,7 +135,12 @@ class MailServer():
     def __init__(self, host='localhost', port=2556, threads=5):
         self.clients = ClientsCollection()
 
+    def __enter__(self):
+        self.socket_init()
+        return self
 
+    def socket_init(self):
+       pass
 
     # def serve_forever(self):
     #     for i in range(self.threads_cnt):
@@ -202,7 +207,7 @@ class MailServer():
                     print('500 Unrecognised command')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.sock.close()
+        pass
 
 class ClientsCollection(collections.UserDict):
     def sockets(self):
@@ -225,7 +230,7 @@ def thread_socket(serv, name):
 
 if __name__ == '__main__':
     with MailServer() as client:
-        soc= ClientsCollection()
+        soc= []
         context = ssl._create_stdlib_context()
         client_sockets = socket.create_connection(("smtp.yandex.ru", 465), 5,
                                                   None)
