@@ -19,7 +19,7 @@ RE_EMAIL_OR_EMPTY = " ?<(?P<address>.+@.+)>|<>"
 #define RE_DATA "[\\x00-\\x7F]+"
 #define RE_DATA_AND_END_OR_DATA "((?<data>[\\x00-\\x7F]+)(?<end>\\r\\n\\.\\r\\n))|([\\x00-\\x7F]+\\r\\n)"
 
-HELO_pattern = re.compile("^(HELO|EHLO) (.*\.\w+|localhost)")
+HELO_pattern = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}")#TODO: for regular hosts and like localhost
 MAIL_FROM_pattern = re.compile(f"^MAIL FROM:{RE_EMAIL_OR_EMPTY}")
 RCPT_TO_pattern = re.compile(f"^RCPT TO:{RE_EMAIL_OR_EMPTY}")
 DATA_start_pattern = re.compile(f"^DATA( .*)*{RE_CRLF}")
@@ -176,16 +176,17 @@ class MailServer():
             RSET_matched = re.search(RSET_pattern, line)
 
             if HELO_matched:
-                domain = HELO_matched.group(1)
-                cl.mail = domain
+                command = HELO_matched.group(1)
+                domain = HELO_matched.group(2) or "unknown"
+                cl.mail = f"{command}:<{domain}>\r\n"
                 cl.machine.HELO(cl.socket, cl.socket.address, domain)
             elif MAIL_FROM_matched:
                 mail_from = MAIL_FROM_matched.group(1)
-                cl.mail += mail_from + '\r\n'
+                cl.mail += f"FROM:<{mail_from}>\r\n"
                 cl.machine.MAIL_FROM(cl.socket, mail_from)
             elif RCPT_TO_matched:
                 mail_to = RCPT_TO_matched.group(1)
-                cl.mail += mail_to + '\r\n'
+                cl.mail += f"TO:<{mail_to}>\r\n\r\n"
                 cl.machine.RCPT_TO(cl.socket, mail_to)
             elif DATA_start_matched:
                 data = DATA_start_matched.group(1)
