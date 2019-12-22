@@ -148,7 +148,6 @@ class MailServer():
         self.sock.bind(server_address)
         self.sock.listen(0)
 
-
     def serve_forever(self):
         for i in range(self.threads_cnt):
             thread_sock = threading.Thread(target=thread_socket, args=(serv, i,))

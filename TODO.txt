@@ -1,0 +1,11 @@
+1. states correct handling #VITALY
+    #check possible states from cl.machine.state
+    #match exact state with re patterns
+    #call handler for this state
+2. many recipients case
+    # jump to "mail from" from data end for multiple recipients
+3. Big message (attach?), 15 mb ok for testing
+4. logging with queue+thread/proccess to file
+5. graceful shutdown
+6. tests
+7. write sockets with select as well
