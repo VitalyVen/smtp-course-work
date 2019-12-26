@@ -1,8 +1,8 @@
 import re
+import os
 import select
 
 READ_TIMEOUT = 40
-
 
 from transitions import Machine
 from transitions.extensions import GraphMachine as gMachine
@@ -123,11 +123,31 @@ class Client():
         self.socket = socket
         self.machine = SMTP_FSM(socket.address)
         self.mail = ''
+        self.SERVER_DOMAIN = 'superserver.local'
+        self.default_SUPR_directory = f'../data/local/'
+        self.default_USER_directory = f'../data/maildir/'
 
-    def mail_to_file(self, filename=None):
-        if filename is None:
-            filename = f'../maildir/{uuid.uuid4()}=@'
-        with open(filename, 'w') as file:
+    def mail_to_file(self, fileName=None):
+        if fileName is None:
+            fileName = f'{uuid.uuid4()}=@'
+
+        target =  ''
+        for item in self.mail.splitlines():
+            if 'From:' in item:
+                target = re.search(r'[\w\.-]+@[\w\.-]+', item).group(0)
+                break
+
+        tmp = target.split('@')
+        user, domain = tmp[0], tmp[1]
+        
+        directory = self.default_USER_directory
+        if domain == self.SERVER_DOMAIN:
+            directory = self.default_SUPR_directory + user + '/maildir/'
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        with open(directory + fileName, 'w') as file:
             file.write(self.mail)
 
 class MailServer():
