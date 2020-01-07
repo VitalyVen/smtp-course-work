@@ -2,8 +2,8 @@ import socket
 import os
 import uuid
 from SMTP_FSM import *
-from ClientSocket import *
-from default import SERVER_DOMAIN, DEFAULT_SUPR_DIR, DEFAULT_USER_DIR
+from client_socket import ClientSocket
+from server_config import SERVER_DOMAIN, DEFAULT_SUPR_DIR, DEFAULT_USER_DIR
 from state import RE_EMAIL_ADDRESS
 
 

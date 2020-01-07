@@ -1,5 +1,5 @@
 import socket
-from default import READ_TIMEOUT
+from server_config import READ_TIMEOUT
 
 class ClientSocket(object):
     def __init__(self, connection, address):

@@ -1,12 +1,12 @@
 import socket
 import threading
 import select
-from default import SERVER_PORT
-from ClientsCollection import *
-from Client import *
+from server_config import SERVER_PORT, READ_TIMEOUT
+from client_collection import ClientsCollection
+from client import Client
+from client_socket import ClientSocket
 from state import *
-from MailServer import *
-from SMTP_FSM import *
+from SMTP_FSM import SMTP_FSM
 
 class MailServer(object):
     def __init__(self, host='localhost', port=SERVER_PORT, threads=5):
