@@ -6,7 +6,6 @@ from client_collection import ClientsCollection
 from client import Client
 from client_socket import ClientSocket
 from state import *
-from SMTP_FSM import SMTP_FSM
 
 class MailServer(object):
     def __init__(self, host='localhost', port=SERVER_PORT, threads=5):

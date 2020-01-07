@@ -18,8 +18,8 @@ class Client(object):
             fileName = f'{uuid.uuid4()}=@'
 
         target = ''
-        for item in self.mail.splitlines():
-            if 'From:' in item:
+        for item in self.mail.splitlines():#TODO: check only third line and assert "to:" here
+            if 'to:' in item.lower():
                 target = re.search(RE_EMAIL_ADDRESS, item).group(0)
                 break
 

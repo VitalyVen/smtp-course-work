@@ -1,16 +1,5 @@
 version: "3"
 services:
-#  example:
-#    build: web
-#    command: python app.py
-#    ports:
-#      - "5000:5000"
-#    volumes:
-#      - ./web:/code # modified here to take into account the new app path
-#    links:
-#      - redis
-#    environment:
-#      - DATADOG_HOST=datadog # used by the web app to initialize the Datadog library
   mailhog:
     image: 42bv/mailhog
     container_name: 42_mailhog
@@ -18,4 +7,4 @@ services:
       - "55587:587"
       - "8025:8025"
     volumes:
-      - $PWD/maildir:/srv/Maildir
+      - $PWD/pst/maildir:/srv/Maildir
