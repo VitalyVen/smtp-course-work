@@ -25,13 +25,13 @@ RE_CRLF                 = r"\r(\n)?"
 RE_EMAIL_ADDRESS        = r'[\w\.-]+@[\w\.-]+'
 RE_EMAIL_OR_EMPTY       = r" ?<(?P<address>.+@.+)>|<>"
 
-HELO_pattern            = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}")     # TODO: for regular hosts and like localhost
-MAIL_FROM_pattern       = re.compile(f"^MAIL FROM:{RE_EMAIL_OR_EMPTY}")
-RCPT_TO_pattern         = re.compile(f"^RCPT TO:{RE_EMAIL_OR_EMPTY}")
-DATA_start_pattern      = re.compile(f"^DATA( .*)*{RE_CRLF}")
-DATA_end_pattern        = re.compile(f"([\s\S]*)\.{RE_CRLF}")
-QUIT_pattern            = re.compile(f"^QUIT{RE_CRLF}")
-RSET_pattern            = re.compile(f"^RSET{RE_CRLF}")
+HELO_pattern            = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)     # TODO: for regular hosts and like localhost
+MAIL_FROM_pattern       = re.compile(f"^MAIL FROM:{RE_EMAIL_OR_EMPTY}", re.IGNORECASE)
+RCPT_TO_pattern         = re.compile(f"^RCPT TO:{RE_EMAIL_OR_EMPTY}", re.IGNORECASE)
+DATA_start_pattern      = re.compile(f"^DATA( .*)*{RE_CRLF}", re.IGNORECASE)
+DATA_end_pattern        = re.compile(f"([\s\S]*)\.{RE_CRLF}", re.IGNORECASE)
+QUIT_pattern            = re.compile(f"^QUIT{RE_CRLF}", re.IGNORECASE)
+RSET_pattern            = re.compile(f"^RSET{RE_CRLF}", re.IGNORECASE)
 
 states = [
     GREETING_WRITE_STATE,
