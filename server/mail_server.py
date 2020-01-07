@@ -7,6 +7,20 @@ from client import Client
 from client_socket import ClientSocket
 from state import *
 
+def thread_socket(serv):
+    while True:
+        client_sockets = serv.clients.sockets()
+        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
+        for fds in rfds:
+            if fds is serv.sock:
+                connection, client_address = fds.accept()
+                client = Client(socket=ClientSocket(connection, client_address))
+                serv.clients[connection] = client
+            else:
+                serv.handle_client_read(serv.clients[fds])
+        for fds in wfds:
+            serv.handle_client_write(serv.clients[fds])
+
 class MailServer(object):
     def __init__(self, host='localhost', port=SERVER_PORT, threads=5):
         self.host = host
@@ -26,12 +40,13 @@ class MailServer(object):
         self.sock.bind(server_address)
         self.sock.listen(0)
 
-    def serve_forever(self):
+    def serve(self, blocking=True):
         for i in range(self.threads_cnt):
-            thread_sock = threading.Thread(target=thread_socket, args=(self, i,))
+            thread_sock = threading.Thread(target=thread_socket, args=(self,))
             thread_sock.daemon = True
+            thread_sock.name = 'Working Thread {}'.format(i)
             thread_sock.start()
-        while True:
+        while blocking:
             pass
         
     def handle_client_read(self, cl:Client):
@@ -129,28 +144,3 @@ class MailServer(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
 
-def thread_socket(serv, name):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 100)
-        if len(rfds) != 0:
-            for fds in rfds:
-                if fds is serv.sock:
-                    connection, client_address = fds.accept()
-                    client = Client(socket=ClientSocket(connection, client_address))
-                    client.machine.GREETING_write_handler(client.socket)
-                    serv.clients[connection] = client
-                else:
-                    # print('Thread {}'.format(name))
-                    serv.handle_client_read(serv.clients[fds])
-        if len(wfds) != 0:
-            for fds in rfds:
-                if fds is serv.sock:
-                    # connection, client_address = fds.accept()
-                    # client = Client(socket=ClientSocket(connection, client_address))
-                    # client.machine.GREETING(client.socket)
-                    # serv.clients[connection] = client
-                    pass
-                else:
-                    # print('Thread {}'.format(name))
-                    serv.handle_client_write(serv.clients[fds])
