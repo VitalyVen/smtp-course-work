@@ -41,6 +41,12 @@ class MailServer(object):
         self.sock.listen(0)
 
     def serve(self, blocking=True):
+        '''
+
+        :param blocking: daemon=True means all threads finish when main thread will be finished
+        so we should do nothing with blocking=True or other actions in main thread
+        :return: None
+        '''
         for i in range(self.threads_cnt):
             thread_sock = threading.Thread(target=thread_socket, args=(self,))
             thread_sock.daemon = True

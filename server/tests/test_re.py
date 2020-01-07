@@ -1,6 +1,14 @@
 import re
 import pytest
-from server.state import  HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
+try:
+    from server.state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
+except (ModuleNotFoundError, ImportError) as e:
+    import sys
+    import os
+    sys.path.append(os.path.dirname(__file__))
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+    from state import  HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
+
 def test_hello_pattern():
     assert re.match(HELO_pattern, 'HELO coml.com\r\n').group(1)=='HELO'
     assert re.match(HELO_pattern, 'HELO coml.com\r\n').group(2)=='coml.com'

@@ -1,9 +1,20 @@
 import re
 import pytest
-from server.state import  HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
 from smtplib import SMTP
 import datetime
-from server.mail_server import MailServer
+try:
+    from server.mail_server import MailServer
+    from server.state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
+
+except (ModuleNotFoundError, ImportError) as e:
+    import sys
+    import os
+    sys.path.append(os.path.dirname(__file__))
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+    from mail_server import MailServer
+    from state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
+
+
 def test_send_simple_message():
     with MailServer() as server:
         server.serve(blocking=False)
