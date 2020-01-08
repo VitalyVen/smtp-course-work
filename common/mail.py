@@ -39,3 +39,13 @@ class Mail():
 
         with open(directory + file_path, 'w') as fs:
             fs.write(self.mail)
+
+    @classmethod
+    def from_file(cls, filepath):
+        with open(filepath, 'r') as f:
+            helo_command = f.readline()
+            from_ = f.readline()
+            to = f.readline()
+            f.readline()
+            body = f.readlines()
+        return cls(helo_command=helo_command, from_=from_, to=to, body=body)
