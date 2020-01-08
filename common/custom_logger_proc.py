@@ -6,30 +6,32 @@ from time import sleep
 # Define Log Handler
 # ============================================================================
 
-class QueueProcessLogger():
+class QueueProcessLogger(multiprocessing.Process):
     """multiprocessing log handler
 
     This handler makes it possible for several processes
     to log to the same file by using a queue.
 
     """
-    def __init__(self, filename):
+    def __init__(self, filename,*args, **kwargs):
         self.filename = filename
+        super(QueueProcessLogger, self).__init__()
         self.queue = multiprocessing.Queue()
-        thrd = multiprocessing.Process(target=self.receive)
-        thrd.start()
+        self.active = True
+        self.start()
 
+    def terminate(self):
+        self.active = False
     def log(self, level, msg):
         self.queue.put_nowait('{}:{}'.format(level, msg))
-
-    def receive(self):
+    def run(self):
         logger = logging.getLogger()
         handler = logging.FileHandler(filename=self.filename)
         formatter = logging.Formatter(
             '%(asctime)s - LOGLEVEL:%(levelname)s  MESSAGE:%(message)s')
         handler.setFormatter(formatter)
         logger.addHandler(handler)
-        while True:
+        while self.active:
             try:
                 record = self.queue.get()
                 if record is None:
@@ -39,12 +41,11 @@ class QueueProcessLogger():
                 logger.setLevel(logging.DEBUG)
                 logger.log(level, message)
             except (KeyboardInterrupt, SystemExit) as e:
-                raise e
+                self.terminate()
             except Exception:
                 import sys, traceback
                 traceback.print_exc(file=sys.stderr)
-
-
+        # self.queue.close()
 
 if __name__ == '__main__':
     logger=QueueProcessLogger(filename='../logs/process_logging.log')

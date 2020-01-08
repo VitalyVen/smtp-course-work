@@ -8,7 +8,7 @@ from client import Client
 from client_socket import ClientSocket
 from state import *
 from common.custom_logger_proc import QueueProcessLogger
-
+from time import sleep
 
 class MailServer(object):
     def __init__(self, host='localhost', port=2556, processes=5, logdir='logs'):
@@ -41,15 +41,19 @@ class MailServer(object):
         :return: None
         '''
         for i in range(self.processes_cnt):
-            p = multiprocessing.Process(target=process_func, args=(self,))
+            p = WorkingProcess(self)
             # p.daemon = True #not work with processes, kill it join it in __exit__()
             self.processes.append(p)
             p.name = 'Working Process {}'.format(i)
             p.start()
         self.logger.log(level=logging.DEBUG, msg=f'Started {self.processes_cnt} processes')
         #TODO not while True, make it wait signal, without do nothing, it utilize CPU on 100%
+
         while blocking:
-            pass
+            try:
+                sleep(0.1)
+            except KeyboardInterrupt as e:
+                self.__exit__(type(e), e, e.__traceback__)
         
     def handle_client_read(self, cl:Client):
         '''
@@ -136,6 +140,7 @@ class MailServer(object):
             cl.machine.DATA_end_write(cl.socket, cl.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
             cl.machine.QUIT_write(cl.socket)
+            cl.socket.close()
             self.clients.pop(cl.socket.connection)
         else:
             pass
@@ -146,18 +151,34 @@ class MailServer(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
         for p in self.processes:
-            p.join()
+            p.terminate()
+        # for p in self.processes:
+        #     p.join(timeout=2)
+        self.logger.terminate()
+        # self.logger.join(timeout=2)
+        self.clients.__exit__(exc_type, exc_val, exc_tb)
 
-def process_func(serv:MailServer):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-        for fds in rfds:
-            if fds is serv.sock:
-                connection, client_address = fds.accept()
-                client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                serv.clients[connection] = client
-            else:
-                serv.handle_client_read(serv.clients[fds])
-        for fds in wfds:
-            serv.handle_client_write(serv.clients[fds])
+class WorkingProcess(multiprocessing.Process):
+
+    def __init__(self, serv:MailServer, *args, **kwargs):
+        super(WorkingProcess, self).__init__(*args, **kwargs)
+        self.active = True
+        self.server = serv
+    def terminate(self) -> None:
+        self.active = False
+    def run(self):
+        try:
+            while self.active:#for make terminate() work
+                client_sockets = self.server.clients.sockets()
+                rfds, wfds, errfds = select.select([self.server.sock] + client_sockets, client_sockets, [], 1)
+                for fds in rfds:
+                    if fds is self.server.sock:
+                        connection, client_address = fds.accept()
+                        client = Client(socket=ClientSocket(connection, client_address), logdir=self.server.logdir)
+                        self.server.clients[connection] = client
+                    else:
+                        self.server.handle_client_read(self.server.clients[fds])
+                for fds in wfds:
+                    self.server.handle_client_write(self.server.clients[fds])
+        except KeyboardInterrupt:
+            self.terminate()

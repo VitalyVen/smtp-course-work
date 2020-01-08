@@ -1,7 +1,13 @@
 import socket
 import logging
 from state import *
-from common.custom_logger_proc import QueueProcessLogger
+try:
+    from common.custom_logger_proc import QueueProcessLogger
+except (ModuleNotFoundError, ImportError) as e:
+    import sys
+    import os
+
+    from custom_logger_proc import QueueProcessLogger
 from transitions import Machine
 from transitions.extensions import GraphMachine as gMachine
 
@@ -57,25 +63,25 @@ class SMTP_FSM(object):
     def HELO_handler(self, socket, address, domain):
         self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
 
-    def HELO_write_handler(self, socket, address, domain):
+    def HELO_write_handler(self, socket:socket.socket, address, domain):
         socket.send("250 {} OK \n".format(domain).encode())
 
     def MAIL_FROM_handler(self, socket, email):
         self.logger.log(level=logging.DEBUG, msg="f: {} mail from".format(email))
 
-    def MAIL_FROM_write_handler(self, socket, email):
+    def MAIL_FROM_write_handler(self, socket:socket.socket, email):
         socket.send("250 2.1.0 Ok \n".encode())
 
     def RCPT_TO_handler(self, socket, email):
         self.logger.log(level=logging.DEBUG, msg="f: {} mail to".format(email))
         
-    def RCPT_TO_write_handler(self, socket, email):
+    def RCPT_TO_write_handler(self, socket:socket.socket, email):
         socket.send("250 2.1.5 Ok \n".encode())
 
     def DATA_start_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg="Data started")
     
-    def DATA_start_write_handler(self, socket):
+    def DATA_start_write_handler(self, socket:socket.socket):
         socket.send("354 Send message content; end with <CRLF>.<CRLF>\n".encode())
 
     def DATA_additional_handler(self, socket):
@@ -84,7 +90,7 @@ class SMTP_FSM(object):
     def DATA_end_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg="Data end")
     
-    def DATA_end_write_handler(self, socket, filename):
+    def DATA_end_write_handler(self, socket:socket.socket, filename):
         socket.send(f"250 Ok: queued as {filename}\n".encode())
 
     def QUIT_handler(self, socket:socket.socket):
@@ -92,7 +98,6 @@ class SMTP_FSM(object):
 
     def QUIT_write_handler(self, socket:socket.socket):
         socket.send("221 Left conversation\n".encode())
-        socket.close()
 
     def RSET_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg=f"Rsetted \n")
