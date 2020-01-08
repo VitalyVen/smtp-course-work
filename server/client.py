@@ -1,6 +1,6 @@
 from SMTP_FSM import *
 from client_socket import ClientSocket
-from mail import Mail
+from common.mail import Mail
 
 
 class Client():
