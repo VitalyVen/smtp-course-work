@@ -4,7 +4,7 @@ from common.mail import Mail
 
 
 class Client():
-    def __init__(self, socket:ClientSocket, logdir: str):
+    def __init__(self, socket:ClientSocket, logdir: str, mail:Mail):
         self.socket = socket
         self.machine = SMTP_FSM(socket.address, logdir=logdir)
-        self.mail = Mail()
+        self.mail = mail

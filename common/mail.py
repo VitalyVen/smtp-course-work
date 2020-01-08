@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from server_config import DEFAULT_USER_DIR, SERVER_DOMAIN, DEFAULT_SUPR_DIR
 from state import RE_EMAIL_ADDRESS
+from server.state import HELO_pattern
 
 @dataclass
 class Mail():
@@ -45,9 +46,19 @@ class Mail():
     @classmethod
     def from_file(cls, filepath):
         with open(filepath, 'r') as f:
-            helo_command = f.readline()
+            helo_string = f.readline()
+
+            HELO_matched = re.search(HELO_pattern, helo_string)
+            if HELO_matched:
+                command = helo_string
+                domain = HELO_matched.group(2) or "unknown"
+            else:
+                command = helo_string
+                domain = 'unknown'
+
             from_ = f.readline()
             to = f.readline()
             f.readline()
             body = f.readlines()
-        return cls(helo_command=helo_command, from_=from_, to=to, body=body)
+
+        return cls(helo_command=command, from_=from_, to=to, body=body, domain=domain)
