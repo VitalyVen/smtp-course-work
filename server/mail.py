@@ -13,6 +13,7 @@ class Mail():
     from_:str = ''
     domain:str = ''
     helo_command:str = ''
+    file_path: str = ''
 
     @property
     def mail(self):
@@ -24,7 +25,8 @@ class Mail():
 
     def to_file(self, file_path=None):
         if file_path is None:
-            file_path = f'{uuid.uuid4()}=@'
+            self.file_path = f'{uuid.uuid4()}=@'
+            file_path = self.file_path
         target = re.search(RE_EMAIL_ADDRESS, self.to).group(0)
         tmp = target.split('@')
         user, domain = tmp[0], tmp[1]

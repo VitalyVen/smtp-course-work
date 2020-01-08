@@ -1,11 +1,14 @@
 import socket
+import logging
 from state import *
+from common.custom_logger_proc import QueueProcessLogger
 from transitions import Machine
 from transitions.extensions import GraphMachine as gMachine
 
 class SMTP_FSM(object):
-    def __init__(self, name):
+    def __init__(self, name, logdir):
         self.name = name
+        self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
         self.machine = self.init_machine()
 
         # self.init_transition('GREETING'       , GREETING_STATE , GREETING_WRITE_STATE )
@@ -46,55 +49,53 @@ class SMTP_FSM(object):
         )
 
     def GREETING_handler(self, socket):
-        print("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
+        self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
 
     def GREETING_write_handler(self, socket):
         socket.send("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
 
     def HELO_handler(self, socket, address, domain):
-        print("domain: {} connected".format(domain))
+        self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
 
     def HELO_write_handler(self, socket, address, domain):
         socket.send("250 {} OK \n".format(domain).encode())
 
     def MAIL_FROM_handler(self, socket, email):
-        print("f: {} mail from".format(email))
+        self.logger.log(level=logging.DEBUG, msg="f: {} mail from".format(email))
 
     def MAIL_FROM_write_handler(self, socket, email):
         socket.send("250 2.1.0 Ok \n".encode())
 
     def RCPT_TO_handler(self, socket, email):
-        print("f: {} mail to".format(email))
+        self.logger.log(level=logging.DEBUG, msg="f: {} mail to".format(email))
         
     def RCPT_TO_write_handler(self, socket, email):
         socket.send("250 2.1.5 Ok \n".encode())
 
     def DATA_start_handler(self, socket):
-        print("354 Send message content; end with <CRLF>.<CRLF>\n".encode())
+        self.logger.log(level=logging.DEBUG, msg="Data started")
     
     def DATA_start_write_handler(self, socket):
         socket.send("354 Send message content; end with <CRLF>.<CRLF>\n".encode())
 
     def DATA_additional_handler(self, socket):
-        pass
+        self.logger.log(level=logging.DEBUG, msg="Additional data")
 
     def DATA_end_handler(self, socket):
-        filename = 'cHQR7GZI1DOjOeB0g3pvMptrYeEkVzE2PQkK-y1TyFg=@'
-        pass
+        self.logger.log(level=logging.DEBUG, msg="Data end")
     
-    def DATA_end_write_handler(self, socket):
-        filename = 'cHQR7GZI1DOjOeB0g3pvMptrYeEkVzE2PQkK-y1TyFg=@'
+    def DATA_end_write_handler(self, socket, filename):
         socket.send(f"250 Ok: queued as {filename}\n".encode())
 
     def QUIT_handler(self, socket:socket.socket):
-        print('Disconnecting..\n')
+        self.logger.log(level=logging.DEBUG, msg='Disconnecting..\n')
 
     def QUIT_write_handler(self, socket:socket.socket):
         socket.send("221 Left conversation\n".encode())
         socket.close()
 
     def RSET_handler(self, socket):
-        print(f"250 OK \n".encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Rsetted \n")
 
     def RSET_write_handler(self, socket):
         socket.send(f"250 OK \n".encode())

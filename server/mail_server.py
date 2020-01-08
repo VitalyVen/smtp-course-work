@@ -1,32 +1,23 @@
 import socket
 import threading
+import logging
 import select
-from server_config import SERVER_PORT, READ_TIMEOUT
+from server_config import SERVER_PORT, READ_TIMEOUT, LOG_FILES_DIR
 from client_collection import ClientsCollection
 from client import Client
 from client_socket import ClientSocket
 from state import *
+from common.custom_logger_proc import QueueProcessLogger
 
-def thread_socket(serv):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-        for fds in rfds:
-            if fds is serv.sock:
-                connection, client_address = fds.accept()
-                client = Client(socket=ClientSocket(connection, client_address))
-                serv.clients[connection] = client
-            else:
-                serv.handle_client_read(serv.clients[fds])
-        for fds in wfds:
-            serv.handle_client_write(serv.clients[fds])
 
 class MailServer(object):
-    def __init__(self, host='localhost', port=SERVER_PORT, threads=5):
+    def __init__(self, host='localhost', port=2556, threads=5, logdir='logs'):
         self.host = host
         self.port = port
         self.clients = ClientsCollection()
         self.threads_cnt = threads
+        self.logdir = logdir
+        self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
     def __enter__(self):
         self.socket_init()
@@ -39,6 +30,7 @@ class MailServer(object):
         server_address = (self.host, self.port)
         self.sock.bind(server_address)
         self.sock.listen(0)
+        self.logger.log(level=logging.DEBUG, msg=f'Server socket initiated on port: {self.port}')
 
     def serve(self, blocking=True):
         '''
@@ -52,21 +44,22 @@ class MailServer(object):
             thread_sock.daemon = True
             thread_sock.name = 'Working Thread {}'.format(i)
             thread_sock.start()
+        self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
         while blocking:
             pass
         
     def handle_client_read(self, cl:Client):
+        '''
+         check possible states from cl.machine.state
+         match exact state with re patterns
+         call handler for this state
+        '''
         try:
             line = cl.socket.readline()
         except socket.timeout:
+            self.logger.log(level=logging.WARNING, msg=f'Timeout on client read')
             self.sock.close()
             return
-        
-        print(line)
-        
-        # check possible states from cl.machine.state
-        # match exact state with re patterns
-        # call handler for this state
 
         current_state = cl.machine.state
 
@@ -137,7 +130,7 @@ class MailServer(object):
         elif current_state == DATA_WRITE_STATE:
             cl.machine.DATA_start_write(cl.socket)
         elif current_state == DATA_END_WRITE_STATE:
-            cl.machine.DATA_end_write(cl.socket)
+            cl.machine.DATA_end_write(cl.socket, cl.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
             cl.machine.QUIT_write(cl.socket)
             self.clients.pop(cl.socket.connection)
@@ -150,3 +143,16 @@ class MailServer(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
 
+def thread_socket(serv:MailServer):
+    while True:
+        client_sockets = serv.clients.sockets()
+        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
+        for fds in rfds:
+            if fds is serv.sock:
+                connection, client_address = fds.accept()
+                client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+                serv.clients[connection] = client
+            else:
+                serv.handle_client_read(serv.clients[fds])
+        for fds in wfds:
+            serv.handle_client_write(serv.clients[fds])
