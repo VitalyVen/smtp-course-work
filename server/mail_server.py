@@ -1,5 +1,5 @@
 import socket
-import threading
+import multiprocessing
 import logging
 import select
 from server_config import SERVER_PORT, READ_TIMEOUT, LOG_FILES_DIR
@@ -11,11 +11,12 @@ from common.custom_logger_proc import QueueProcessLogger
 
 
 class MailServer(object):
-    def __init__(self, host='localhost', port=2556, threads=5, logdir='logs'):
+    def __init__(self, host='localhost', port=2556, processes=5, logdir='logs'):
         self.host = host
         self.port = port
         self.clients = ClientsCollection()
-        self.threads_cnt = threads
+        self.processes_cnt = processes
+        self.processes = []
         self.logdir = logdir
         self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
@@ -35,16 +36,18 @@ class MailServer(object):
     def serve(self, blocking=True):
         '''
 
-        :param blocking: daemon=True means all threads finish when main thread will be finished
+        :param blocking: processes finish when main process will be finished (exit context manager)
         so we should do nothing with blocking=True or other actions in main thread
         :return: None
         '''
-        for i in range(self.threads_cnt):
-            thread_sock = threading.Thread(target=thread_socket, args=(self,))
-            thread_sock.daemon = True
-            thread_sock.name = 'Working Thread {}'.format(i)
-            thread_sock.start()
-        self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
+        for i in range(self.processes_cnt):
+            p = multiprocessing.Process(target=process_func, args=(self,))
+            # p.daemon = True #not work with processes, kill it join it in __exit__()
+            self.processes.append(p)
+            p.name = 'Working Process {}'.format(i)
+            p.start()
+        self.logger.log(level=logging.DEBUG, msg=f'Started {self.processes_cnt} processes')
+        #TODO not while True, make it wait signal, without do nothing, it utilize CPU on 100%
         while blocking:
             pass
         
@@ -142,8 +145,10 @@ class MailServer(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
+        for p in self.processes:
+            p.join()
 
-def thread_socket(serv:MailServer):
+def process_func(serv:MailServer):
     while True:
         client_sockets = serv.clients.sockets()
         rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
