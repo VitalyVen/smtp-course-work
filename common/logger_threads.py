@@ -18,12 +18,13 @@ class CustomLogHandler(logging.Handler):
 
     """
     def __init__(self, fname):
-        logging.Handler.__init__(self)
+        super(CustomLogHandler, self).__init__()
 
         self._handler = FH(fname)
-        self.queue = multiprocessing.Queue(-1)
+        self.queue = multiprocessing.Queue()
         thrd = threading.Thread(target=self.receive)
         thrd.daemon = True
+        thrd.name = 'Logging Thread'
         thrd.start()
 
     def setFormatter(self, fmt):
@@ -48,15 +49,15 @@ class CustomLogHandler(logging.Handler):
     def _format_record(self, record):
         times=datetime.fromtimestamp(record.created)
         level=record.levelname
-        record.msg='{} LOGLEVEL:{} MASSAGE:{}'.format(str(times),level,record.msg)
+        record.msg='{} LOGLEVEL:{} MESSAGE:{}'.format(str(times),level,record.msg)
         return record
 
     def emit(self, record):
         try:
             self.send(self._format_record(record))
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except:
+        except (KeyboardInterrupt, SystemExit) as e:
+            raise e
+        except Exception:
             self.handleError(record)
 
     def close(self):
@@ -68,11 +69,10 @@ class CustomLogHandler(logging.Handler):
 if __name__ == '__main__':
 
     logger = logging.getLogger()
-    logger.addHandler(CustomLogHandler('logging.log'))
+    logger.addHandler(CustomLogHandler('../logs/logging.log'))
     logger.setLevel(logging.DEBUG)
 
-
-    logger.log(logging.INFO,'123')
+    logger.info('123')
     while True:
-        logger.log(logging.INFO, '123')
+        logger.info('123')
         sleep(2)
