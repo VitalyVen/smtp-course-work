@@ -18,7 +18,7 @@ class SMTP_FSM(object):
         self.init_transition('DATA_start'     , DATA_STATE     , DATA_WRITE_STATE     )
         self.init_transition('DATA_additional', DATA_STATE     , DATA_STATE           )
         self.init_transition('DATA_end'       , DATA_STATE     , DATA_END_WRITE_STATE )
-        self.init_transition('QUIT'           , QUIT_STATE     , QUIT_WRITE_STATE     )
+        self.init_transition('QUIT'           , '*'     , QUIT_WRITE_STATE     )
 
         self.init_transition('GREETING_write' , GREETING_WRITE_STATE , HELO_STATE     )
         self.init_transition('HELO_write'     , HELO_WRITE_STATE     , MAIL_FROM_STATE)
