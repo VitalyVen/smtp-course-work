@@ -8,7 +8,7 @@ from client import Client
 from client_socket import ClientSocket
 from state import *
 from common.custom_logger_proc import QueueProcessLogger
-
+from dns import *
 
 class MailServer(object):
     def __init__(self, host='localhost', port=2556, threads=5, logdir='logs'):
@@ -32,21 +32,7 @@ class MailServer(object):
         self.sock.listen(0)
         self.logger.log(level=logging.DEBUG, msg=f'Server socket initiated on port: {self.port}')
 
-    def serve(self, blocking=True):
-        '''
 
-        :param blocking: daemon=True means all threads finish when main thread will be finished
-        so we should do nothing with blocking=True or other actions in main thread
-        :return: None
-        '''
-        for i in range(self.threads_cnt):
-            thread_sock = threading.Thread(target=thread_socket, args=(self,))
-            thread_sock.daemon = True
-            thread_sock.name = 'Working Thread {}'.format(i)
-            thread_sock.start()
-        self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
-        while blocking:
-            pass
         
     def handle_client_read(self, cl:Client):
         '''
@@ -68,6 +54,9 @@ class MailServer(object):
             if HELO_matched:
                 command     = HELO_matched.group(1)
                 domain      = HELO_matched.group(2) or "unknown"
+                ip=cl.socket.address[0]
+                ptr = reversename.from_address("8.8.8.8")
+                reversed_dns = str(resolver.query(ptr, "PTR")[0])
                 cl.mail.helo_command     = command
                 cl.mail.domain   = domain
                 cl.machine.HELO(cl.socket, cl.socket.address, domain)
@@ -143,16 +132,3 @@ class MailServer(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
 
-def thread_socket(serv:MailServer):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-        for fds in rfds:
-            if fds is serv.sock:
-                connection, client_address = fds.accept()
-                client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                serv.clients[connection] = client
-            else:
-                serv.handle_client_read(serv.clients[fds])
-        for fds in wfds:
-            serv.handle_client_write(serv.clients[fds])
