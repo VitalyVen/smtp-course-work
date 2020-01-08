@@ -35,7 +35,7 @@ class QueueProcessLogger():
                 if record is None:
                     break
                 level = int(record.split(':')[0])
-                message = record.split(':')[1]
+                message = ':'.join(record.split(':')[1:])
                 logger.setLevel(logging.DEBUG)
                 logger.log(level, message)
             except (KeyboardInterrupt, SystemExit) as e:
