@@ -1,0 +1,16 @@
+EHLO:<localhost>
+FROM:<binh@superserver.local>
+TO:<bryan@hop.pe>
+
+Message-ID: <d731fb628225d8b3c1b3b406b641c721afbe89b8.camel@superserver.local>
+Subject: maildir-test
+From: sa <binh@superserver.local>
+To: bryan@hop.pe
+Date: Fri, 27 Dec 2019 03:25:59 +0300
+Content-Type: text/plain
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+Super save
+

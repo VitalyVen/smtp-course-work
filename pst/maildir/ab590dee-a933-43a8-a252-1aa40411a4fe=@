@@ -1,0 +1,16 @@
+EHLO:<localhost>
+FROM:<binh@local.local>
+TO:<vitaly@github.com>
+
+Message-ID: <a76782658218839a1e8f91f5c6e9eecb392f9b9e.camel@local.local>
+Subject: MIME-test
+From: sa <binh@local.local>
+To: vitaly@github.com
+Date: Wed, 08 Jan 2020 15:59:35 +0300
+Content-Type: text/plain
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+Small body to test
+
