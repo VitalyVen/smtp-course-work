@@ -2,9 +2,10 @@ import socket
 from server_config import READ_TIMEOUT
 
 class ClientSocket(object):
-    def __init__(self, connection, address):
+    def __init__(self, connection, address,fd):
         self.connection = connection
         self.address = address
+        self.fd=fd
 
     def readline(self):
         # TODO: handle long message

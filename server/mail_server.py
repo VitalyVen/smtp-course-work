@@ -2,6 +2,8 @@ import socket
 import threading
 import logging
 import select
+
+from common.logger_threads import CustomLogHandler
 from server_config import SERVER_PORT, READ_TIMEOUT, LOG_FILES_DIR
 from client_collection import ClientsCollection
 from client import Client
@@ -17,7 +19,9 @@ class MailServer(object):
         self.clients = ClientsCollection()
         self.threads_cnt = threads
         self.logdir = logdir
-        self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
+        self.logger = logging.getLogger()
+        self.logger.addHandler(CustomLogHandler('../logs/logging.log'))
+        self.logger.setLevel(logging.DEBUG)
 
     def __enter__(self):
         self.socket_init()
@@ -59,6 +63,9 @@ class MailServer(object):
                 reversed_dns = str(resolver.query(ptr, "PTR")[0])
                 cl.mail.helo_command     = command
                 cl.mail.domain   = domain
+                if reversed_dns!=domain:
+                    cl.machine.QUIT(cl.socket)
+                    return
                 cl.machine.HELO(cl.socket, cl.socket.address, domain)
                 return
         elif current_state == MAIL_FROM_STATE:

@@ -1,6 +1,6 @@
 import os
 SERVER_DOMAIN = 'superserver.local'
-SERVER_PORT   = 2556
+SERVER_PORT   = 2557
 READ_TIMEOUT  = 40
 PROCESSES_CNT  = None
 THREADS_CNT  = 5
