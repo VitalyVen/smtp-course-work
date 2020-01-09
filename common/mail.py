@@ -9,8 +9,8 @@ from server.state import HELO_pattern
 
 @dataclass
 class Mail():
+    to:list
     body:str = ''
-    to:str = ''
     from_:str = ''
     domain:str = ''
     helo_command:str = ''
@@ -20,7 +20,8 @@ class Mail():
     def mail(self):
         mail = f"{self.helo_command}:<{self.domain}>\r\n"
         mail+= f"FROM:<{self.from_}>\r\n"
-        mail+= f"TO:<{self.to}>\r\n\r\n"
+        for i in self.to:
+            mail+= f"TO:<{i}>\r\n\r\n"
         mail+= self.body
         return mail
 

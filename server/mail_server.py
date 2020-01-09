@@ -82,7 +82,7 @@ class MailServer(object):
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             if RCPT_TO_matched:
                 mail_to         = RCPT_TO_matched.group(1)
-                cl.mail.to      = mail_to
+                cl.mail.to.append(mail_to)
                 cl.machine.RCPT_TO(cl.socket, mail_to)
                 return
         elif current_state == DATA_STATE:
@@ -95,10 +95,18 @@ class MailServer(object):
                     cl.machine.DATA_end(cl.socket)
                     cl.mail.to_file()
                     cl.data_start_already_matched=False
-                else: #Additional data case
+                else:# Additional data case
                     cl.mail.body += line
                     cl.machine.DATA_additional(cl.socket)
             else:
+                # check another recepient firstly
+                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+                if RCPT_TO_matched:
+                    mail_to = RCPT_TO_matched.group(1)
+                    cl.mail.to.append(mail_to)
+                    cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
+                    return
+                # data start secondly
                 DATA_start_matched = re.search(DATA_start_pattern, line)
                 if DATA_start_matched:
                     data = DATA_start_matched.group(1)
@@ -107,7 +115,7 @@ class MailServer(object):
                     cl.machine.DATA_start(cl.socket)
                     cl.data_start_already_matched = True
                 else:
-                    pass#TODO incorrect command to message to client
+                    pass#TODO: incorrect command to message to client
 
             return
         elif current_state == QUIT_STATE:
