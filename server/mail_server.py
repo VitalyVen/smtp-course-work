@@ -194,5 +194,5 @@ class WorkingProcess(multiprocessing.Process):
                         self.server.handle_client_read(self.server.clients[fds])
                 for fds in wfds:
                     self.server.handle_client_write(self.server.clients[fds])
-        except (KeyboardInterrupt, ValueError) as e:
+        except (KeyboardInterrupt, ValueError, socket.timeout) as e:
             self.terminate()
