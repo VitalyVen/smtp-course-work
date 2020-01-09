@@ -41,7 +41,7 @@ from transitions.extensions import GraphMachine as gMachine
       # S: 354 Start mail input; end with <CRLF>.<CRLF>  //data
       # C: Blah blah blah...  //data_write
       # C: ...etc. etc. etc.//data_write
-      # C: . //data_write
+      # C: . //data_end_write
       # S: 250 OK //quit
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
@@ -53,32 +53,25 @@ class SMTP_CLIENT_FSM(object):
         self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
         self.machine = self.init_machine()
 
-        self.init_transition('GREETING'       , GREETING_STATE, EHLO_WRITE_STATE)
+        self.init_transition('EHLO_write'       , GREETING_STATE, EHLO_WRITE_STATE)
         self.init_transition('EHLO'           , EHLO_WRITE_STATE, EHLO_STATE)
         self.init_transition('MAIL_FROM_write', EHLO_STATE, MAIL_FROM_WRITE_STATE)
         self.init_transition('MAIL_FROM'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
         self.init_transition('RCPT_TO_write'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
         self.init_transition('RCPT_TO'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
+        self.init_transition('RCPT_TO_additional_write'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        self.init_transition('DATA_start_write'      , RCPT_TO_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_start'      , DATA_WRITE_STATE, DATA_STATE)
+        self.init_transition('DATA_write'      , DATA_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_write_additional'      , DATA_WRITE_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_end_write'      , DATA_WRITE_STATE, DATA_END_WRITE_STATE)
+        self.init_transition('QUIT'      , DATA_END_WRITE_STATE, QUIT_STATE)
+        self.init_transition('QUIT_write'      , QUIT_STATE, QUIT_WRITE_STATE)
+        self.init_transition('FINISH'      , QUIT_WRITE_STATE, FINISH_STATE)
 
-
-        self.init_transition('RCPT_TO'        , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
-        self.init_transition('DATA_start'     , DATA_WRITE_STATE, DATA_STATE)
-        self.init_transition('DATA_additional', DATA_STATE, DATA_STATE)
-        self.init_transition('DATA_end'       , DATA_STATE, DATA_END_WRITE_STATE)
-        self.init_transition('QUIT'           , '*', QUIT_WRITE_STATE)
-
-        self.init_transition('GREETING_write' , EHLO_STATE, GREETING_WRITE_STATE)
-        self.init_transition('EHLO_write'     , MAIL_FROM_STATE, EHLO_WRITE_STATE)
-        self.init_transition('MAIL_FROM_write', RCPT_TO_STATE, MAIL_FROM_WRITE_STATE)
-        self.init_transition('RCPT_TO_write'  , DATA_STATE, RCPT_TO_WRITE_STATE)
-        self.init_transition('DATA_start_write',DATA_WRITE_STATE     , DATA_STATE     )
-        self.init_transition('DATA_end_write' , DATA_END_WRITE_STATE , QUIT_STATE     )
-        self.init_transition('QUIT_write'     , QUIT_WRITE_STATE     , FINISH_STATE   )
-
-        self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
-        self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
-
-        self.init_transition('ANOTHER_recepient', DATA_END_WRITE_STATE, MAIL_FROM_STATE)
+        # self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
+        # self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
+        # self.init_transition('ANOTHER_recepient', DATA_END_WRITE_STATE, MAIL_FROM_STATE)
     
     def init_machine(self):
         return gMachine(
