@@ -1,4 +1,4 @@
-HELO:<localhost>
+HELO:<yandex.ru>
 FROM:<binh@local.local>
 TO:<egor@sample.ru>
 

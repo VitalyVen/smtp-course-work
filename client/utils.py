@@ -27,7 +27,7 @@ class ClientHelper(object):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.settimeout(60)
-        server_address = (host, port)
+        server_address = (str(host), port)
         sock.connect(server_address)
 
         #b = self.sock.sendall(f'ehlo {host}\r\n'.encode()) #?
@@ -43,6 +43,18 @@ class ClientHelper(object):
     #         thread_sock.start()
     #     while blocking:
     #         pass
+    def get_mx(self, domain):
+        try:
+            answers = dns.resolver.query(domain, 'MX')
+            mx_list = []
+            for rdata in answers:
+                mx_list.append(rdata.exchange)
+        except Exception:
+            mx_list = []
+            mx_list.append('-1')
+            return mx_list
+
+        return mx_list
 
     # returns a list of files which are not in process yet
     def maildir_handler(self, files_in_process):
@@ -53,11 +65,13 @@ class ClientHelper(object):
                 if file not in files_in_process:
                     files_in_process.add(address+file)
                     m = Mail()
-                    m.from_file(address+file)
-                    answers = dns.resolver.query('yandex.ru', 'MX') # yandex -> m.domain
-                    mx = answers[0].exchange
+                    mail = m.from_file(address+file)
+                    mx = self.get_mx(mail.domain)[0]
+                    if mx == '-1':
+                        print(mail.domain + ' error')
+                        continue
                     socket = self.socket_init(mx)
-                    self.connections[socket] = Client(socket,'.', m)
+                    # self.connections[socket] = Client(socket,'.', m)
 
         return files_in_process
 
