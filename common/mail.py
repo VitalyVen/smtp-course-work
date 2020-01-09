@@ -29,7 +29,7 @@ class Mail():
         if file_path is None:
             self.file_path = f'{uuid.uuid4()}=@'
             file_path = self.file_path
-        target = re.search(RE_EMAIL_ADDRESS, self.to).group(0)
+        target = re.search(RE_EMAIL_ADDRESS, self.to[0]).group(0)#TODO multiple recepients case
         tmp = target.split('@')
         user, domain = tmp[0], tmp[1]
 

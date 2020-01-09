@@ -118,10 +118,9 @@ class MailServer(object):
                     pass#TODO: incorrect command to message to client
 
             return
-        elif current_state == QUIT_STATE:
-            QUIT_matched = re.search(QUIT_pattern, line)
-            if QUIT_matched:
-                cl.machine.QUIT(cl.socket)
+        QUIT_matched = re.search(QUIT_pattern, line)
+        if QUIT_matched:
+            cl.machine.QUIT(cl.socket)
             return
         # Transition possible from any states
         RSET_matched = re.search(RSET_pattern, line)
@@ -159,15 +158,21 @@ class MailServer(object):
         self.sock.close()
 
 def thread_socket(serv:MailServer):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-        for fds in rfds:
-            if fds is serv.sock:
-                connection, client_address = fds.accept()
-                client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                serv.clients[connection] = client
-            else:
-                serv.handle_client_read(serv.clients[fds])
-        for fds in wfds:
-            serv.handle_client_write(serv.clients[fds])
+    try:
+        while True:
+            client_sockets = serv.clients.sockets()
+            rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
+            for fds in rfds:
+                if fds is serv.sock:
+                    try:
+                        connection, client_address = fds.accept()
+                        client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+                        serv.clients[connection] = client
+                    except socket.timeout:
+                        pass
+                else:
+                    serv.handle_client_read(serv.clients[fds])
+            for fds in wfds:
+                serv.handle_client_write(serv.clients[fds])
+    except ValueError:
+        pass

@@ -1,6 +1,7 @@
 import re
 import pytest
 from smtplib import SMTP
+import time
 import datetime
 try:
     from server.mail_server import MailServer
@@ -36,16 +37,17 @@ def test_send_simple_message():
         msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s"  % (from_addr, to_addr, subj, date, message_text)
 
         smtp.sendmail(from_addr, to_addr, msg)
+        time.sleep(1)
         smtp.quit()
 
 def test_send_message_two_recepients():
-    with MailServer() as server:
+    with MailServer(port=25566) as server:
         server.serve(blocking=False)
 
         debuglevel = 0
         smtp = SMTP()
         smtp.set_debuglevel(debuglevel)
-        smtp.connect('0.0.0.0', 2556)
+        smtp.connect('0.0.0.0', 25566)
         # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
 
         from_addr = "<john@doe.net>"
