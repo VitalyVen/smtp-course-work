@@ -63,9 +63,9 @@ class MailServer(object):
                 reversed_dns = str(resolver.query(ptr, "PTR")[0])
                 cl.mail.helo_command     = command
                 cl.mail.domain   = domain
-                if reversed_dns!=domain:
-                    cl.machine.QUIT(cl.socket)
-                    return
+                # if reversed_dns!=domain:
+                #     cl.machine.QUIT(cl.socket)
+                #     return
                 cl.machine.HELO(cl.socket, cl.socket.address, domain)
                 return
         elif current_state == MAIL_FROM_STATE:
@@ -129,7 +129,8 @@ class MailServer(object):
             cl.machine.DATA_end_write(cl.socket, cl.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
             cl.machine.QUIT_write(cl.socket)
-            self.clients.pop(cl.socket.connection)
+
+            # self.clients.pop(cl.socket.connection)
         else:
             pass
             # print(current_state)
