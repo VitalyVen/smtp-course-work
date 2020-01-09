@@ -1,3 +1,4 @@
+import multiprocessing
 import select
 
 from mail_server import MailServer
@@ -6,22 +7,22 @@ from server_config import SERVER_PORT, READ_TIMEOUT,WRITE_TIMEOUT, LOG_FILES_DIR
 from server.client import Client
 from server.client_socket import ClientSocket
 
-def mailServerStart():
-    with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as serv:
-        while True:
-            client_sockets = serv.clients.sockets()
-            rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-            for fds in rfds:
-                if fds is serv.sock:
-                    connection, client_address = fds.accept()
-                    client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                    serv.clients[connection] = client
-                else:
-                    serv.handle_client_read(serv.clients[fds])
-            for fds in wfds:
-                serv.handle_client_write(serv.clients[fds])
+# def mailServerStart():
+#     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as serv:
+#         while True:
+#             client_sockets = serv.clients.sockets()
+#             rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
+#             for fds in rfds:
+#                 if fds is serv.sock:
+#                     connection, client_address = fds.accept()
+#                     client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+#                     serv.clients[connection] = client
+#                 else:
+#                     serv.handle_client_read(serv.clients[fds])
+#             for fds in wfds:
+#                 serv.handle_client_write(serv.clients[fds])
 
-def mailServerStart2():
+def mailServerStart():
     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as serv:
         _EVENT_READ = select.POLLIN
         _EVENT_WRITE = select.POLLOUT
@@ -52,10 +53,11 @@ def mailServerStart2():
                     socketFromDescriptor = serv.clients.socket(descriptor)
                     serv.handle_client_write(serv.clients[socketFromDescriptor])
 
-
-                # Do accept() on server socket or read from a client socket
-
-
+def mail_start():
+    proc = multiprocessing.Process(target=mailServerStart)
+    proc.start()
+    return  proc
 
 if __name__ == '__main__':
-    mailServerStart2()
+    mail_start()
+

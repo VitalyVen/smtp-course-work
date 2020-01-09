@@ -1,7 +1,12 @@
 import re
+from time import sleep
+
 import pytest
 from smtplib import SMTP
 import datetime
+
+import main
+
 try:
     from server.mail_server import MailServer
     from server.state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
@@ -17,12 +22,12 @@ except (ModuleNotFoundError, ImportError) as e:
 
 
 def test_send_simple_message():
-        mailServerStart()
-
+        proc=main.mail_start()
+        sleep(2)
         debuglevel = 0
         smtp = SMTP()
         smtp.set_debuglevel(debuglevel)
-        smtp.connect('0.0.0.0', 2556)
+        smtp.connect('localhost', 2556)
         # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
 
         from_addr = "<john@doe.net>"
@@ -37,3 +42,4 @@ def test_send_simple_message():
 
         smtp.sendmail(from_addr, to_addr, msg)
         smtp.quit()
+        proc.kill()
