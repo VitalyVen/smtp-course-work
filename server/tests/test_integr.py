@@ -51,7 +51,7 @@ def test_send_message_two_recepients():
         # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
 
         from_addr = "<john@doe.net>"
-        to_addr_1 = "foo@bar.com"
+        to_addr_1 = "foo1@bar.com"
         to_addr_2 = "foo2@bar.com"
 
         subj = "hello"

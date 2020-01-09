@@ -5,7 +5,5 @@
 2. many recipients case
     # jump to "mail from" from data end for multiple recipients
 3. Big message (attach?), 15 mb ok for testing #Binh
-4. logging with queue+thread/proccess to file #Kostya
 5. graceful shutdown
 6. tests
-7. write sockets with select as well #Vitaly

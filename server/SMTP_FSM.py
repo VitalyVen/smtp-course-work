@@ -30,7 +30,7 @@ class SMTP_FSM(object):
         self.init_transition('HELO_write'     , HELO_WRITE_STATE     , MAIL_FROM_STATE)
         self.init_transition('MAIL_FROM_write', MAIL_FROM_WRITE_STATE, RCPT_TO_STATE  )
         self.init_transition('RCPT_TO_write'  , RCPT_TO_WRITE_STATE  , DATA_STATE     )
-        self.init_transition('ANOTHER_RECEPIENT', DATA_STATE  , RCPT_TO_STATE)
+        self.init_transition('ANOTHER_RECEPIENT', DATA_STATE  , RCPT_TO_WRITE_STATE)
         self.init_transition('DATA_start_write',DATA_WRITE_STATE     , DATA_STATE     )
         self.init_transition('DATA_end_write' , DATA_END_WRITE_STATE , QUIT_STATE     )
         self.init_transition('QUIT_write'     , QUIT_WRITE_STATE     , FINISH_STATE   )

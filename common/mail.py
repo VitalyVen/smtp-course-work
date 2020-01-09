@@ -21,7 +21,8 @@ class Mail():
         mail = f"{self.helo_command}:<{self.domain}>\r\n"
         mail+= f"FROM:<{self.from_}>\r\n"
         for i in self.to:
-            mail+= f"TO:<{i}>\r\n\r\n"
+            mail+= f"TO:<{i}>\r\n"
+        mail+= "\r\n"
         mail+= self.body
         return mail
 
