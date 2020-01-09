@@ -25,6 +25,7 @@ RE_CRLF                 = r"\r(\n)?"
 RE_EMAIL_ADDRESS        = r'[\w\.-]+@[\w\.-]+'
 RE_EMAIL_OR_EMPTY       = r" ?<(?P<address>.+@.+)>|<>"
 
+domain_pattern          = re.compile(f"^TO:<.+@(.+)>", re.IGNORECASE)
 HELO_pattern            = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)     # TODO: for regular hosts and like localhost
 MAIL_FROM_pattern       = re.compile(f"^MAIL FROM:{RE_EMAIL_OR_EMPTY}", re.IGNORECASE)
 RCPT_TO_pattern         = re.compile(f"^RCPT TO:{RE_EMAIL_OR_EMPTY}", re.IGNORECASE)

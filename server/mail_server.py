@@ -89,32 +89,46 @@ class MailServer(object):
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             if RCPT_TO_matched:
                 mail_to         = RCPT_TO_matched.group(1)
-                cl.mail.to      = mail_to
+                cl.mail.to.append(mail_to)
                 cl.machine.RCPT_TO(cl.socket, mail_to)
                 return
-        elif current_state == DATA_STATE:     # TODO: as fsm?
-            DATA_start_matched = re.search(DATA_start_pattern, line)
-            DATA_end_matched = re.search(DATA_end_pattern, line)
-            if DATA_start_matched:          # TODO: case when data additional match data_start
-                data = DATA_start_matched.group(1)
-                if data:
-                    cl.mail.body += data
-                cl.machine.DATA_start(cl.socket)
-            elif DATA_end_matched:          # TODO: and already started
-                data = DATA_end_matched.group(1)
-                if data:
-                    cl.mail.body += data
-                cl.machine.DATA_end(cl.socket)
-                cl.mail.to_file()
-            else:                           # TODO: only if started
-                cl.mail.body += line
-                cl.machine.DATA_additional(cl.socket)
+        elif current_state == DATA_STATE:
+            if cl.data_start_already_matched:
+                DATA_end_matched = re.search(DATA_end_pattern, line)
+                if DATA_end_matched:
+                    data = DATA_end_matched.group(1)
+                    if data:
+                        cl.mail.body += data
+                    cl.machine.DATA_end(cl.socket)
+                    cl.mail.to_file()
+                    cl.data_start_already_matched=False
+                else:# Additional data case
+                    cl.mail.body += line
+                    cl.machine.DATA_additional(cl.socket)
+            else:
+                # check another recepient firstly
+                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+                if RCPT_TO_matched:
+                    mail_to = RCPT_TO_matched.group(1)
+                    cl.mail.to.append(mail_to)
+                    cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
+                    return
+                # data start secondly
+                DATA_start_matched = re.search(DATA_start_pattern, line)
+                if DATA_start_matched:
+                    data = DATA_start_matched.group(1)
+                    if data:
+                        cl.mail.body += data
+                    cl.machine.DATA_start(cl.socket)
+                    cl.data_start_already_matched = True
+                else:
+                    pass#TODO: incorrect command to message to client
+
             return
-        elif current_state == QUIT_STATE:
-            QUIT_matched = re.search(QUIT_pattern, line)
-            if QUIT_matched:
-                cl.machine.QUIT(cl.socket)
-        
+        QUIT_matched = re.search(QUIT_pattern, line)
+        if QUIT_matched:
+            cl.machine.QUIT(cl.socket)
+            return
         # Transition possible from any states
         RSET_matched = re.search(RSET_pattern, line)
         if RSET_matched:
@@ -180,5 +194,5 @@ class WorkingProcess(multiprocessing.Process):
                         self.server.handle_client_read(self.server.clients[fds])
                 for fds in wfds:
                     self.server.handle_client_write(self.server.clients[fds])
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, ValueError) as e:
             self.terminate()
