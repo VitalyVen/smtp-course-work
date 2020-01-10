@@ -57,21 +57,22 @@ class ClientHelper(object):
         return mx_list
 
     # returns a list of files which are not in process yet
-    def maildir_handler(self, files_in_process):
+    def maildir_handler(self):
+        files_in_process = set()
         folder = os.walk('../pst/maildir/')
         cur_files = set()
         for address, dirs, files in folder:
             for file in files:
-                if file not in files_in_process:
+                # if file not in files_in_process:
                     files_in_process.add(address+file)
-                    m = Mail()
-                    mail = m.from_file(address+file)
-                    mx = self.get_mx(mail.domain)[0]
-                    if mx == '-1':
-                        print(mail.domain + ' error')
-                        continue
-                    socket = self.socket_init(mx)
-                    # self.connections[socket] = Client(socket,'.', m)
+                    # m = Mail(to=[])
+                    # mail = m.from_file(address+file)
+                    # mx = self.get_mx(mail.domain)[0]
+                    # if mx == '-1':
+                    #     print(mail.domain + ' error')
+                    #     continue
+                    # socket = self.socket_init(mx)
+                    # # self.connections[socket] = Client(socket,'.', m)
 
         return files_in_process
 
