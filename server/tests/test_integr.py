@@ -25,21 +25,22 @@ except (ModuleNotFoundError, ImportError) as e:
 
 def test_send_simple_message():
         server=mail_start()
-        sleep(2)
-        new_socket = socket.create_connection(('localhost', 2558), 5,
+        sleep(1)
+        new_socket = socket.create_connection(('localhost', 2559), 5,
                                              None)
+        print(new_socket.recv(1000))
         new_socket.sendall(b'HELO [127.0.1.1]\r\n')
-
+        print(new_socket.recv(1000))
         new_socket.sendall(b'MAIL FROM:<MusicDevelop@yandex.ru> size=92\r\n')
-
+        print(new_socket.recv(1000))
         new_socket.sendall(b'RCPT TO:<cappyru@gmail.com>\r\n')
-
+        print(new_socket.recv(1000))
         new_socket.sendall(b'DATA\r\n')
-
+        print(new_socket.recv(1000))
         new_socket.sendall(
             b'FROM: v <vitalyven@mailhog.local>\r\nReply-To: vitalyven@mailhog.local\r\nTo: uyiu@yandex.ru\r\nDate: Sat, 07 Dec 2019 14:50:06 +0300\r\nSubject: \xd1\x82\xd0\xb5\xd0\xbc\xd0\xb034\r\n\r\nHello Jeeno\r\n.\r\n')
-
+        print(new_socket.recv(1000))
         new_socket.sendall(b'QUIT\r\n')
-
-        sleep(2)
+        print(new_socket.recv(1000))
+        sleep(1)
         stop_server(server)
