@@ -1,9 +1,5 @@
-HELO:<localhost>
+HELO:<yandex.ru>
 FROM:<binh@local.local>
-TO:<egor@sample.ru>
-TO:<egor@sample.ru>
-TO:<egor@sample.ru>
-TO:<egor@sample.ru>
 TO:<egor@sample.ru>
 
 Message-ID: <bd6e9c016d5dae34fd1047c1669da9c93b573351.camel@local.local>

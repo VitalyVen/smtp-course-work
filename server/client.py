@@ -11,5 +11,5 @@ class Client():
     def __init__(self, socket:ClientSocket, logdir: str):
         self.socket = socket
         self.machine = SMTP_FSM(socket.address, logdir=logdir)
-        self.mail = Mail()
+        self.mail = Mail(to=[])
         self.data_start_already_matched=False

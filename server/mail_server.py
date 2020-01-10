@@ -82,7 +82,7 @@ class MailServer(object):
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             if RCPT_TO_matched:
                 mail_to         = RCPT_TO_matched.group(1)
-                cl.mail.to      = mail_to
+                cl.mail.to.append(mail_to)
                 cl.machine.RCPT_TO(cl.socket, mail_to)
                 return
         elif current_state == DATA_STATE:
@@ -95,10 +95,18 @@ class MailServer(object):
                     cl.machine.DATA_end(cl.socket)
                     cl.mail.to_file()
                     cl.data_start_already_matched=False
-                else: #Additional data case
+                else:# Additional data case
                     cl.mail.body += line
                     cl.machine.DATA_additional(cl.socket)
             else:
+                # check another recepient firstly
+                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+                if RCPT_TO_matched:
+                    mail_to = RCPT_TO_matched.group(1)
+                    cl.mail.to.append(mail_to)
+                    cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
+                    return
+                # data start secondly
                 DATA_start_matched = re.search(DATA_start_pattern, line)
                 if DATA_start_matched:
                     data = DATA_start_matched.group(1)
@@ -107,13 +115,12 @@ class MailServer(object):
                     cl.machine.DATA_start(cl.socket)
                     cl.data_start_already_matched = True
                 else:
-                    pass#TODO incorrect command to message to client
+                    pass#TODO: incorrect command to message to client
 
             return
-        elif current_state == QUIT_STATE:
-            QUIT_matched = re.search(QUIT_pattern, line)
-            if QUIT_matched:
-                cl.machine.QUIT(cl.socket)
+        QUIT_matched = re.search(QUIT_pattern, line)
+        if QUIT_matched:
+            cl.machine.QUIT(cl.socket)
             return
         # Transition possible from any states
         RSET_matched = re.search(RSET_pattern, line)
@@ -151,15 +158,21 @@ class MailServer(object):
         self.sock.close()
 
 def thread_socket(serv:MailServer):
-    while True:
-        client_sockets = serv.clients.sockets()
-        rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
-        for fds in rfds:
-            if fds is serv.sock:
-                connection, client_address = fds.accept()
-                client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                serv.clients[connection] = client
-            else:
-                serv.handle_client_read(serv.clients[fds])
-        for fds in wfds:
-            serv.handle_client_write(serv.clients[fds])
+    try:
+        while True:
+            client_sockets = serv.clients.sockets()
+            rfds, wfds, errfds = select.select([serv.sock] + client_sockets, client_sockets, [], 5)
+            for fds in rfds:
+                if fds is serv.sock:
+                    try:
+                        connection, client_address = fds.accept()
+                        client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+                        serv.clients[connection] = client
+                    except socket.timeout:
+                        pass
+                else:
+                    serv.handle_client_read(serv.clients[fds])
+            for fds in wfds:
+                serv.handle_client_write(serv.clients[fds])
+    except ValueError:
+        pass
