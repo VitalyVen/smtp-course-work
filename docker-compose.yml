@@ -4,7 +4,7 @@ services:
     image: 42bv/mailhog
     container_name: 42_mailhog
     ports:
-      - "55587:587"
+      - "5587:587"
       - "8025:8025"
     volumes:
       - $PWD/pst/maildir:/srv/Maildir

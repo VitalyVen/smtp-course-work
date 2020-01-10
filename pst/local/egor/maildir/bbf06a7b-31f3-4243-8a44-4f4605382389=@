@@ -1,0 +1,16 @@
+EHLO:<localhost>
+FROM:<binh@local.local>
+TO:<egor@superserver.local>
+
+Message-ID: <98ecbfa26cc07066a08facba0ecffc4e1ba0ef1a.camel@local.local>
+Subject: test
+From: sa <binh@local.local>
+To: egor@superserver.local
+Date: Wed, 08 Jan 2020 02:13:33 +0300
+Content-Type: text/plain
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+Test pst
+
