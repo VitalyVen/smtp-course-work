@@ -1,4 +1,5 @@
 import re
+import socket
 from time import sleep
 
 import pytest
@@ -6,9 +7,10 @@ from smtplib import SMTP
 import datetime
 
 import main
+from server_config import SERVER_PORT, LOG_FILES_DIR, THREADS_CNT
 
 try:
-    from server.mail_server import MailServer
+    from server.mail_server import MailServer, mail_start, stop_server
     from server.state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
 
 except (ModuleNotFoundError, ImportError) as e:
@@ -22,24 +24,22 @@ except (ModuleNotFoundError, ImportError) as e:
 
 
 def test_send_simple_message():
-        proc=main.mail_start()
+        server=mail_start()
         sleep(2)
-        debuglevel = 0
-        smtp = SMTP()
-        smtp.set_debuglevel(debuglevel)
-        smtp.connect('localhost', 2556)
-        # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
+        new_socket = socket.create_connection(('localhost', 2558), 5,
+                                             None)
+        new_socket.sendall(b'HELO [127.0.1.1]\r\n')
 
-        from_addr = "<john@doe.net>"
-        to_addr = "foo@bar.com"
+        new_socket.sendall(b'MAIL FROM:<MusicDevelop@yandex.ru> size=92\r\n')
 
-        subj = "hello"
-        date = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+        new_socket.sendall(b'RCPT TO:<cappyru@gmail.com>\r\n')
 
-        message_text = "Hello\nThis is a mail from your server\n\nBye\n"
+        new_socket.sendall(b'DATA\r\n')
 
-        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s"  % (from_addr, to_addr, subj, date, message_text)
+        new_socket.sendall(
+            b'FROM: v <vitalyven@mailhog.local>\r\nReply-To: vitalyven@mailhog.local\r\nTo: uyiu@yandex.ru\r\nDate: Sat, 07 Dec 2019 14:50:06 +0300\r\nSubject: \xd1\x82\xd0\xb5\xd0\xbc\xd0\xb034\r\n\r\nHello Jeeno\r\n.\r\n')
 
-        smtp.sendmail(from_addr, to_addr, msg)
-        smtp.quit()
-        proc.kill()
+        new_socket.sendall(b'QUIT\r\n')
+
+        sleep(2)
+        stop_server(server)

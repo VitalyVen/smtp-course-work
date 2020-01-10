@@ -1,7 +1,8 @@
 import multiprocessing
 import select
+from time import sleep
 
-from mail_server import MailServer
+from mail_server import MailServer, mail_start, start, stop_server
 from server_config import SERVER_PORT, READ_TIMEOUT,WRITE_TIMEOUT, LOG_FILES_DIR, THREADS_CNT
 
 from server.client import Client
@@ -21,43 +22,51 @@ from server.client_socket import ClientSocket
 #                     serv.handle_client_read(serv.clients[fds])
 #             for fds in wfds:
 #                 serv.handle_client_write(serv.clients[fds])
-
-def mailServerStart():
-    with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as serv:
-        _EVENT_READ = select.POLLIN
-        _EVENT_WRITE = select.POLLOUT
-        pollerSocketsForRead = select.poll()
-        pollerSocketsForWrite = select.poll()
-        pollerSocketsForRead.register(serv.sock,select.POLLIN)
-        pollerSocketsForWrite.register(serv.sock, select.POLLOUT)
-
-        while (True):
-            fdVsEventRead = pollerSocketsForRead.poll(READ_TIMEOUT)
-            fdVsEventWrite=pollerSocketsForWrite.poll(WRITE_TIMEOUT)
-
-            for descriptor, Event in fdVsEventRead:
-                if Event==_EVENT_READ:
-                    if descriptor==serv.sock.fileno():
-                        connection, client_address = serv.sock.accept()
-                        client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
-                        serv.clients[connection] = client
-                        pollerSocketsForRead.register(connection, select.POLLIN)
-                        pollerSocketsForWrite.register(connection, select.POLLOUT)
-
-                    else:
-                        socketFromDescriptor= serv.clients.socket(descriptor)
-                        serv.handle_client_read(serv.clients[socketFromDescriptor])
-                        pass
-            for descriptor, Event in fdVsEventWrite:
-                if Event == _EVENT_WRITE:
-                    socketFromDescriptor = serv.clients.socket(descriptor)
-                    serv.handle_client_write(serv.clients[socketFromDescriptor])
-
-def mail_start():
-    proc = multiprocessing.Process(target=mailServerStart)
-    proc.start()
-    return  proc
+#
+# def mailServerStart():
+#     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as serv:
+#         _EVENT_READ = select.POLLIN
+#         _EVENT_WRITE = select.POLLOUT
+#         pollerSocketsForRead = select.poll()
+#         pollerSocketsForWrite = select.poll()
+#         pollerSocketsForRead.register(serv.sock,select.POLLIN)
+#         pollerSocketsForWrite.register(serv.sock, select.POLLOUT)
+#
+#         while (True):
+#             fdVsEventRead = pollerSocketsForRead.poll(READ_TIMEOUT)
+#             fdVsEventWrite=pollerSocketsForWrite.poll(WRITE_TIMEOUT)
+#
+#             for descriptor, Event in fdVsEventRead:
+#                 if Event==_EVENT_READ:
+#                     if descriptor==serv.sock.fileno():
+#                         connection, client_address = serv.sock.accept()
+#                         client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+#                         serv.clients[connection] = client
+#                         pollerSocketsForRead.register(connection, select.POLLIN)
+#                         pollerSocketsForWrite.register(connection, select.POLLOUT)
+#
+#                     else:
+#                         socketFromDescriptor= serv.clients.socket(descriptor)
+#                         serv.handle_client_read(serv.clients[socketFromDescriptor])
+#                         pass
+#             for descriptor, Event in fdVsEventWrite:
+#                 if Event == _EVENT_WRITE:
+#                     socketFromDescriptor = serv.clients.socket(descriptor)
+#                     serv.handle_client_write(serv.clients[socketFromDescriptor])
+#
+# def mail_start():
+#     proc = multiprocessing.Process(target=start)
+#     proc.start()
+#     return  proc
+#
+# def start():
+#     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as server:
+#         server.start_proc()
 
 if __name__ == '__main__':
-    mail_start()
+    p=mail_start()
+
+
+
+
 
