@@ -18,13 +18,13 @@ except (ModuleNotFoundError, ImportError) as e:
 
 
 def test_send_simple_message_smtplib():
-    with MailServer() as server:
+    with MailServer(port=11111) as server:
         server.serve(blocking=False)
 
         debuglevel = 0
         smtp = SMTP()
         smtp.set_debuglevel(debuglevel)
-        smtp.connect('0.0.0.0', 2556)
+        smtp.connect('0.0.0.0', 11111)
         # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
 
         from_addr = "<john@doe.net>"
@@ -40,11 +40,12 @@ def test_send_simple_message_smtplib():
         smtp.sendmail(from_addr, to_addr, msg)
         time.sleep(1)
         smtp.quit()
+        assert True
 
 def test_send_simple_message_socket():
-    with MailServer() as server:
+    with MailServer(port=25566) as server:
         server.serve(blocking=False)
-        new_socket = socket.create_connection(('localhost', 2556), 5,    None)
+        new_socket = socket.create_connection(('localhost', 25566), 5,    None)
         print(new_socket.recv(1000))
         new_socket.sendall(b'HELO [127.0.1.1]\r\n')
         print(new_socket.recv(1000))
@@ -59,15 +60,16 @@ def test_send_simple_message_socket():
         print(new_socket.recv(1000))
         new_socket.sendall(b'QUIT\r\n')
         print(new_socket.recv(1000))
+        assert True
 
 def test_send_message_two_recepients():
-    with MailServer(port=25566) as server:
+    with MailServer(port=25567) as server:
         server.serve(blocking=False)
 
         debuglevel = 0
         smtp = SMTP()
         smtp.set_debuglevel(debuglevel)
-        smtp.connect('0.0.0.0', 25566)
+        smtp.connect('0.0.0.0', 25567)
         # smtp.login('USERNAME@DOMAIN', 'PASSWORD')
 
         from_addr = "<john@doe.net>"
@@ -83,3 +85,4 @@ def test_send_message_two_recepients():
 
         smtp.sendmail(from_addr, [to_addr_1, to_addr_2], msg)
         smtp.quit()
+    assert True
