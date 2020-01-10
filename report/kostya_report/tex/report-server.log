@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.1.9)  10 JAN 2020 07:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.1.9)  10 JAN 2020 10:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -651,24 +651,24 @@ Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
 ) (./report-server.aux)
 \openout1 = `report-server.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
  (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
@@ -704,7 +704,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box62
-Package hyperref Info: Link coloring ON on input line 9.
+Package hyperref Info: Link coloring ON on input line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -714,25 +714,15 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count133
 )
-LaTeX Info: Redefining \ref on input line 9.
-LaTeX Info: Redefining \pageref on input line 9.
-LaTeX Info: Redefining \nameref on input line 9.
+LaTeX Info: Redefining \ref on input line 5.
+LaTeX Info: Redefining \pageref on input line 5.
+LaTeX Info: Redefining \nameref on input line 5.
 
 (./report-server.out) (./report-server.out)
 \@outlinefile=\write4
 \openout4 = `report-server.out'.
 
-
-(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-4.def
-File: uni-4.def 2013/05/13 UCS: Unicode data U+0400..U+04FF
-)
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 12.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 12.
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./report-server.toc
+ (./report-server.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -743,101 +733,236 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write5
 \openout5 = `report-server.toc'.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.16 \chapter
-             *{Введение} [1
 
-]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\utf@viii@undeferr' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\endgroup' on input line 9.
+
+[3
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-4.def
+File: uni-4.def 2013/05/13 UCS: Unicode data U+0400..U+04FF
+)
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 17.
+(hyperref)                than one, level fixed on input line 11.
 
-[2
+[4
 
 ]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 1.
-<static/ER_diagram_field.png, id=86, 462.72874pt x 201.75375pt>
+<static/ER_diagram_field.png, id=81, 462.72874pt x 201.75375pt>
 File: static/ER_diagram_field.png Graphic file (type png)
 <use static/ER_diagram_field.png>
-Package pdftex.def Info: static/ER_diagram_field.png  used on input line 45.
+Package pdftex.def Info: static/ER_diagram_field.png  used on input line 39.
 (pdftex.def)             Requested size: 483.69684pt x 210.89949pt.
-[3
+[5
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
-) [4 <./static/ER_diagram_field.png>]
+) [6 <./static/ER_diagram_field.png>]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 2.
-<static/server_dot.pdf, id=104, 2027.07214pt x 310.14772pt>
+<static/server_dot.pdf, id=99, 2027.07214pt x 310.14772pt>
 File: static/server_dot.pdf Graphic file (type pdf)
 <use static/server_dot.pdf>
-Package pdftex.def Info: static/server_dot.pdf  used on input line 77.
+Package pdftex.def Info: static/server_dot.pdf  used on input line 71.
 (pdftex.def)             Requested size: 483.69684pt x 74.0063pt.
-<static/Server_Class_Diagram.png, id=105, 3112.62875pt x 1201.48875pt>
+<static/Server_Class_Diagram.png, id=100, 3112.62875pt x 1201.48875pt>
 File: static/Server_Class_Diagram.png Graphic file (type png)
 <use static/Server_Class_Diagram.png>
-Package pdftex.def Info: static/Server_Class_Diagram.png  used on input line 10
-0.
+Package pdftex.def Info: static/Server_Class_Diagram.png  used on input line 94
+.
 (pdftex.def)             Requested size: 483.69684pt x 186.70549pt.
-<static/physical.png, id=106, 531.9875pt x 161.60374pt>
+<static/physical.png, id=101, 531.9875pt x 161.60374pt>
 File: static/physical.png Graphic file (type png)
 <use static/physical.png>
-Package pdftex.def Info: static/physical.png  used on input line 107.
+Package pdftex.def Info: static/physical.png  used on input line 101.
 (pdftex.def)             Requested size: 483.69684pt x 146.9388pt.
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 113
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 107
 .
 (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
-) [5
+) [7
 
- <./static/server_dot.pdf>] [6 <./static/Server_Class_Diagram.png (PNG copy)> <
-./static/physical.png>] [7]
+ <./static/server_dot.pdf>] [8 <./static/Server_Class_Diagram.png (PNG copy)> <
+./static/physical.png>] [9]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 3.
-<include/make.png, id=142, 1290.8225pt x 235.88126pt>
+<include/make.png, id=137, 1290.8225pt x 235.88126pt>
 File: include/make.png Graphic file (type png)
 <use include/make.png>
-Package pdftex.def Info: include/make.png  used on input line 147.
+Package pdftex.def Info: include/make.png  used on input line 141.
 (pdftex.def)             Requested size: 483.69684pt x 88.38686pt.
-<include/cflow1.png, id=145, 725.71124pt x 180.675pt>
+<include/cflow1.png, id=140, 725.71124pt x 180.675pt>
 File: include/cflow1.png Graphic file (type png)
 <use include/cflow1.png>
-Package pdftex.def Info: include/cflow1.png  used on input line 158.
+Package pdftex.def Info: include/cflow1.png  used on input line 152.
 (pdftex.def)             Requested size: 483.69684pt x 120.4258pt.
-<include/cflow2.png, id=146, 1633.60312pt x 722.7pt>
+<include/cflow2.png, id=141, 1633.60312pt x 722.7pt>
 File: include/cflow2.png Graphic file (type png)
 <use include/cflow2.png>
-Package pdftex.def Info: include/cflow2.png  used on input line 165.
+Package pdftex.def Info: include/cflow2.png  used on input line 159.
 (pdftex.def)             Requested size: 483.69684pt x 213.9776pt.
-[8
+[10
 
- <./include/make.png>] [9 <./include/cflow1.png> <./include/cflow2.png>]
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 219--220
+ <./include/make.png>] [11 <./include/cflow1.png> <./include/cflow2.png>]
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
-[11
+[13
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 225.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 225.
  (./report-server.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
-Package rerunfilecheck Info: File `report-server.out' has not changed.
-(rerunfilecheck)             Checksum: DE766FE5FE49C391A51A7D0183950666;2443.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 225.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 225.
+
+
+Package rerunfilecheck Warning: File `report-server.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `report-server.out':
+(rerunfilecheck)             Before: DE766FE5FE49C391A51A7D0183950666;2443
+(rerunfilecheck)             After:  948AF339DDB1DC19EDB6474FE4978A47;4587.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 225.
  ) 
 Here is how much of TeX's memory you used:
- 23945 strings out of 494027
- 458345 string characters out of 6168924
- 520921 words of memory out of 5000000
- 27181 multiletter control sequences out of 15000+600000
- 15773 words of font info for 37 fonts, out of 8000000 for 9000
+ 23938 strings out of 494027
+ 458241 string characters out of 6168924
+ 520830 words of memory out of 5000000
+ 27175 multiletter control sequences out of 15000+600000
+ 14052 words of font info for 33 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 57i,7n,76p,1292b,676s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,7n,76p,1292b,622s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/latt1200.600p
 k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/lati1200.600p
 k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1728.600p
@@ -845,13 +970,11 @@ k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1440.600p
 k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600p
 k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1200.600p
 k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx2488.600p
-k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1440.600p
-k> </home/zikboy/.texlive2019/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm2074.600p
 k></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on report-server.pdf (12 pages, 528442 bytes).
+Output written on report-server.pdf (11 pages, 512970 bytes).
 PDF statistics:
- 645 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
+ 591 PDF objects out of 1000 (max. 8388607)
+ 184 compressed objects within 2 object streams
  52 named destinations out of 1000 (max. 500000)
  144 words of extra memory for PDF output out of 10000 (max. 10000000)
 
