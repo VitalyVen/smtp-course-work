@@ -2,6 +2,7 @@ import re
 import pytest
 from smtplib import SMTP
 import time
+import socket
 import datetime
 try:
     from server.mail_server import MailServer
@@ -16,7 +17,7 @@ except (ModuleNotFoundError, ImportError) as e:
     from state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
 
 
-def test_send_simple_message():
+def test_send_simple_message_smtplib():
     with MailServer() as server:
         server.serve(blocking=False)
 
@@ -39,6 +40,25 @@ def test_send_simple_message():
         smtp.sendmail(from_addr, to_addr, msg)
         time.sleep(1)
         smtp.quit()
+
+def test_send_simple_message_socket():
+    with MailServer() as server:
+        server.serve(blocking=False)
+        new_socket = socket.create_connection(('localhost', 2556), 5,    None)
+        print(new_socket.recv(1000))
+        new_socket.sendall(b'HELO [127.0.1.1]\r\n')
+        print(new_socket.recv(1000))
+        new_socket.sendall(b'MAIL FROM:<MusicDevelop@yandex.ru> size=92\r\n')
+        print(new_socket.recv(1000))
+        new_socket.sendall(b'RCPT TO:<cappyru@gmail.com>\r\n')
+        print(new_socket.recv(1000))
+        new_socket.sendall(b'DATA\r\n')
+        print(new_socket.recv(1000))
+        new_socket.sendall(
+                b'FROM: v <vitalyven@mailhog.local>\r\nReply-To: vitalyven@mailhog.local\r\nTo: uyiu@yandex.ru\r\nDate: Sat, 07 Dec 2019 14:50:06 +0300\r\nSubject: \xd1\x82\xd0\xb5\xd0\xbc\xd0\xb034\r\n\r\nHello Jeeno\r\n.\r\n')
+        print(new_socket.recv(1000))
+        new_socket.sendall(b'QUIT\r\n')
+        print(new_socket.recv(1000))
 
 def test_send_message_two_recepients():
     with MailServer(port=25566) as server:
