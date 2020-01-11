@@ -62,7 +62,7 @@ class MailServer(object):
          call handler for this state
         '''
         try:
-            line = cl.socket.readline()
+            line = cl.socket.readbytes()
         except socket.timeout:
             self.logger.log(level=logging.WARNING, msg=f'Timeout on client read')
             self.sock.close()
@@ -154,7 +154,6 @@ class MailServer(object):
             cl.machine.DATA_end_write(cl.socket, cl.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
             cl.machine.QUIT_write(cl.socket)
-            cl.socket.close()
             self.clients.pop(cl.socket.connection)
         else:
             pass
@@ -170,7 +169,6 @@ class MailServer(object):
         #     p.join(timeout=2)
         self.logger.terminate()
         # self.logger.join(timeout=2)
-        self.clients.__exit__(exc_type, exc_val, exc_tb)
 
 class WorkingProcess(multiprocessing.Process):
 

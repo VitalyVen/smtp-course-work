@@ -4,3 +4,4 @@ pytest-cov
 pygraphviz
 transitions
 dnspython
+PyPDF2
