@@ -73,16 +73,10 @@ class MailServer(object):
         if current_state == HELO_STATE:
             HELO_matched = re.search(HELO_pattern, line)
             if HELO_matched:
-                command     = HELO_matched.group(1)
-                domain      = HELO_matched.group(2) or "unknown"
-                ip=cl.socket.address[0]
-                ptr = reversename.from_address("8.8.8.8")
-                reversed_dns = str(resolver.query(ptr, "PTR")[0])
-                cl.mail.helo_command     = command
-                cl.mail.domain   = domain
-                # if reversed_dns!=domain:
-                #     cl.machine.QUIT(cl.socket)
-                #     return
+                command = HELO_matched.group(1)
+                domain = HELO_matched.group(2) or "unknown"
+                cl.mail.helo_command = command
+                cl.mail.domain = domain
                 cl.machine.HELO(cl.socket, cl.socket.address, domain)
                 return
         elif current_state == MAIL_FROM_STATE:
@@ -94,33 +88,47 @@ class MailServer(object):
         elif current_state == RCPT_TO_STATE:
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             if RCPT_TO_matched:
-                mail_to         = RCPT_TO_matched.group(1)
-                cl.mail.to      = mail_to
+                mail_to = RCPT_TO_matched.group(1)
+                cl.mail.to.append(mail_to)
                 cl.machine.RCPT_TO(cl.socket, mail_to)
                 return
-        elif current_state == DATA_STATE:     # TODO: as fsm?
-            DATA_start_matched = re.search(DATA_start_pattern, line)
-            DATA_end_matched = re.search(DATA_end_pattern, line)
-            if DATA_start_matched:          # TODO: case when data additional match data_start
-                data = DATA_start_matched.group(1)
-                if data:
-                    cl.mail.body += data
-                cl.machine.DATA_start(cl.socket)
-            elif DATA_end_matched:          # TODO: and already started
-                data = DATA_end_matched.group(1)
-                if data:
-                    cl.mail.body += data
-                cl.machine.DATA_end(cl.socket)
-                cl.mail.to_file()
-            else:                           # TODO: only if started
-                cl.mail.body += line
-                cl.machine.DATA_additional(cl.socket)
+        elif current_state == DATA_STATE:
+            if cl.data_start_already_matched:
+                DATA_end_matched = re.search(DATA_end_pattern, line)
+                if DATA_end_matched:
+                    data = DATA_end_matched.group(1)
+                    if data:
+                        cl.mail.body += data
+                    cl.machine.DATA_end(cl.socket)
+                    cl.mail.to_file()
+                    cl.data_start_already_matched = False
+                else:  # Additional data case
+                    cl.mail.body += line
+                    cl.machine.DATA_additional(cl.socket)
+            else:
+                # check another recepient firstly
+                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+                if RCPT_TO_matched:
+                    mail_to = RCPT_TO_matched.group(1)
+                    cl.mail.to.append(mail_to)
+                    cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
+                    return
+                # data start secondly
+                DATA_start_matched = re.search(DATA_start_pattern, line)
+                if DATA_start_matched:
+                    data = DATA_start_matched.group(1)
+                    if data:
+                        cl.mail.body += data
+                    cl.machine.DATA_start(cl.socket)
+                    cl.data_start_already_matched = True
+                else:
+                    pass  # TODO: incorrect command to message to client
+
             return
-        elif current_state == QUIT_STATE:
-            QUIT_matched = re.search(QUIT_pattern, line)
-            if QUIT_matched:
-                cl.machine.QUIT(cl.socket)
-        
+        QUIT_matched = re.search(QUIT_pattern, line)
+        if QUIT_matched:
+            cl.machine.QUIT(cl.socket)
+            return
         # Transition possible from any states
         RSET_matched = re.search(RSET_pattern, line)
         if RSET_matched:
@@ -130,7 +138,7 @@ class MailServer(object):
         # cl.socket.send(f'500 Unrecognised command {line}\n'.encode())
         # print('500 Unrecognised command')
 
-    def handle_client_write(self, cl:Client):
+    def handle_client_write(self, cl: Client):
         current_state = cl.machine.state
         if current_state == GREETING_WRITE_STATE:
             cl.machine.GREETING_write(cl.socket)
@@ -146,8 +154,8 @@ class MailServer(object):
             cl.machine.DATA_end_write(cl.socket, cl.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
             cl.machine.QUIT_write(cl.socket)
-
-            # self.clients.pop(cl.socket.connection)
+            cl.socket.close()
+            self.clients.pop(cl.socket.connection)
         else:
             pass
             # print(current_state)
@@ -156,6 +164,13 @@ class MailServer(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
+        # for p in self.processes:
+        #     p.terminate()
+        # for p in self.processes:
+        #     p.join(timeout=2)
+        self.logger.terminate()
+        # self.logger.join(timeout=2)
+        # self.clients.__exit__(exc_type, exc_val, exc_tb)
 
 
 
