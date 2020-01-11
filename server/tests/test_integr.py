@@ -19,13 +19,12 @@ except (ModuleNotFoundError, ImportError) as e:
     from common.custom_logger_proc import QueueProcessLogger
     sys.path.append(os.path.dirname(__file__))
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-    from mail_server import MailServer,mailServerStart
+    from mail_server import MailServer
     from state import HELO_pattern, MAIL_FROM_pattern, DATA_start_pattern, DATA_end_pattern, RCPT_TO_pattern
 
 
 def test_send_simple_message():
-        server=mail_start()
-        sleep(1)
+
         new_socket = socket.create_connection(('localhost', 2559), 5,
                                              None)
         print(new_socket.recv(1000))
@@ -42,4 +41,5 @@ def test_send_simple_message():
         print(new_socket.recv(1000))
         new_socket.sendall(b'QUIT\r\n')
         print(new_socket.recv(1000))
-        assert True
+
+

@@ -15,12 +15,12 @@ from common.custom_logger_proc import QueueProcessLogger
 from dns import *
 
 class MailServer(object):
-    def __init__(self, host='localhost', port=2556, threads=5, logdir='logs'):
+    def __init__(self, host='localhost', port=2556, threads=5, logdir='logs',blocking=True):
         self.host = host
         self.port = port
         self.clients = ClientsCollection()
         self.proc = None
-        self.blocking=True
+        self.blocking=blocking
         self.logdir = logdir
         self.logger = logging.getLogger()
         # self.logger.addHandler(CustomLogHandler('../logs/logging.log'))
@@ -39,39 +39,15 @@ class MailServer(object):
         self.sock.listen(0)
         self.logger.log(level=logging.DEBUG, msg=f'Server socket initiated on port: {self.port}')
 
-    def mail_poll_logic(self):
+    def mail_start(self):
+        thread = threading.Thread(target=mail_poll_logic, args=(self,))
+        thread.daemon = True
+        thread.start()
 
-        try:
-            _EVENT_READ = select.POLLIN
-            _EVENT_WRITE = select.POLLOUT
-            pollerSocketsForRead = select.poll()
-            pollerSocketsForWrite = select.poll()
-            pollerSocketsForRead.register(self.sock, select.POLLIN)
-            pollerSocketsForWrite.register(self.sock, select.POLLOUT)
-
-            while (True):
-                fdVsEventRead = pollerSocketsForRead.poll(READ_TIMEOUT)
-                fdVsEventWrite = pollerSocketsForWrite.poll(WRITE_TIMEOUT)
-
-                for descriptor, Event in fdVsEventRead:
-                    if Event == _EVENT_READ:
-                        if descriptor == self.sock.fileno():
-                            connection, client_address = self.sock.accept()
-                            client = Client(socket=ClientSocket(connection, client_address), logdir=self.logdir)
-                            self.clients[connection] = client
-                            pollerSocketsForRead.register(connection, select.POLLIN)
-                            pollerSocketsForWrite.register(connection, select.POLLOUT)
-
-                        else:
-                            socketFromDescriptor = self.clients.socket(descriptor)
-                            self.handle_client_read(self.clients[socketFromDescriptor])
-                            pass
-                for descriptor, Event in fdVsEventWrite:
-                    if Event == _EVENT_WRITE:
-                        socketFromDescriptor = self.clients.socket(descriptor)
-                        self.handle_client_write(self.clients[socketFromDescriptor])
-        except ValueError:
+        while self.blocking:
             pass
+
+
 
     def stop(self):
         self.blocking=False
@@ -183,15 +159,43 @@ class MailServer(object):
 
 
 
-def mail_start():
-    thread = threading.Thread(target=start)
-    thread.demon=True
-    thread.start()
-    return  thread
+def mail_poll_logic(serv:MailServer):
 
-def start():
-    with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR) as server:
-        server.mail_poll_logic()
+    try:
+        _EVENT_READ = select.POLLIN
+        _EVENT_WRITE = select.POLLOUT
+        pollerSocketsForRead = select.poll()
+        pollerSocketsForWrite = select.poll()
+        pollerSocketsForRead.register(serv.sock, select.POLLIN)
+        pollerSocketsForWrite.register(serv.sock, select.POLLOUT)
 
-def stop_server(proc):
-    proc.kill()
+        while (True):
+            fdVsEventRead = pollerSocketsForRead.poll(READ_TIMEOUT)
+            fdVsEventWrite = pollerSocketsForWrite.poll(WRITE_TIMEOUT)
+
+            for descriptor, Event in fdVsEventRead:
+                if Event == _EVENT_READ:
+                    if descriptor == serv.sock.fileno():
+                        connection, client_address = serv.sock.accept()
+                        client = Client(socket=ClientSocket(connection, client_address), logdir=serv.logdir)
+                        serv.clients[connection] = client
+                        pollerSocketsForRead.register(connection, select.POLLIN)
+                        pollerSocketsForWrite.register(connection, select.POLLOUT)
+
+                    else:
+                        socketFromDescriptor = serv.clients.socket(descriptor)
+                        serv.handle_client_read(serv.clients[socketFromDescriptor])
+                        pass
+            for descriptor, Event in fdVsEventWrite:
+                if Event == _EVENT_WRITE:
+                    socketFromDescriptor = serv.clients.socket(descriptor)
+                    serv.handle_client_write(serv.clients[socketFromDescriptor])
+    except ValueError:
+        pass
+
+# def start():
+#     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR) as server:
+#         server.mail_poll_logic()
+#
+# def stop_server(proc):
+#     proc.kill()

@@ -2,7 +2,7 @@ import multiprocessing
 import select
 from time import sleep
 
-from mail_server import MailServer, mail_start, start, stop_server
+from mail_server import MailServer
 from server_config import SERVER_PORT, READ_TIMEOUT,WRITE_TIMEOUT, LOG_FILES_DIR, THREADS_CNT
 
 from server.client import Client
@@ -64,8 +64,8 @@ from server.client_socket import ClientSocket
 #         server.start_proc()
 
 if __name__ == '__main__':
-    p=mail_start()
-
+    with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR, threads=THREADS_CNT) as server:
+        server.mail_start()
 
 
 
