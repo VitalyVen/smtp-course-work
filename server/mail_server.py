@@ -23,7 +23,7 @@ class MailServer(object):
         self.blocking=blocking
         self.logdir = logdir
         self.logger = logging.getLogger()
-        # self.logger.addHandler(CustomLogHandler('../logs/logging.log'))
+        self.logger.addHandler(CustomLogHandler('../logs/logging.log'))
         self.logger.setLevel(logging.DEBUG)
 
     def __enter__(self):
