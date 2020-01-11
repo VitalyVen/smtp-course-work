@@ -47,7 +47,7 @@ from transitions.extensions import GraphMachine as gMachine
       # S: 221 foo.com Service closing transmission channel //finish
 
 
-class SMTP_CLIENT_FSM(object):
+class SmtpClientFsm(object):
     def __init__(self, name, logdir):
         self.name = name
         self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
