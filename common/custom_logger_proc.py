@@ -1,5 +1,6 @@
 import logging
 import multiprocessing
+import queue
 from time import sleep
 
 # ============================================================================
@@ -33,13 +34,15 @@ class QueueProcessLogger(multiprocessing.Process):
         logger.addHandler(handler)
         while self.active:
             try:
-                record = self.queue.get()
+                record = self.queue.get_nowait()
                 if record is None:
                     break
                 level = int(record.split(':')[0])
                 message = ':'.join(record.split(':')[1:])
                 logger.setLevel(logging.DEBUG)
                 logger.log(level, message)
+            except queue.Empty:
+                pass
             except (KeyboardInterrupt, SystemExit) as e:
                 self.terminate()
             except Exception:
