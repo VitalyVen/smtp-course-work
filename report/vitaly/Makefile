@@ -12,7 +12,6 @@ $(REPORT_SERVER):
 $(REPORT_CLIENT): 	
 	cd $(TEXDIR) && $(PDFLATEX) report-server.tex && $(PDFLATEX) report-server.tex && cp $(REPORT_CLIENT) ..
 
-
 all : build report-server report-client
 
 help:
@@ -34,10 +33,6 @@ report-client : $(REPORT_CLIENT)
 report-clean :
 	rm -f -- $(REPORT_SERVER)
 	rm -f -- $(REPORT_CLIENT)
-
-dotnet-clean:
-	$(DOTNET) clean
-
 clean : report-clean
 	
 
