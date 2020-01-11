@@ -66,7 +66,7 @@ class ClientHelper(object):
             for file in filter(lambda x: (not re.match(processed_files_pattern, x)), files):
                 # if file not in files_in_process:
                 files_in_process.add(address + file)
-                os.rename(file, file + "_P")
+                os.rename((address + file), address + file + "_P")
                 # m = Mail(to=[])
                 # mail = m.from_file(address+file)
                 # mx = self.get_mx(mail.domain)[0]
