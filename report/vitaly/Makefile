@@ -11,14 +11,7 @@ $(REPORT_SERVER):
 
 $(REPORT_CLIENT): 	
 	cd $(TEXDIR) && $(PDFLATEX) report-server.tex && $(PDFLATEX) report-server.tex && cp $(REPORT_CLIENT) ..
-# Компилятор
-DOTNET = dotnet
 
-ifeq ($(OS), Windows_NT)     # is Windows_NT on XP, 2000, 7, Vista, 10...
-    detected_OS := win-x64
-else
-    detected_OS := linux-x64
-endif
 
 all : build report-server report-client
 
@@ -45,7 +38,7 @@ report-clean :
 dotnet-clean:
 	$(DOTNET) clean
 
-clean : dotnet-clean report-clean
+clean : report-clean
 	
 
 

@@ -11,7 +11,8 @@
 \subsection{Цели и задачи}
 
 Цель: 
-    Разработать \textbf{SMTP-сервер} с использованием рабочих процессов и select.
+    Разработать \textbf{SMTP-сервер} используя вызов select и рабочие процессы. Журналирование
+    в отдельном процессе.
 
 Задачи:
 \begin{itemize}
@@ -19,6 +20,7 @@
     \item Разработать подход для обработки входящих соединений и хранения входящих писем в maildir
     \item Рассмотреть \textbf{SMTP}-протокол
     \item Реализовать программу для получения писем по протоколу \textbf{SMTP}
+    \item Реализовать метод журналирования в отдельном процессе\textbf{SMTP}
 \end{itemize}
 
 \chapter{Аналитический раздел}
@@ -54,10 +56,10 @@
 Конечный автомат состояний сервера представлен на Рис.~\ref{fig:server_fsm} 
 
 \begin{figure}
-\centering
-\includegraphics[width=\textwidth]{static/server_dot.pdf}
-\caption{Состояния сервера}
-\label{fig:server_fsm}
+	\centering
+	\includegraphics[width=\textwidth]{static/server_dot.png}
+	\caption{Состояния сервера}
+	\label{fig:server_fsm}
 \end{figure}
 
 \subsection{Синтаксис команд протокола}
@@ -68,27 +70,19 @@
 \item \textbf{MAIL}: {\it MAIL FROM <[\textbackslash w]+@[\textbackslash w]+\.[\textbackslash w]+>\/}
 \item \textbf{RCPT}: {\it RCPT <[\textbackslash w]+@[\textbackslash w]+\.[\textbackslash w]+>\/}
 \item \textbf{DATA}: {\it DATA\/}
-\item \textbf{VRFY}: {\it VRFY [w+]+\/}
 \item \textbf{RSET}: {\it RSET\/}
 \item \textbf{QUIT}: {\it QUIT\/}
 \end{enumerate}
 
 \subsection*{Представление данных}
-Ниже приведены диаграммы представления данных в системе - логическая и физическая.
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{static/Server_Class_Diagram.png}
-\caption{Логическая диаграмма сущностей}
-\label{fig:logic_diagram}
-\end{figure}
-
+Ниже приведена диаграмма представления данных в системе
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{static/physical.png}
 \caption{Физическая диаграмма сущностей}
 \label{fig:phys_diagram}
 \end{figure}
+
 
 \subsection{Алгоритм обработки соединений}
 \begin{verbatim}
@@ -103,11 +97,12 @@
            ЕСЛИ действие на одном из слушающих сокетов ТО 
                Принять новое соединение 
                Инициализировать новый сокет 
-               Отправить приветствие 
-               Установить неблокирующий режим для принятого соединения 
+           КОНЕЦ ЕСЛИ 
+           ЕСЛИ действие на одном из клиентских сокетов ТО 
+           		Обработать действие в соответствии с протоколом 
            КОНЕЦ ЕСЛИ 
         КОНЕЦ ДЛЯ 
-        ДЛЯ каждого клиентского сокета 
+        ДЛЯ каждого сокета записи
            ЕСЛИ действие на одном из клиентских сокетов ТО 
               Обработать действие в соответствии с протоколом 
            КОНЕЦ ЕСЛИ 
@@ -136,19 +131,10 @@
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{include/cflow1.png}
-\caption{Граф вызовов, основные функции}
+\includegraphics[width=\textwidth]{static/smtp-course-work14.png}
+\caption{Граф вызовов}
 \label{fig:cflow01}
 \end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{include/cflow2.png}
-\caption{Граф вызовов, функции обработки команд}
-\label{fig:cflow02}
-\end{figure}
-
-Графы созданы с помощью \textit{nDepend}.
 
 \vspace{100mm}
 
@@ -158,54 +144,53 @@
 
 \begin{verbatim}
 
-Server: 504 Command parameter not implemented
-HELO Test: success
-Server: 504 Command parameter not implemented
-EHLO Test: success
-Server: 250 Requested mail action okay, completed
-MAIL Test1: success
-Server: 500 Syntax error, command unrecognized
-MAIL Test2: success
-Server: 500 Syntax error, command unrecognized
-RCPT Test1: success
-Server: 250 Requested mail action okay, completed
-RCPT Test2: success
-Server: 250 Requested mail action okay, completed
-RCPT Test3: success
-Server: 252 Cannot VRFY user, but will accept message and attempt delivery
-VRFY Test: success
-Server: 503 Out of sequence
-DATA Test1: success
-Server: 554 No valid recipients
-DATA Test2: success
-Server: 354 Start mail input; end with .
-250 Requested mail action okay, completed
-DATA Test3: success
-Server: 354 Start mail input; end with .
-500 Syntax error, command unrecognized
-DATA Test4: success
-Server: 250 Requested mail action okay, completed
-RSET Test1: success
-Server: 250 Requested mail action okay, completed
-RSET Test2: success
-Server: 221 myserver.ru Service closing transmission channel
-QUIT Test: success
+Launching pytest with arguments /home/v/programming/c/smtp-course-work in /home/v/programming/c/smtp-course-work
 
-RunTime 00:00:00.14
+============================= test session starts ==============================
+platform linux -- Python 3.7.5, pytest-5.3.2, py-1.8.0, pluggy-0.13.1 -- /home/v/programming/c/smtp-course-work/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/v/programming/c/smtp-course-work
+plugins: cov-2.8.1
+collecting ... collected 13 items
+
+server/tests/test_code.py::test_connection_to_server 
+server/tests/test_code.py::test_send_mail_return 
+server/tests/test_integr.py::test_send_simple_message_smtplib 
+server/tests/test_integr.py::test_send_simple_message_socket 
+server/tests/test_integr.py::test_send_message_two_recepients 
+server/tests/test_maildir.py::test_maildir_duplicate 
+server/tests/test_maildir.py::test_maildir_oversize 
+server/tests/test_re.py::test_hello_pattern 
+server/tests/test_re.py::test_email_pattern 
+server/tests/test_re.py::test_email_patternf 
+server/tests/test_re.py::test_data_end_patternf 
+server/tests/test_re.py::test_data_end_patternf_should_match 
+server/tests/test_sock.py::test_send_simple_message_socket 
+
+============================== 13 passed in 2.50s==============================
 
 \end{verbatim}
 \addcontentsline{toc}{chapter}{Выводы}
 \chapter*{Выводы}
 
-В рамках предложенной работы нами были реализованы два компонента современного SMTP-сервера, взаимодействующих между самой по самописному протоколу в соответствии со стандартами RFC. В ходе работы реализованы следующие задачи: \\
+В рамках предложенной работы нами был реализован SMTP-сервер в соответствии со стандартами RFC. В ходе работы реализованы следующие задачи: \\
 \begin{enumerate}
 	\item Проанализировали архитектурное решение
     \item Разработали подход для обработки входящих соединений и хранения входящих писем в maildir
     \item Рассмотрели \textbf{SMTP}-протокол
     \item Реализовали программу для получения писем по протоколу \textbf{SMTP}
     \item Рассмотрели работу с неблокирующими сокетами и их взаимодействие 
-    \item Разработали системы, работающие в многозадачном режиме, столкнувшись с проблемами взаимодействия процессов, которые были решены в ходе работы
+    \item Реализовали метод журналирования в отдельном процессе\textbf{SMTP}
+    \item Разработали систему работающую в многозадачном режиме
     \item Познакомились с утилитами автоматической сборки и тестирования
+\end{enumerate}
+В ходе работы получены следующие навыки: \\
+\begin{enumerate}
+\item проектирования реализации сетевого протокола по имеющейся спецификации;
+\item реализации сетевых приложений на языке программирования;
+\item реализации сетевой службы без создания нити на каждое соединение;
+\item автоматизированного системного тестирования ПО сетевой службы;
+\item групповой работы с использованием системы контроля версий;
 \end{enumerate}
 
 

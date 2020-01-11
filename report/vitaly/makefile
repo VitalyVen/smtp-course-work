@@ -41,11 +41,7 @@ report-client : $(REPORT_CLIENT)
 report-clean :
 	rm -f -- $(REPORT_SERVER)
 	rm -f -- $(REPORT_CLIENT)
-
-dotnet-clean:
-	$(DOTNET) clean
-
-clean : dotnet-clean report-clean
+clean : report-clean
 	
 
 
