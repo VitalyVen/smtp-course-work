@@ -1,10 +1,10 @@
 import socket
-import threading
-import select
+# import threading
+# import select
 import os
 import re
 import dns.resolver
-from client import Client
+# from client import Client
 # from client.connections_collection import ConnectionsCollection
 from common.mail import Mail
 

@@ -2,8 +2,26 @@ import logging
 import select
 import socket
 import threading
-import client.utils as cu
-from .SMTP_CLIENT_FSM import SmtpClientFsm
+import re
+
+from time import sleep
+from utils import ClientHelper
+
+from client_state import * #GREETING_STATE as GREETING_STATE
+# from client_state import EHLO_WRITE_STATE as EHLO_WRITE_STATE
+# from client_state import MAIL_FROM_WRITE_STATE as MAIL_FROM_WRITE_STATE
+# from client_state import RCPT_TO_WRITE_STATE as RCPT_TO_WRITE_STATE
+# from client_state import DATA_WRITE_STATE as DATA_WRITE_STATE
+# from client_state import DATA_END_WRITE_STATE as DATA_END_WRITE_STATE
+# from client_state import QUIT_WRITE_STATE as QUIT_WRITE_STATE
+# from client_state import EHLO_STATE as EHLO_STATE
+# from client_state import MAIL_FROM_STATE as MAIL_FROM_STATE
+#
+# from client_state import GREETING_pattern as GREETING_pattern
+# from client_state import EHLO_pattern as EHLO_pattern
+# from client_state import EHLO_end_pattern as EHLO_end_pattern
+#
+# from SMTP_CLIENT_FSM import SmtpClientFsm
 from client_socket import ClientSocket
 from common.custom_logger_proc import QueueProcessLogger
 from common.mail import Mail
@@ -46,13 +64,14 @@ class MailClient(object):
             th.start()
         self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
         while blocking:
-            pass
+            # pass
         # each thread finishes when main process will be finished (exit context manager)
         # so we should do nothing with blocking=True or other actions in main thread (:)
-        #     try:
-        #         sleep(0.1)
-        #     except KeyboardInterrupt as e:
-        #         self.__exit__(type(e), e, e.__traceback__)
+            try:
+                # N.B.: можно заменить на
+                sleep(1)
+            except KeyboardInterrupt as e:
+                self.__exit__(type(e), e, e.__traceback__)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         for th in self.threads:
@@ -81,7 +100,7 @@ class WorkingThread(threading.Thread):
         super(WorkingThread, self).__init__(*args, **kwargs)
         self.active = True
         self.mailClientMain = mainClientFromArg
-        self.clientSockets
+        self.clientSockets = []
 
     def handle_from_server_read(self, clientServerConnection: ClientServerConnection):
         '''
@@ -92,21 +111,26 @@ class WorkingThread(threading.Thread):
         try:
             line = clientServerConnection.socket.readline()
         except socket.timeout:
-            self.logger.log(level=logging.WARNING, msg=f'Timeout on client read')
+            self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
             self.sock.close()
             return
-
+        # N.B.: состояние FSM-машины здесь привязано к передаваемому в аргументах сокету(:)
         current_state = clientServerConnection.machine.state
 
-        if current_state == HELO_STATE:
-            HELO_matched = re.search(HELO_pattern, line)
-            if HELO_matched:
-                command = HELO_matched.group(1)
-                domain = HELO_matched.group(2) or "unknown"
-                clientServerConnection.mail.helo_command = command
-                clientServerConnection.mail.domain = domain
-                clientServerConnection.machine.HELO(clientServerConnection.socket, clientServerConnection.socket.address, domain)
+        if current_state == GREETING_STATE:
+            GREETING_matched = re.search(GREETING_pattern, line)
+            if GREETING_matched:
+                clientServerConnection.machine.EHLO(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
                 return
+        elif current_state == EHLO_STATE:
+            EHLO_matched = re.search(EHLO_pattern, line)
+            if EHLO_matched:
+                clientServerConnection.machine.EHLO_again(clientServerConnection.socket)
+                return
+            else:
+                EHLO_end_matched = re.search(EHLO_end_pattern, line)
+                if EHLO_end_matched:
+                    clientServerConnection.machine.MAIL_FROM(clientServerConnection.socket)
         elif current_state == MAIL_FROM_STATE:
             MAIL_FROM_matched = re.search(MAIL_FROM_pattern, line)
             if MAIL_FROM_matched:
@@ -168,10 +192,8 @@ class WorkingThread(threading.Thread):
 
     def handle_to_server_write(self, clientServerConnection: ClientServerConnection):
         current_state = clientServerConnection.machine.state
-        if current_state == GREETING_WRITE_STATE:
-            clientServerConnection.machine.GREETING_write(clientServerConnection.socket)
-        elif current_state == HELO_WRITE_STATE:
-            clientServerConnection.machine.HELO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
+        if current_state == EHLO_WRITE_STATE:
+            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
         elif current_state == MAIL_FROM_WRITE_STATE:
             clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
         elif current_state == RCPT_TO_WRITE_STATE:
@@ -179,25 +201,25 @@ class WorkingThread(threading.Thread):
         elif current_state == DATA_WRITE_STATE:
             clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
         elif current_state == DATA_END_WRITE_STATE:
-            clientServerConnection.machine.DATA_end_write(clientServerConnection.socket, clientServerConnection.mail.file_path)
+            clientServerConnection.machine.QUIT_write(clientServerConnection.socket, clientServerConnection.mail.file_path)
         elif current_state == QUIT_WRITE_STATE:
-            clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
+            clientServerConnection.machine.FINISH(clientServerConnection.socket)
             clientServerConnection.socket.close()
             self.clients.pop(clientServerConnection.socket.connection)
         else:
             pass
             # print(current_state)
-            # clientServerConnection.socket.send(f'500 Unrecognised command TODO\n'.encode())
-            # print('500 Unrecognised command')
+            ## clientServerConnection.socket.send(f'Unrecognised state to write something to a server'.encode())
+            # print('Unrecognised state to write something to a server')
 
     def run(self):
-        clientHelper = cu.ClientHelper()
+        clientHelper = ClientHelper()
         # получение новых писем из папки maildir:
         filesInProcess = clientHelper.maildir_handler()
 
         self.clientSockets = set()
         # открываем количество сокетов, равное количеству сообщений для обработки в папке maildir(:)
-        # TODO:11.01.20: [можно вынести чтение клиентских писем из файловой системы в отдельный поток,
+        # TODO:11.01.20: [N.B.: можно вынести чтение клиентских писем из файловой системы в отдельный поток,
         # тогда понадобится также очередь со списком ещё необработанных filesInProcess, из которой
         # потоки типа WorkingThread будут забирать данные для открытия сокетов,
         # а открывать каждый из них будет не более, допустим, 10, но не менее числа вычитанных mx-записей //
@@ -216,6 +238,7 @@ class WorkingThread(threading.Thread):
 
         try:
             while True:
+                self.clientSockets.clear()
                 rfds, wfds, errfds = select.select(self.clientSockets, self.clientSockets, [], 5)
                 for fds in rfds:
                     self.handle_from_server_read(ClientServerConnection(self.clientSockets[fds]))

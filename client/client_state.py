@@ -26,6 +26,7 @@ RE_EMAIL_OR_EMPTY       = r" ?<(?P<address>.+@.+)>|<>"
 
 GREETING_pattern = re.compile("^220.*")
 EHLO_pattern = re.compile("^250-.*")
+EHLO_end_pattern = re.compile("^250 .*")
 # AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
 MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
 RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
