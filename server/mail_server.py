@@ -184,9 +184,10 @@ class MailServer(object):
 
 
 def mail_start():
-    proc = multiprocessing.Process(target=start)
-    proc.start()
-    return  proc
+    thread = threading.Thread(target=start)
+    thread.demon=True
+    thread.start()
+    return  thread
 
 def start():
     with MailServer(port=SERVER_PORT, logdir=LOG_FILES_DIR) as server:
