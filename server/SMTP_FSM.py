@@ -100,6 +100,7 @@ class SMTP_FSM(object):
 
     def QUIT_write_handler(self, socket:socket.socket):
         socket.send("221 Left conversation\n".encode())
+        socket.close()
 
     def RSET_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg=f"Rsetted \n")
