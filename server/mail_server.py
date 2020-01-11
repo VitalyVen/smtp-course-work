@@ -7,8 +7,9 @@ from client_collection import ClientsCollection
 from client import Client
 from client_socket import ClientSocket
 from state import *
-from common.custom_logger_proc import QueueProcessLogger
 from time import sleep
+from common.custom_logger_proc import QueueProcessLogger
+
 
 class MailServer(object):
     def __init__(self, host='localhost', port=2556, processes=5, logdir='logs'):
@@ -51,7 +52,7 @@ class MailServer(object):
 
         while blocking:
             try:
-                sleep(0.1)
+                sleep(1)
             except KeyboardInterrupt as e:
                 self.__exit__(type(e), e, e.__traceback__)
         
@@ -182,7 +183,7 @@ class WorkingProcess(multiprocessing.Process):
         try:
             while self.active:#for make terminate() work
                 client_sockets = self.server.clients.sockets()
-                rfds, wfds, errfds = select.select([self.server.sock] + client_sockets, client_sockets, [], 1)
+                rfds, wfds, errfds = select.select([self.server.sock] + client_sockets, client_sockets, [], 5)
                 for fds in rfds:
                     if fds is self.server.sock:
                         connection, client_address = fds.accept()
