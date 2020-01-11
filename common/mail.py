@@ -45,19 +45,16 @@ class Mail():
             for target in targets:
                 tmp = target.split('@')
                 user, domain = tmp[0], tmp[1]
-                directory = DEFAULT_USER_DIR
                 if domain == SERVER_DOMAIN:
                     directory = DEFAULT_SUPR_DIR + user + '/maildir/'
-
                     if not os.path.exists(directory):
                         os.makedirs(directory)
                     with open(directory + file_path, 'w') as fs:
                         fs.write(self.mail)
-                else:
-                    if not nonLocalFound:
-                        with open(directory + file_path, 'w') as fs:
-                            fs.write(self.mail)
-                        nonLocalFound = True
+                elif not nonLocalFound:#only one non-local should be saved
+                    with open(DEFAULT_USER_DIR + file_path, 'w') as fs:
+                        fs.write(self.mail)
+                    nonLocalFound = True
             return (250, 'Requested mail action okay completed')
 
     @classmethod
