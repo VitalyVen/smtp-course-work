@@ -36,7 +36,7 @@ class ClientServerConnection():
     So we use value of self.data_start_already_matched=False
     '''
 
-    def __init__(self, socket_of_client_type: ClientSocket, logdir: str ='logs'):
+    def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str ='logs'):
         self.socket = socket_of_client_type
         self.machine = SmtpClientFsm(socket_of_client_type.address, logdir=logdir)
         self.mail = Mail(to=[])
@@ -68,7 +68,7 @@ class MailClient(object):
         # each thread finishes when main process will be finished (exit context manager)
         # so we should do nothing with blocking=True or other actions in main thread (:)
             try:
-                # N.B.: можно заменить на
+                # N.B.: можно заменить на select по файловым дескрипторам:
                 sleep(1)
             except KeyboardInterrupt as e:
                 self.__exit__(type(e), e, e.__traceback__)
@@ -144,7 +144,7 @@ class WorkingThread(threading.Thread):
         if current_state == GREETING_STATE:
             GREETING_matched = re.search(GREETING_pattern, line)
             if GREETING_matched:
-                clientServerConnection.machine.EHLO(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
+                clientServerConnection.machine.EHLO()
                 return
         elif current_state == EHLO_WRITE_STATE:
             clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
@@ -252,7 +252,7 @@ class WorkingThread(threading.Thread):
         # получение новых писем из папки maildir:
         filesInProcess = clientHelper.maildir_handler()
 
-        self.clientSockets = set()
+        self.clientSockets = []
         # открываем количество сокетов, равное количеству сообщений для обработки в папке maildir(:)
         # TODO:11.01.20: [N.B.: можно вынести чтение клиентских писем из файловой системы в отдельный поток,
         # тогда понадобится также очередь со списком ещё необработанных filesInProcess, из которой
@@ -268,7 +268,10 @@ class WorkingThread(threading.Thread):
                 print(mail.domain + ' error')
                 continue
             new_socket = clientHelper.socket_init(host=mx)
-            self.clientSockets.add(new_socket)
+            self.clientSockets.append([])
+            cur_cs_list_index = len(self.clientSockets) - 1
+            self.clientSockets[cur_cs_list_index].append(new_socket)
+            self.clientSockets[cur_cs_list_index].append(mail)
             # self.connections[socket] = Client(socket,'.', m)
 
         try:
@@ -276,9 +279,11 @@ class WorkingThread(threading.Thread):
                 self.clientSockets.clear()
                 rfds, wfds, errfds = select.select(self.clientSockets, self.clientSockets, [], 5)
                 for fds in rfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds]), True)
+                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                  True)
                 for fds in wfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds]), False)
+                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                  False)
         except ValueError:
             pass
 

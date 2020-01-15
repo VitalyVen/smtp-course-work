@@ -88,6 +88,7 @@ class SmtpClientFsm(object):
         # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
         # S: 250 OK  //rcpt_to
         self.init_transition('RCPT_TO_additional'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        # C: DATA  //data_write
         self.init_transition('DATA_start'      , RCPT_TO_STATE, DATA_WRITE_STATE)
         self.init_transition('DATA_start_write'      , DATA_WRITE_STATE, DATA_STATE)
         self.init_transition('DATA_write'      , DATA_STATE, DATA_WRITE_STATE)
