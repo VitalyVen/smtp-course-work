@@ -22,6 +22,8 @@ from transitions.extensions import GraphMachine as gMachine
 # new_socket.sendall(b'quit\r\n')
 # handle_message(new_socket.recv().decode("utf-8"))
 
+      # N.B.: client-server typical SMTP-dialog from RFC-5321, appendix D.1. (:)
+      #
       # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
       # C: EHLO bar.com  //ehlo_write
       # S: 250-foo.com greets bar.com //ehlo
@@ -46,6 +48,14 @@ from transitions.extensions import GraphMachine as gMachine
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
 
+        # GREETING_pattern = re.compile("^220.*")
+        # EHLO_pattern = re.compile("^250-.*")
+        # EHLO_end_pattern = re.compile("^250 .*")
+        # # AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
+        # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
+        # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+        # DATA_pattern = re.compile("^354.*")
+        # QUIT_pattern = re.compile("^250 2\.0\.0 Ok.*")
 
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
@@ -53,13 +63,29 @@ class SmtpClientFsm(object):
         self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
         self.machine = self.init_machine()
 
+        # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
+        # GREETING_pattern = re.compile("^220.*")
         self.init_transition('EHLO'       , GREETING_STATE, EHLO_WRITE_STATE)
+        # C: EHLO bar.com  //ehlo_write
         self.init_transition('EHLO_write'           , EHLO_WRITE_STATE, EHLO_STATE)
+        # EHLO_pattern = re.compile("^250-.*")
+        # S: 250-foo.com greets bar.com //ehlo
+        # S: 250-8BITMIME //ehlo
+        # S: 250-SIZE //ehlo
+        # S: 250-DSN //ehlo
         self.init_transition('EHLO_again'           , EHLO_STATE, EHLO_STATE)
+        # EHLO_end_pattern = re.compile("^250 .*")
+        # S: 250 HELP //ehlo
         self.init_transition('MAIL_FROM', EHLO_STATE, MAIL_FROM_WRITE_STATE)
+        # C: MAIL FROM:<Smith@bar.com>  //mail_from_write
         self.init_transition('MAIL_FROM_write'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
+        # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
+        # S: 250 OK  //mail_from
         self.init_transition('RCPT_TO'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
+        # C: RCPT TO:<Jones@foo.com> //rcpt_to_write
         self.init_transition('RCPT_TO_write'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
+        # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+        # S: 250 OK  //rcpt_to
         self.init_transition('RCPT_TO_additional'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
         self.init_transition('DATA_start'      , RCPT_TO_STATE, DATA_WRITE_STATE)
         self.init_transition('DATA_start_write'      , DATA_WRITE_STATE, DATA_STATE)
