@@ -94,7 +94,15 @@ class MailServer(object):
                 cl.machine.RCPT_TO(cl.socket, mail_to)
                 return
         elif current_state == DATA_STATE:
-            if cl.data_start_already_matched:
+            first_four = line[:4].lower()
+            if first_four=='rcpt':
+                    RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+                    if RCPT_TO_matched:
+                        mail_to = RCPT_TO_matched.group(1)
+                        cl.mail.to.append(mail_to)
+                        cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
+                        return
+            elif '.' in line[-8:] and cl.data_start_already_matched:
                 DATA_end_matched = re.search(DATA_end_pattern, line)
                 if DATA_end_matched:
                     data = DATA_end_matched.group(1)
@@ -103,17 +111,7 @@ class MailServer(object):
                     cl.machine.DATA_end(cl.socket)
                     cl.mail.to_file()
                     cl.data_start_already_matched=False
-                else:# Additional data case
-                    cl.mail.body += line
-                    cl.machine.DATA_additional(cl.socket)
-            else:
-                # check another recepient firstly
-                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
-                if RCPT_TO_matched:
-                    mail_to = RCPT_TO_matched.group(1)
-                    cl.mail.to.append(mail_to)
-                    cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
-                    return
+            elif first_four=='data':
                 # data start secondly
                 DATA_start_matched = re.search(DATA_start_pattern, line)
                 if DATA_start_matched:
@@ -122,22 +120,17 @@ class MailServer(object):
                         cl.mail.body += data
                     cl.machine.DATA_start(cl.socket)
                     cl.data_start_already_matched = True
-                else:
-                    pass#TODO: incorrect command to message to client
-
+            elif cl.data_start_already_matched:  # Additional data case
+                cl.mail.body += line
+                cl.machine.DATA_additional(cl.socket)
+            # else:
+            #     pass#TODO: incorrect command to message to client
             return
-        QUIT_matched = re.search(QUIT_pattern, line)
-        if QUIT_matched:
+        if line.lower()=='quit\r\n':
             cl.machine.QUIT(cl.socket)
             return
-        # Transition possible from any states
-        RSET_matched = re.search(RSET_pattern, line)
-        if RSET_matched:
+        elif line.lower()=='rset\r\n':
             cl.machine.RSET(cl.socket)
-        else:
-            pass
-        # cl.socket.send(f'500 Unrecognised command {line}\n'.encode())
-        # print('500 Unrecognised command')
 
     def handle_client_write(self, cl:Client):
         current_state = cl.machine.state
@@ -183,7 +176,8 @@ class WorkingProcess(multiprocessing.Process):
         try:
             while self.active:#for make terminate() work
                 client_sockets = self.server.clients.sockets()
-                rfds, wfds, errfds = select.select([self.server.sock] + client_sockets, client_sockets, [], 5)
+                # print(len(client_sockets))
+                rfds, wfds, errfds = select.select([self.server.sock] + client_sockets, client_sockets, [], READ_TIMEOUT)
                 for fds in rfds:
                     if fds is self.server.sock:
                         connection, client_address = fds.accept()
