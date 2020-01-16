@@ -147,12 +147,12 @@ class WorkingThread(threading.Thread):
                 clientServerConnection.machine.EHLO()
                 return
         elif current_state == EHLO_WRITE_STATE:
-            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
+            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.mail.domain)
             return
         elif current_state == EHLO_STATE:
             EHLO_matched = re.search(EHLO_pattern, line)
             if EHLO_matched:
-                clientServerConnection.machine.EHLO_again(clientServerConnection.socket)
+                clientServerConnection.machine.EHLO_again()
                 return
             else:
                 EHLO_end_matched = re.search(EHLO_end_pattern, line)

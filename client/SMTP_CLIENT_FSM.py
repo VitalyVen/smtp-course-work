@@ -69,27 +69,28 @@ class SmtpClientFsm(object):
         self.init_transition('EHLO'       , GREETING_STATE, EHLO_WRITE_STATE)
         # C: EHLO bar.com  //ehlo_write
         self.init_transition('EHLO_write'           , EHLO_WRITE_STATE, EHLO_STATE)
-        # EHLO_pattern = re.compile("^250-.*")
         # S: 250-foo.com greets bar.com //ehlo
         # S: 250-8BITMIME //ehlo
         # S: 250-SIZE //ehlo
         # S: 250-DSN //ehlo
+        # EHLO_pattern = re.compile("^250-.*")
         self.init_transition('EHLO_again'           , EHLO_STATE, EHLO_STATE)
-        # EHLO_end_pattern = re.compile("^250 .*")
         # S: 250 HELP //ehlo
+        # EHLO_end_pattern = re.compile("^250 .*")
         self.init_transition('MAIL_FROM', EHLO_STATE, MAIL_FROM_WRITE_STATE)
         # C: MAIL FROM:<Smith@bar.com>  //mail_from_write
         self.init_transition('MAIL_FROM_write'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
-        # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
         # S: 250 OK  //mail_from
+        # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
         self.init_transition('RCPT_TO'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
         # C: RCPT TO:<Jones@foo.com> //rcpt_to_write
         self.init_transition('RCPT_TO_write'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
-        # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
         # S: 250 OK  //rcpt_to
+        # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
         self.init_transition('RCPT_TO_additional'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
         # C: DATA  //data_write
         self.init_transition('DATA_start'      , RCPT_TO_STATE, DATA_WRITE_STATE)
+
         self.init_transition('DATA_start_write'      , DATA_WRITE_STATE, DATA_STATE)
         self.init_transition('DATA_write'      , DATA_STATE, DATA_WRITE_STATE)
         self.init_transition('DATA_additional_write'      , DATA_WRITE_STATE, DATA_WRITE_STATE)
@@ -121,7 +122,7 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
 
     def EHLO_write_handler(self, socket, domain):
-        socket.sendall(f'EHLO {domain}\r\n'.encode())
+        socket.send(f'EHLO {domain}\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message. (domain: {domain})\n")
 
     # def GREETING_write_handler(self, socket):
@@ -133,12 +134,12 @@ class SmtpClientFsm(object):
     # def HELO_handler(self, socket, address, domain):
     #     self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
 
-    def MAIL_FROM_write_handler(self, socket, from_):
-        socket.sendall(f'MAIL FROM:<{from_}>\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. (from: {from_})\n")
-
     def MAIL_FROM_handler(self, socket, email):
         self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
+
+    def MAIL_FROM_write_handler(self, socket, from_):
+        socket.send(f'MAIL FROM:<{from_}>\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. (from: {from_})\n")
 
     #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
     def RCPT_TO_write_handler(self, socket, to):
