@@ -1,10 +1,10 @@
 import socket
-import threading
-import select
+# import threading
+# import select
 import os
 import re
 import dns.resolver
-from client import Client
+# from client import Client
 # from client.connections_collection import ConnectionsCollection
 from common.mail import Mail
 
@@ -65,8 +65,8 @@ class ClientHelper(object):
             # for file in files:
             for file in filter(lambda x: (not re.match(processed_files_pattern, x)), files):
                 # if file not in files_in_process:
-                files_in_process.add(address + file)
-                os.rename(file, file + "_P")
+                os.rename((address + file), address + file + "_P")
+                files_in_process.add(address + file + "_P")
                 # m = Mail(to=[])
                 # mail = m.from_file(address+file)
                 # mx = self.get_mx(mail.domain)[0]

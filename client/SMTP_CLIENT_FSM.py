@@ -2,7 +2,7 @@ import socket
 import logging
 from client_state import *
 from common.custom_logger_proc import QueueProcessLogger
-from transitions import Machine
+# from transitions import Machine
 from transitions.extensions import GraphMachine as gMachine
 
 
@@ -22,6 +22,8 @@ from transitions.extensions import GraphMachine as gMachine
 # new_socket.sendall(b'quit\r\n')
 # handle_message(new_socket.recv().decode("utf-8"))
 
+      # N.B.: client-server typical SMTP-dialog from RFC-5321, appendix D.1. (:)
+      #
       # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
       # C: EHLO bar.com  //ehlo_write
       # S: 250-foo.com greets bar.com //ehlo
@@ -46,6 +48,15 @@ from transitions.extensions import GraphMachine as gMachine
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
 
+GREETING_pattern = re.compile("^220.*")
+EHLO_pattern = re.compile("^250-.*")
+EHLO_end_pattern = re.compile("^250 .*")
+# AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
+MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
+# N.B.: as stated in RFC-5321, in typical SMTP transaction scenario there is no distinguishment between server answers for mail_from and rcpt_to client-requests(:)
+RCPT_TO_pattern = re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+DATA_pattern = re.compile("^354.*")
+QUIT_pattern = re.compile("^250 2\.0\.0 Ok.*")
 
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
@@ -53,31 +64,49 @@ class SmtpClientFsm(object):
         self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
         self.machine = self.init_machine()
 
-        self.init_transition('EHLO_write'       , GREETING_STATE, EHLO_WRITE_STATE)
-        self.init_transition('EHLO'           , EHLO_WRITE_STATE, EHLO_STATE)
-        self.init_transition('MAIL_FROM_write', EHLO_STATE, MAIL_FROM_WRITE_STATE)
-        self.init_transition('MAIL_FROM'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
-        self.init_transition('RCPT_TO_write'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
-        self.init_transition('RCPT_TO'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
-        self.init_transition('RCPT_TO_additional_write'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
-        self.init_transition('DATA_start_write'      , RCPT_TO_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_start'      , DATA_WRITE_STATE, DATA_STATE)
+        # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
+        # GREETING_pattern = re.compile("^220.*")
+        self.init_transition('EHLO'       , GREETING_STATE, EHLO_WRITE_STATE)
+        # C: EHLO bar.com  //ehlo_write
+        self.init_transition('EHLO_write'           , EHLO_WRITE_STATE, EHLO_STATE)
+        # EHLO_pattern = re.compile("^250-.*")
+        # S: 250-foo.com greets bar.com //ehlo
+        # S: 250-8BITMIME //ehlo
+        # S: 250-SIZE //ehlo
+        # S: 250-DSN //ehlo
+        self.init_transition('EHLO_again'           , EHLO_STATE, EHLO_STATE)
+        # EHLO_end_pattern = re.compile("^250 .*")
+        # S: 250 HELP //ehlo
+        self.init_transition('MAIL_FROM', EHLO_STATE, MAIL_FROM_WRITE_STATE)
+        # C: MAIL FROM:<Smith@bar.com>  //mail_from_write
+        self.init_transition('MAIL_FROM_write'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
+        # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
+        # S: 250 OK  //mail_from
+        self.init_transition('RCPT_TO'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
+        # C: RCPT TO:<Jones@foo.com> //rcpt_to_write
+        self.init_transition('RCPT_TO_write'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
+        # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+        # S: 250 OK  //rcpt_to
+        self.init_transition('RCPT_TO_additional'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        # C: DATA  //data_write
+        self.init_transition('DATA_start'      , RCPT_TO_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_start_write'      , DATA_WRITE_STATE, DATA_STATE)
         self.init_transition('DATA_write'      , DATA_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_write_additional'      , DATA_WRITE_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_end_write'      , DATA_WRITE_STATE, DATA_END_WRITE_STATE)
-        self.init_transition('QUIT'      , DATA_END_WRITE_STATE, QUIT_STATE)
-        self.init_transition('QUIT_write'      , QUIT_STATE, QUIT_WRITE_STATE)
+        self.init_transition('DATA_additional_write'      , DATA_WRITE_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_end'      , DATA_WRITE_STATE, DATA_END_WRITE_STATE)
+        self.init_transition('QUIT_write'      , DATA_END_WRITE_STATE, QUIT_STATE)
+        self.init_transition('QUIT'      , QUIT_STATE, QUIT_WRITE_STATE)
         self.init_transition('FINISH'      , QUIT_WRITE_STATE, FINISH_STATE)
 
         # self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
         # self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
         # self.init_transition('ANOTHER_recepient', DATA_END_WRITE_STATE, MAIL_FROM_STATE)
-    
+
     def init_machine(self):
         return gMachine(
             model=self,
             states=states,
-            initial=GREETING_WRITE_STATE
+            initial=GREETING_STATE
         )
 
     def init_transition(self, trigger, source, destination):
@@ -88,56 +117,61 @@ class SmtpClientFsm(object):
             dest=destination
         )
 
-    def GREETING_handler(self, socket):
+    def EHLO_handler(self):
         self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
 
-    def GREETING_write_handler(self, socket):
-        socket.send("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
+    def EHLO_write_handler(self, socket, domain):
+        socket.sendall(f'EHLO {domain}\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message. (domain: {domain})\n")
 
-    def HELO_handler(self, socket, address, domain):
-        self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
+    # def GREETING_write_handler(self, socket):
+    #     socket.send("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
 
-    def HELO_write_handler(self, socket, address, domain):
-        socket.send("250 {} OK \n".format(domain).encode())
+    def EHLO_again_handler(self):
+        self.logger.log(level=logging.DEBUG, msg="Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.\n")
+
+    # def HELO_handler(self, socket, address, domain):
+    #     self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
+
+    def MAIL_FROM_write_handler(self, socket, from_):
+        socket.sendall(f'MAIL FROM:<{from_}>\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. (from: {from_})\n")
 
     def MAIL_FROM_handler(self, socket, email):
-        self.logger.log(level=logging.DEBUG, msg="f: {} mail from".format(email))
+        self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
 
-    def MAIL_FROM_write_handler(self, socket, email):
-        socket.send("250 2.1.0 Ok \n".encode())
+    #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
+    def RCPT_TO_write_handler(self, socket, to):
+        socket.sendall(f'RCPT TO:<{to}>\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to})\n")
 
-    def RCPT_TO_handler(self, socket, email):
-        self.logger.log(level=logging.DEBUG, msg="f: {} mail to".format(email))
-        
-    def RCPT_TO_write_handler(self, socket, email):
-        socket.send("250 2.1.5 Ok \n".encode())
+    def RCPT_TO_handler(self):
+        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
+
+    def DATA_start_write_handler(self, socket):
+        socket.sendall('DATA\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA message.\n")
 
     def DATA_start_handler(self, socket):
-        self.logger.log(level=logging.DEBUG, msg="Data started")
-    
-    def DATA_start_write_handler(self, socket):
-        socket.send("354 Send message content; end with <CRLF>.<CRLF>\n".encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA message.\n")
 
-    def DATA_additional_handler(self, socket):
-        self.logger.log(level=logging.DEBUG, msg="Additional data")
+    # TODO: 15.01.2020: wrap to cycle in main handler to send all strings
+    def DATA_additional_handler(self, socket, string):
+        socket.sendall(f'{string}\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA string.\n")
+
+    def DATA_end_write_handler(self):
+        socket.sendall('.\r\n'.encode())
 
     def DATA_end_handler(self, socket):
-        self.logger.log(level=logging.DEBUG, msg="Data end")
-    
-    def DATA_end_write_handler(self, socket, filename):
-        socket.send(f"250 Ok: queued as {filename}\n".encode())
-
-    def QUIT_handler(self, socket:socket.socket):
-        self.logger.log(level=logging.DEBUG, msg='Disconnecting..\n')
+        self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
 
     def QUIT_write_handler(self, socket:socket.socket):
-        socket.send("221 Left conversation\n".encode())
+        socket.sendall('QUIT\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent QUIT message.\n")
+
+    def QUIT_handler(self, socket:socket.socket):
+        self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
         socket.close()
-
-    def RSET_handler(self, socket):
-        self.logger.log(level=logging.DEBUG, msg=f"Rsetted \n")
-
-    def RSET_write_handler(self, socket):
-        socket.send(f"250 OK \n".encode())
 
 
