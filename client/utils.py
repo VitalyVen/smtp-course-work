@@ -32,7 +32,7 @@ class ClientHelper(object):
 
         # b = self.sock.sendall(f'ehlo {host}\r\n'.encode()) #?
 
-        return socket
+        return sock
 
     # def serve(self, blocking=True):
     #     for i in range(self.threads_cnt):

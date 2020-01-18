@@ -8,6 +8,7 @@ import multiprocessing
 from time import sleep
 
 from SMTP_CLIENT_FSM import *
+from clientServerConnection import ClientServerConnection
 from utils import ClientHelper
 
 from client_state import * #GREETING_STATE as GREETING_STATE
@@ -31,24 +32,6 @@ from common.custom_logger_proc import QueueProcessLogger
 from common.mail import Mail
 
 mailDirGlobalQueue = multiprocessing.Queue()
-
-class ClientServerConnection():
-    # соединение с сервером с точки зрения клиента:
-    # представлено клиентским сокетом, открытым на сервере для данного клиента и
-    # машиной состояний клиента при общении с сервером (:)
-
-    def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str = 'logs'):
-        self.socket = socket_of_client_type
-        self.machine = SmtpClientFsm(socket_of_client_type.address, logdir=logdir)
-        self.mail = mail  # Mail(to=[])
-        '''
-        There are two states for data: 
-        1 - we wait start data command "DATA", 
-        2 - data end command "." or additional data.
-        So we use value of self.data_start_already_matched=False
-        '''
-        self.data_start_already_matched = False
-        self.receipientsLeft = len(mail.to)
 
 class MailClient(object):
     def __init__(self, logdir ='logs', threads=5):
@@ -110,7 +93,8 @@ class WorkingThread(threading.Thread):
         super(WorkingThread, self).__init__(*args, **kwargs)
         self.active = True
         self.mailClientMain = mainClientFromArg
-        self.clientSockets = []
+        # self.clientSockets = []
+        self.clientServerConnectionList = []
 
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
         '''
@@ -255,31 +239,86 @@ class WorkingThread(threading.Thread):
                 print(mail.domain + ' error')
                 continue
             new_socket = clientHelper.socket_init(host=mx)
-            self.clientSockets.append([])
-            cur_cs_list_index = len(self.clientSockets) - 1
-            self.clientSockets[cur_cs_list_index].append(new_socket)
-            self.clientSockets[cur_cs_list_index].append(mail)
-            # self.connections[socket] = Client(socket,'.', m)
+
+            # client = ClientServerConnection(socket_of_client_type=ClientSocket(new_socket, new_socket.getsockname()), mail=mail) #logdir (!!!)
+            ## serv.clients[connection] = client
+
+            ## self.clientSockets.append([])
+            ## cur_cs_list_index = len(self.clientSockets) - 1
+            ## self.clientSockets[cur_cs_list_index].append(new_socket)
+            ## self.clientSockets[cur_cs_list_index].append(mail)
+
+            # self.clientSockets.append(new_socket)
+
+            ## self.connections[socket] = Client(socket,'.', m)
+            ## return self.clientSockets
+
+            self.clientServerConnectionList = ClientServerConnection(socket_of_client_type=new_socket, mail=mail)
 
     def run(self):
         while True:
             try:
                 # self.clientSockets.clear()
                 self.checkMaildirAndCreateNewSocket()
-                list_of_sockets = [x for [x, y] in self.clientSockets]
+                list_of_sockets = []
+                for clientServerConnection in self.clientServerConnectionList:
+                  list_of_sockets.append(clientServerConnection.socket) #= [x for [x, y] in self.clientSockets]
+
+
                 rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
                 for fds in rfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket == fds, self.clientServerConnectionList)).fds,
+                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                   True)
                 for fds in wfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket == fds, self.clientServerConnectionList)).fds,
+                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                   False)
             except ValueError:
                 pass
+            #
+            # try:
+            #     _EVENT_READ = select.POLLIN
+            #     _EVENT_WRITE = select.POLLOUT
+            #     pollerSockets = select.poll()
+            #
+            #     while True:  # for make terminate() work
+            #         fdVsEventRead = pollerSockets.poll(3)
+            #         list_sockets=self.checkMaildirAndCreateNewSocket()
+            #         for sock in list_sockets:
+            #             pollerSockets.register(sock, select.POLLIN)
+            #
+            #         for descriptor, Event in fdVsEventRead:
+            #             if Event == _EVENT_READ:
+            #                     socketFromDescriptor = serv.clients.socket(descriptor)
+            #                     data = serv.clients.data
+            #                     poll_change_read_write(pollerSockets, socketFromDescriptor, read=True)
+            #
+            #
+            #             if Event == _EVENT_WRITE:
+            #                 socketFromDescriptor = serv.clients.socket(descriptor)
+            #                 data = serv.clients.data
+            #
+            #                 serv.handle_client_write(serv.clients[socketFromDescriptor])
+            #                 poll_change_read_write(pollerSockets, socketFromDescriptor, read=True)
+            #
+            #
+            # except (KeyboardInterrupt, ValueError, socket.timeout) as e:
+            #     print(e)
 
     def terminate(self) -> None:
         self.active = False
 
+    # def poll_change_read_write(self.poll,self.sock, self.read=False, self.write=False):
+    #     if not read and not write:
+    #         raise RuntimeError("poll error")
+    #     mask = 0
+    #     if read:
+    #         mask |= select.POLLIN
+    #     if write:
+    #         mask |= select.POLLOUT
+    #
+    #     poll.register(sock, mask)
 
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
