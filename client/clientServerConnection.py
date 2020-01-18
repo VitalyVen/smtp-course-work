@@ -9,7 +9,7 @@ class ClientServerConnection():
 
     def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str = 'logs'):
         self.socket = socket_of_client_type
-        self.machine = SmtpClientFsm(socket_of_client_type.address, logdir=logdir)
+        self.machine = SmtpClientFsm(socket_of_client_type.address(), logdir=logdir)
         self.mail = mail  # Mail(to=[])
         '''
         There are two states for data: 

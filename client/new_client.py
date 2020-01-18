@@ -87,7 +87,7 @@ class MailClient(object):
 #         pass
 
 
-class WorkingThread(threading.Thread):
+class WorkingThread(): #WorkingThread(threading.Thread):
 
     def __init__(self, mainClientFromArg: MailClient, *args, **kwargs):
         super(WorkingThread, self).__init__(*args, **kwargs)
@@ -252,12 +252,12 @@ class WorkingThread(threading.Thread):
 
             ## self.connections[socket] = Client(socket,'.', m)
             ## return self.clientSockets
-
-            self.clientServerConnectionList.append(ClientServerConnection(socket_of_client_type=new_socket, mail=mail))
+            new_client_server_connection = ClientServerConnection(socket_of_client_type=new_socket, mail=mail)
+            self.clientServerConnectionList.append(new_client_server_connection)
 
     def run(self):
         while True:
-            try:
+            # try:
                 # self.clientSockets.clear()
                 self.checkMaildirAndCreateNewSocket()
                 list_of_sockets = []
@@ -274,9 +274,10 @@ class WorkingThread(threading.Thread):
                     self.handle_talk_to_server_RW(next(filter(lambda x: x.socket == fds, self.clientServerConnectionList)).fds,
                                                   # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                   False)
-            except ValueError:
-                pass
-            #
+            # except ValueError:
+            #     pass
+
+
             # try:
             #     _EVENT_READ = select.POLLIN
             #     _EVENT_WRITE = select.POLLOUT
@@ -322,22 +323,28 @@ class WorkingThread(threading.Thread):
 
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
-        th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
-        # kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
-        th.daemon = True
-        th.name = 'Working Thread {}'
-        th.start()
+        # th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
+        # ## kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
+        # th.daemon = True
+        # th.name = 'Working Thread {}'
+        # th.start()
+        # while True:
+        #     ## clientHelper = ClientHelper()
+        #     ## # получение новых писем из папки maildir:
+        #     ## filesInProcess_fromMain = clientHelper.maildir_handler()
+        #     ## mailDirGlobalQueue.put(filesInProcess_fromMain)
+        #     ## # mainMailClient.sendMailInAThread()
+        #     try:
+        #         sleep(0.1)
+        #     except KeyboardInterrupt as e:
+        #         mainMailClient.__exit__(type(e), e, e.__traceback__)
+
+        fakeThread = WorkingThread(mainClientFromArg=mainMailClient)
         while True:
-            # clientHelper = ClientHelper()
-            # # получение новых писем из папки maildir:
-            # filesInProcess_fromMain = clientHelper.maildir_handler()
-            # mailDirGlobalQueue.put(filesInProcess_fromMain)
-            # # mainMailClient.sendMailInAThread()
             try:
-                sleep(0.1)
+                fakeThread.run()
             except KeyboardInterrupt as e:
                 mainMailClient.__exit__(type(e), e, e.__traceback__)
-
 
     #  with MailServer() as client:
     #     soc = []
