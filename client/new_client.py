@@ -227,6 +227,7 @@ class WorkingThread(threading.Thread):
             #     return
         elif current_state == FINISH_STATE:
             clientServerConnection.socket.close()
+            # t_d_: pop out socket from clientSockets set
             return
         else:
             # pass
@@ -235,37 +236,44 @@ class WorkingThread(threading.Thread):
             print('500 Unrecognised command')
 
 
+    def checkMaildirAndCreateNewSocket(self):
+        #  получение новых писем из папки maildir:
+        # filesInProcess = mailDirGlobalQueue.get()
+
+        # способ без очереди
+        clientHelper = ClientHelper()
+        # получение новых писем из папки maildir:
+        filesInProcess_fromMain = clientHelper.maildir_handler()
+
+        self.clientSockets = []
+        for file in filesInProcess_fromMain:  # filesInProcess:
+            # clientHelper.socket_init(file_.mx_host, file_.mx_port)
+            m = Mail(to=[])
+            mail = m.from_file(file)
+            mx = clientHelper.get_mx(mail.domain)[0]
+            if mx == '-1':
+                print(mail.domain + ' error')
+                continue
+            new_socket = clientHelper.socket_init(host=mx)
+            self.clientSockets.append([])
+            cur_cs_list_index = len(self.clientSockets) - 1
+            self.clientSockets[cur_cs_list_index].append(new_socket)
+            self.clientSockets[cur_cs_list_index].append(mail)
+            # self.connections[socket] = Client(socket,'.', m)
+
     def run(self):
         while True:
-            #  получение новых писем из папки maildir:
-            filesInProcess = mailDirGlobalQueue.get()
-
-            self.clientSockets = []
-            for file in filesInProcess:
-                # clientHelper.socket_init(file_.mx_host, file_.mx_port)
-                m = Mail(to=[])
-                mail = m.from_file(file)
-                mx = clientHelper.get_mx(mail.domain)[0]
-                if mx == '-1':
-                    print(mail.domain + ' error')
-                    continue
-                new_socket = clientHelper.socket_init(host=mx)
-                self.clientSockets.append([])
-                cur_cs_list_index = len(self.clientSockets) - 1
-                self.clientSockets[cur_cs_list_index].append(new_socket)
-                self.clientSockets[cur_cs_list_index].append(mail)
-                # self.connections[socket] = Client(socket,'.', m)
-
             try:
-                while True:
-                    self.clientSockets.clear()
-                    rfds, wfds, errfds = select.select(self.clientSockets, self.clientSockets, [], 5)
-                    for fds in rfds:
-                        self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                      True)
-                    for fds in wfds:
-                        self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                      False)
+                # self.clientSockets.clear()
+                self.checkMaildirAndCreateNewSocket()
+                list_of_sockets = [x for [x, y] in self.clientSockets]
+                rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
+                for fds in rfds:
+                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                  True)
+                for fds in wfds:
+                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                  False)
             except ValueError:
                 pass
 
@@ -281,11 +289,15 @@ if __name__ == '__main__':
         th.name = 'Working Thread {}'
         th.start()
         while True:
-            clientHelper = ClientHelper()
-            # получение новых писем из папки maildir:
-            filesInProcess_fromMain = clientHelper.maildir_handler()
-            mailDirGlobalQueue.put(filesInProcess_fromMain)
-            # mainMailClient.sendMailInAThread()
+            # clientHelper = ClientHelper()
+            # # получение новых писем из папки maildir:
+            # filesInProcess_fromMain = clientHelper.maildir_handler()
+            # mailDirGlobalQueue.put(filesInProcess_fromMain)
+            # # mainMailClient.sendMailInAThread()
+            try:
+                sleep(0.1)
+            except KeyboardInterrupt as e:
+                mainMailClient.__exit__(type(e), e, e.__traceback__)
 
 
     #  with MailServer() as client:
