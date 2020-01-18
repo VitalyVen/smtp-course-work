@@ -2,6 +2,7 @@ import socket
 import multiprocessing
 import logging
 import select
+import sys
 import threading
 
 from common.logger_threads import CustomLogHandler
@@ -175,12 +176,14 @@ class MailServer(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
-
+        self.logger.info('grateful close')
+        print('grateful close' )
+        sys.exit()
         # for p in self.processes:
         #     p.join(timeout=2)
         # self.logger.terminate()
         # self.logger.join(timeout=2)
-        self.clients.__exit__(exc_type, exc_val, exc_tb)
+        # self.clients.__exit__(exc_type, exc_val, exc_tb)
 
 def run(serv:MailServer):
     try:
