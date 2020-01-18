@@ -3,8 +3,11 @@ import select
 import socket
 import threading
 import re
-
+import queue
+import multiprocessing
 from time import sleep
+
+from SMTP_CLIENT_FSM import *
 from utils import ClientHelper
 
 from client_state import * #GREETING_STATE as GREETING_STATE
@@ -27,7 +30,7 @@ from client_socket import ClientSocket
 from common.custom_logger_proc import QueueProcessLogger
 from common.mail import Mail
 
-mailDirGlobalQueue = Queue()
+mailDirGlobalQueue = multiprocessing.Queue()
 
 class ClientServerConnection():
     # соединение с сервером с точки зрения клиента:
@@ -58,7 +61,7 @@ class MailClient(object):
         return self
 
     def getMailFromMailDir(self):
-
+        pass
 
     def sendMailInAThread(self, blocking=True):
         # это главный метод класса, в нём реализована многопоточность
@@ -203,9 +206,6 @@ class WorkingThread(threading.Thread):
         elif current_state == DATA_END_WRITE_STATE:
             clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
             return
-        elif current_state == DATA_END_WRITE_STATE_:
-            clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
-            return
         elif current_state == DATA_END_STATE:
             DATA_END_matched = re.search(DATA_END_pattern, line)
             if DATA_END_matched:
@@ -275,10 +275,10 @@ class WorkingThread(threading.Thread):
 
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
-        th = WorkingThread(self)
+        th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
         # kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
         th.daemon = True
-        th.name = 'Working Thread {}'.format(i)
+        th.name = 'Working Thread {}'
         th.start()
         while True:
             clientHelper = ClientHelper()

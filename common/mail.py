@@ -3,7 +3,7 @@ import re
 import uuid
 from dataclasses import dataclass
 
-from server_config import DEFAULT_USER_DIR, SERVER_DOMAIN, DEFAULT_SUPR_DIR, MAX_RECIPIENTS
+from server_config import DEFAULT_USER_DIR, SERVER_DOMAIN, DEFAULT_SUPR_DIR#, MAX_RECIPIENTS
 from state import RE_EMAIL_ADDRESS
 from server.state import domain_pattern
 
