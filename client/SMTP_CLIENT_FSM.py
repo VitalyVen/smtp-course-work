@@ -49,14 +49,14 @@ from transitions.extensions import GraphMachine as gMachine
       # S: 221 foo.com Service closing transmission channel //finish
 
 GREETING_pattern = re.compile("^220.*")
-HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
+# HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
 EHLO_pattern = re.compile("^250-.*")
 EHLO_end_pattern = re.compile("^250 .*")
 # AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
-MAIL_FROM_pattern = re.compile("^250 OK.*") #  re.compile("^250 2\.1\.0 <.*> ok.*")
+MAIL_FROM_pattern = re.compile("^250.*") #  re.compile("^250 2\.1\.0 <.*> ok.*")
 # N.B.: as stated in RFC-5321, in typical SMTP transaction scenario there is no distinguishment between server answers for mail_from and rcpt_to client-requests(:)
-RCPT_TO_pattern = re.compile("^250 OK.*")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
-RCPT_TO_WRONG_pattern = re.compile("^550 .*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+RCPT_TO_pattern = re.compile("^250.*")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+RCPT_TO_WRONG_pattern = re.compile("^550.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
 DATA_pattern = re.compile("^354.*")
 QUIT_pattern = re.compile("^250 2\.0\.0 Ok.*")
 
@@ -89,13 +89,17 @@ class SmtpClientFsm(object):
         self.init_transition('RCPT_TO_write', RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
         # S: 250 OK  //rcpt_to  //OR(:)// # S: 550 No such user here //rcpt_to
         # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
-        self.init_transition('RCPT_TO_additional', RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        # [N.B.: goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)](:)
+        self.init_transition('RCPT_TO_additional', RCPT_TO_STATE, RCPT_TO_WRITE_STATE)
         ### C: DATA  //data_write
-        self.init_transition('DATA_start', RCPT_TO_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_start', RCPT_TO_STATE, DATA_STRING_WRITE_STATE)
         # C: DATA  //data_write
-        self.init_transition('DATA_start_write', DATA_WRITE_STATE, DATA_STATE)
-        self.init_transition('DATA_write', DATA_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_additional_write', DATA_WRITE_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_start_write', DATA_STRING_WRITE_STATE, DATA_STATE)
+        # S: 354 Start mail input; end with <CRLF>.<CRLF>  //data
+        # DATA_pattern = re.compile("^354.*")
+        self.init_transition('DATA', DATA_STATE, DATA_WRITE_STATE)
+        # C: Blah blah blah...  //data_write
+        self.init_transition('DATA_write', DATA_WRITE_STATE, DATA_WRITE_STATE)
         self.init_transition('DATA_end', DATA_WRITE_STATE, DATA_END_WRITE_STATE)
         self.init_transition('QUIT_write', DATA_END_WRITE_STATE, QUIT_STATE)
         self.init_transition('QUIT', QUIT_STATE, QUIT_WRITE_STATE)
@@ -146,9 +150,8 @@ class SmtpClientFsm(object):
     def RCPT_TO_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
 
-    #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
     def RCPT_TO_write_handler(self, socket, to_entry):
-        socket.sendall(f'RCPT {to_entry}\r\n'.encode())
+        socket.send(f'RCPT {to_entry}\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to_entry})\n")
 
     def RCPT_TO_additional_handler(self, isWrongFlag):
@@ -158,22 +161,26 @@ class SmtpClientFsm(object):
             server_message = "OK"
         self.logger.log(level=logging.DEBUG, msg=f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
 
+    def DATA_start_handler(self):
+        self.logger.log(level=logging.DEBUG, msg=f"Socket is ready to transfer data.\n")
+
     def DATA_start_write_handler(self, socket):
-        socket.sendall('DATA\r\n'.encode())
+        socket.send('DATA\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA message.\n")
 
-    def DATA_start_handler(self, socket):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA message.\n")
+    def DATA_handler(self):
+        self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
 
-    # TODO: 15.01.2020: wrap to cycle in main handler to send all strings
-    def DATA_additional_handler(self, socket, string):
-        socket.sendall(f'{string}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA string.\n")
+    # TODO: 15.01.2020: wrap to cycle in main handler to send all strings at once
+    def DATA_write_handler(self, socket, string):
+        socket.send(f'{string}\r\n'.encode())
+        # socket.sendall(allStrings.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent a string of DATA.\n")
 
     def DATA_end_write_handler(self):
         socket.sendall('.\r\n'.encode())
 
-    def DATA_end_handler(self, socket):
+    def DATA_end_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
 
     def QUIT_write_handler(self, socket:socket.socket):
@@ -184,4 +191,6 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
         socket.close()
 
+    # def ERROR__(self):
+    #     self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")
 

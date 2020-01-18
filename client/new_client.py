@@ -11,6 +11,7 @@ from client_state import * #GREETING_STATE as GREETING_STATE
 # from client_state import EHLO_WRITE_STATE as EHLO_WRITE_STATE
 # from client_state import MAIL_FROM_WRITE_STATE as MAIL_FROM_WRITE_STATE
 # from client_state import RCPT_TO_WRITE_STATE as RCPT_TO_WRITE_STATE
+# from client_state import DATA_STRING_WRITE_STATE as DATA_STRING_WRITE_STATE
 # from client_state import DATA_WRITE_STATE as DATA_WRITE_STATE
 # from client_state import DATA_END_WRITE_STATE as DATA_END_WRITE_STATE
 # from client_state import QUIT_WRITE_STATE as QUIT_WRITE_STATE
@@ -153,6 +154,9 @@ class WorkingThread(threading.Thread):
             if GREETING_matched:
                 clientServerConnection.machine.EHLO()
                 return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
         elif current_state == EHLO_WRITE_STATE:
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command)
             if not HELO_matched:
@@ -169,6 +173,9 @@ class WorkingThread(threading.Thread):
                 if EHLO_end_matched:
                     clientServerConnection.machine.MAIL_FROM()
                     return
+                # else:
+                #     clientServerConnection.machine.ERROR__()
+                #     return
         elif current_state == MAIL_FROM_WRITE_STATE:
             clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
             return
@@ -177,13 +184,15 @@ class WorkingThread(threading.Thread):
             if MAIL_FROM_matched:
                 clientServerConnection.machine.RCPT_TO()
                 return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
         elif current_state == RCPT_TO_WRITE_STATE:
             indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
             clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
                                                          clientServerConnection.mail.to.index(indexOfCurrentReceipient))
             clientServerConnection.receipientsLeft -= 1
             return
-        # TODO:15.01.20: get this method done, at last)):
         elif current_state == RCPT_TO_STATE:
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
@@ -193,7 +202,27 @@ class WorkingThread(threading.Thread):
             elif RCPT_TO_WRONG_matched:
                 clientServerConnection.machine.RCPT_TO_additional(True)
                 return
+            elif clientServerConnection.receipientsLeft == 0:
+                clientServerConnection.machine.DATA_start()
+                return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
+        elif current_state == DATA_STRING_WRITE_STATE:
+            clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
+            return
         elif current_state == DATA_STATE:
+            DATA_matched = re.search(DATA_pattern, line)
+            if DATA_matched:
+                clientServerConnection.machine.DATA()
+                return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
+        elif current_state == DATA_WRITE_STATE:
+            clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
+            return
+        #elif current_state == DATA_WRITE_STATE:
             if clientServerConnection.data_start_already_matched:
                 DATA_end_matched = re.search(DATA_end_pattern, line)
                 if DATA_end_matched:
@@ -226,6 +255,8 @@ class WorkingThread(threading.Thread):
                     pass  # TODO: incorrect command to message to client
 
             return
+
+
         QUIT_matched = re.search(QUIT_pattern, line)
         if QUIT_matched:
             clientServerConnection.machine.QUIT(clientServerConnection.socket)
@@ -235,9 +266,10 @@ class WorkingThread(threading.Thread):
         if RSET_matched:
             clientServerConnection.machine.RSET(clientServerConnection.socket)
         else:
-            pass
-        # clientServerConnection.socket.send(f'500 Unrecognised command {line}\n'.encode())
-        # print('500 Unrecognised command')
+            # pass
+            print(current_state)
+            clientServerConnection.socket.send(f'500 Unrecognised command {line}\n'.encode())
+            print('500 Unrecognised command')
 
     # def handle_to_server_write(self, clientServerConnection: ClientServerConnection):
     #     current_state = clientServerConnection.machine.state
