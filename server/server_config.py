@@ -1,5 +1,5 @@
 import os
-SERVER_DOMAIN = 'superserver.local'
+SERVER_DOMAIN = 'kostya.local'
 SERVER_PORT   = 2556
 READ_TIMEOUT  = 10
 WRITE_TIMEOUT=10

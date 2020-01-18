@@ -176,8 +176,8 @@ class MailServer(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.sock.close()
-        self.logger.info('grateful close')
-        print('grateful close' )
+        self.logger.info('gracefull close')
+        print('gracefull close')
         sys.exit()
         # for p in self.processes:
         #     p.join(timeout=2)
