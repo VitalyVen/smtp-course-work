@@ -172,8 +172,12 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
 
     # TODO: 15.01.2020: wrap to cycle in main handler to send all strings at once
-    def DATA_write_handler(self, socket, string):
-        socket.send(f'{string}\r\n'.encode())
+    def DATA_write_handler(self, socket, string_to_send):
+        BUFF_SIZE_BYTES = 4096
+        # socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, BUFF_SIZE_BYTES)
+        chunks = [string[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
+        for cunk in chunks:
+            socket.send(f'{cunk}'.encode())
         # socket.sendall(allStrings.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent a string of DATA.\n")
 

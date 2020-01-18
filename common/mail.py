@@ -62,8 +62,9 @@ class Mail():
         with open(filepath, 'r') as f:
             helo_string = f.readline()
             from_ = f.readline()
+            to_list = []
             to = f.readline()           # TODO: multiple recipients (client)
-
+            to_list.append(to)
             domain_matched = re.search(domain_pattern, to)
             if domain_matched:
                 domain = domain_matched.group(1) or "unknown"
@@ -73,4 +74,4 @@ class Mail():
             f.readline()
             body = f.readlines()
 
-        return cls(helo_command=helo_string, from_=from_, to=to, body=body, domain=domain)
+        return cls(helo_command=helo_string, from_=from_, to=to_list, body=body, domain=domain)
