@@ -114,6 +114,14 @@ class MailServer(object):
                 else:# Additional data case
                     cl.mail.body += line
                     cl.machine.DATA_additional(cl.socket)
+        elif     current_state==DATA_START_STATE:
+            DATA_start_matched = re.search(DATA_start_pattern, line)
+            if DATA_start_matched:
+                data = DATA_start_matched.group(1)
+                if data:
+                    cl.mail.body += data
+                cl.machine.DATA_start(cl.socket)
+                cl.data_start_already_matched = True
             else:
                 # check another recepient firstly
                 RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
@@ -123,13 +131,7 @@ class MailServer(object):
                     cl.machine.ANOTHER_RECEPIENT(cl.socket, mail_to)
                     return
                 # data start secondly
-                DATA_start_matched = re.search(DATA_start_pattern, line)
-                if DATA_start_matched:
-                    data = DATA_start_matched.group(1)
-                    if data:
-                        cl.mail.body += data
-                    cl.machine.DATA_start(cl.socket)
-                    cl.data_start_already_matched = True
+
                 else:
                     pass#TODO: incorrect command to message to client
 
@@ -205,10 +207,13 @@ def run(serv:MailServer):
                     else:
                         socketFromDescriptor = serv.clients.socket(descriptor)
                         data = serv.clients.data
-                        if data[socketFromDescriptor].machine.state==DATA_END_WRITE_STATE:
+                        if data[socketFromDescriptor].machine.state==DATA_STATE:
 
                             serv.handle_client_read(serv.clients[socketFromDescriptor])
                             poll_wait_for_socket(pollerSockets, socketFromDescriptor, read=True)
+                            if data[socketFromDescriptor].machine.state == DATA_END_WRITE_STATE:
+                                poll_wait_for_socket(pollerSockets, socketFromDescriptor, write=True)
+
                         else:
                             serv.handle_client_read(serv.clients[socketFromDescriptor])
                             poll_wait_for_socket(pollerSockets, socketFromDescriptor,write= True)
