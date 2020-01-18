@@ -11,7 +11,7 @@ MAIL_FROM_WRITE_STATE   = 'mail_from_write'
 
 RCPT_TO_STATE           = 'rcpt_to'
 RCPT_TO_WRITE_STATE     = 'rcpt_to_write'
-
+DATA_START_STATE        = 'data_start'
 DATA_STATE              = 'data'            # For reading start date message and all next, except last
                                             # Note we should't reply to on all additional data messages
 DATA_WRITE_STATE        = 'data_write'
@@ -45,12 +45,13 @@ states = [
 
     RCPT_TO_STATE,
     RCPT_TO_WRITE_STATE,
-
+    DATA_START_STATE,
     DATA_STATE,
     DATA_WRITE_STATE,
     DATA_END_WRITE_STATE,
 
     QUIT_STATE,
     QUIT_WRITE_STATE,
-    FINISH_STATE
+    FINISH_STATE,
+
 ]

@@ -1,5 +1,7 @@
 import socket
 import logging
+
+from common.logger_threads import CustomLogHandler
 from state import *
 try:
     from common.custom_logger_proc import QueueProcessLogger
@@ -14,14 +16,42 @@ from transitions.extensions import GraphMachine as gMachine
 class SMTP_FSM(object):
     def __init__(self, name, logdir):
         self.name = name
-        self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
+        logger = logging.getLogger()
+        logger.addHandler(CustomLogHandler(logdir))
+        logger.setLevel(logging.DEBUG)
+        self.logger = logger
         self.machine = self.init_machine()
+        # N.B.: client-server typical SMTP-dialog from RFC-5321, appendix D.1. (:)
+        #
+        # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
+        # C: EHLO bar.com  //ehlo_write
+        # S: 250-foo.com greets bar.com //ehlo
+        # S: 250-8BITMIME //ehlo
+        # S: 250-SIZE //ehlo
+        # S: 250-DSN //ehlo
+        # S: 250 HELP //ehlo
+        # C: MAIL FROM:<Smith@bar.com>  //mail_from_write
+        # S: 250 OK  //mail_from
+        # C: RCPT TO:<Jones@foo.com> //rcpt_to_write
+        # S: 250 OK  //rcpt_to
+        # C: RCPT TO:<Green@foo.com> //rcpt_to_write
+        # S: 550 No such user here //rcpt_to
+        # C: RCPT TO:<Brown@foo.com> //rcpt_to_write
+        # S: 250 OK  //rcpt_to
+        # C: DATA  //data_write
+        # S: 354 Start mail input; end with <CRLF>.<CRLF>  //data
+        # C: Blah blah blah...  //data_write
+        # C: ...etc. etc. etc.//data_write
+        # C: . //data_end_write
+        # S: 250 OK //quit
+        # C: QUIT //quit_write
+        # S: 221 foo.com Service closing transmission channel //finish
 
         # self.init_transition('GREETING'       , GREETING_STATE , GREETING_WRITE_STATE )
         self.init_transition('HELO'           , HELO_STATE     , HELO_WRITE_STATE     )
         self.init_transition('MAIL_FROM'      , MAIL_FROM_STATE, MAIL_FROM_WRITE_STATE)
         self.init_transition('RCPT_TO'        , RCPT_TO_STATE  , RCPT_TO_WRITE_STATE  )
-        self.init_transition('DATA_start'     , DATA_STATE     , DATA_WRITE_STATE     )
+        self.init_transition('DATA_start'     , DATA_START_STATE     , DATA_WRITE_STATE     )
         self.init_transition('DATA_additional', DATA_STATE     , DATA_STATE           )
         self.init_transition('DATA_end'       , DATA_STATE     , DATA_END_WRITE_STATE )
         self.init_transition('QUIT'           , '*'     , QUIT_WRITE_STATE     )
@@ -29,7 +59,7 @@ class SMTP_FSM(object):
         self.init_transition('GREETING_write' , GREETING_WRITE_STATE , HELO_STATE     )
         self.init_transition('HELO_write'     , HELO_WRITE_STATE     , MAIL_FROM_STATE)
         self.init_transition('MAIL_FROM_write', MAIL_FROM_WRITE_STATE, RCPT_TO_STATE  )
-        self.init_transition('RCPT_TO_write'  , RCPT_TO_WRITE_STATE  , DATA_STATE     )
+        self.init_transition('RCPT_TO_write'  , RCPT_TO_WRITE_STATE  , DATA_START_STATE     )
         self.init_transition('ANOTHER_RECEPIENT', DATA_STATE  , RCPT_TO_WRITE_STATE)
         self.init_transition('DATA_start_write',DATA_WRITE_STATE     , DATA_STATE     )
         self.init_transition('DATA_end_write' , DATA_END_WRITE_STATE , QUIT_STATE     )
@@ -56,8 +86,10 @@ class SMTP_FSM(object):
     def GREETING_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
 
+
     def GREETING_write_handler(self, socket):
         socket.send("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
+
 
     def HELO_handler(self, socket, address, domain):
         self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
@@ -85,15 +117,20 @@ class SMTP_FSM(object):
     
     def DATA_start_write_handler(self, socket:socket.socket):
         socket.send("354 Send message content; end with <CRLF>.<CRLF>\n".encode())
+        self.machine.pool_metka = False
 
     def DATA_additional_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg="Additional data")
 
+
     def DATA_end_handler(self, socket):
         self.logger.log(level=logging.DEBUG, msg="Data end")
-    
+        self.machine.pool_metka = True
+
     def DATA_end_write_handler(self, socket:socket.socket, filename):
         socket.send(f"250 Ok: queued as {filename}\n".encode())
+
+        self.machine.pool_metka = True
 
     def QUIT_handler(self, socket:socket.socket):
         self.logger.log(level=logging.DEBUG, msg='Disconnecting..\n')
