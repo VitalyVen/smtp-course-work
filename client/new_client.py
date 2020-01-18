@@ -26,20 +26,23 @@ from client_socket import ClientSocket
 from common.custom_logger_proc import QueueProcessLogger
 from common.mail import Mail
 
+mailDirGlobalQueue = Queue()
 
 class ClientServerConnection():
     # соединение с сервером с точки зрения клиента:
     # представлено клиентским сокетом, открытым на сервере для данного клиента и
     # машиной состояний клиента при общении с сервером (:)
-    '''
-    There are two states for data: 1 - we wait start data command "DATA", 2 - data end command "." or additional data.
-    So we use value of self.data_start_already_matched=False
-    '''
 
-    def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str ='logs'):
+    def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str = 'logs'):
         self.socket = socket_of_client_type
         self.machine = SmtpClientFsm(socket_of_client_type.address, logdir=logdir)
-        self.mail = Mail(to=[])
+        self.mail = mail  # Mail(to=[])
+        '''
+        There are two states for data: 
+        1 - we wait start data command "DATA", 
+        2 - data end command "." or additional data.
+        So we use value of self.data_start_already_matched=False
+        '''
         self.data_start_already_matched = False
 
 
@@ -53,7 +56,10 @@ class MailClient(object):
     def __enter__(self):
         return self
 
-    def sendMailInMultipleThreads(self, blocking=True):
+    def getMailFromMailDir(self):
+
+
+    def sendMailInAThread(self, blocking=True):
         # это главный метод класса, в нём реализована многопоточность
         # (параллельный вызов WorkingThread() в количестве threads_cnt потоков)
         for i in range(self.threads_cnt):
@@ -157,7 +163,7 @@ class WorkingThread(threading.Thread):
             else:
                 EHLO_end_matched = re.search(EHLO_end_pattern, line)
                 if EHLO_end_matched:
-                    clientServerConnection.machine.MAIL_FROM(clientServerConnection.socket)
+                    clientServerConnection.machine.MAIL_FROM()
                     return
         elif current_state == MAIL_FROM_WRITE_STATE:
             clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
@@ -248,17 +254,12 @@ class WorkingThread(threading.Thread):
     #         # print('Unrecognised state to write something to a server')
 
     def run(self):
-        clientHelper = ClientHelper()
+        while True:
+
         # получение новых писем из папки maildir:
-        filesInProcess = clientHelper.maildir_handler()
+        filesInProcess = mailDirGlobalQueue.get()
 
         self.clientSockets = []
-        # открываем количество сокетов, равное количеству сообщений для обработки в папке maildir(:)
-        # TODO:11.01.20: [N.B.: можно вынести чтение клиентских писем из файловой системы в отдельный поток,
-        # тогда понадобится также очередь со списком ещё необработанных filesInProcess, из которой
-        # потоки типа WorkingThread будут забирать данные для открытия сокетов,
-        # а открывать каждый из них будет не более, допустим, 10, но не менее числа вычитанных mx-записей //
-        # числа забранных из очереди сообщений данным потоком]
         for file in filesInProcess:
             # clientHelper.socket_init(file_.mx_host, file_.mx_port)
             m = Mail(to=[])
@@ -293,7 +294,18 @@ class WorkingThread(threading.Thread):
 
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
-        mainMailClient.sendMailInMultipleThreads()
+        th = WorkingThread(self)
+        # kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
+        th.daemon = True
+        th.name = 'Working Thread {}'.format(i)
+        th.start()
+        while True:
+            clientHelper = ClientHelper()
+            # получение новых писем из папки maildir:
+            filesInProcess_fromMain = clientHelper.maildir_handler()
+            mailDirGlobalQueue.put(filesInProcess_fromMain)
+            # mainMailClient.sendMailInAThread()
+
 
     #  with MailServer() as client:
     #     soc = []

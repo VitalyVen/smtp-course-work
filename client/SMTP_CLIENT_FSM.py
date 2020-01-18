@@ -134,12 +134,12 @@ class SmtpClientFsm(object):
     # def HELO_handler(self, socket, address, domain):
     #     self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
 
-    def MAIL_FROM_handler(self, socket, email):
+    def MAIL_FROM_handler(self):
         self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
 
     def MAIL_FROM_write_handler(self, socket, from_):
-        socket.send(f'MAIL FROM:<{from_}>\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. (from: {from_})\n")
+        socket.send(f('MAIL ' + from_ + '\r\n').encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. ({from_})\n")
 
     #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
     def RCPT_TO_write_handler(self, socket, to):
