@@ -58,7 +58,8 @@ MAIL_FROM_pattern = re.compile("^250.*") #  re.compile("^250 2\.1\.0 <.*> ok.*")
 RCPT_TO_pattern = re.compile("^250.*")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
 RCPT_TO_WRONG_pattern = re.compile("^550.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
 DATA_pattern = re.compile("^354.*")
-QUIT_pattern = re.compile("^250 2\.0\.0 Ok.*")
+DATA_END_pattern = re.compile("^250.*")
+QUIT_pattern = re.compile("^221.*")  # re.compile("^250 2\.0\.0 Ok.*")
 
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
@@ -99,11 +100,17 @@ class SmtpClientFsm(object):
         # DATA_pattern = re.compile("^354.*")
         self.init_transition('DATA', DATA_STATE, DATA_WRITE_STATE)
         # C: Blah blah blah...  //data_write
-        self.init_transition('DATA_write', DATA_WRITE_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_end', DATA_WRITE_STATE, DATA_END_WRITE_STATE)
-        self.init_transition('QUIT_write', DATA_END_WRITE_STATE, QUIT_STATE)
-        self.init_transition('QUIT', QUIT_STATE, QUIT_WRITE_STATE)
-        self.init_transition('FINISH', QUIT_WRITE_STATE, FINISH_STATE)
+        # C: ...etc. etc. etc.//data_write
+        self.init_transition('DATA_write', DATA_WRITE_STATE, DATA_END_WRITE_STATE)
+        # C: . //data_end_write
+        self.init_transition('DATA_end_write', DATA_END_WRITE_STATE, DATA_END_STATE)
+        # S: 250 OK //quit
+        self.init_transition('QUIT', DATA_END_STATE, QUIT_WRITE_STATE)
+        # C: QUIT //quit_write
+        self.init_transition('QUIT_write', QUIT_WRITE_STATE, QUIT_STATE)
+        # self.init_transition('FINISH_write', QUIT_WRITE_STATE, FINISH_STATE)
+        # S: 221 foo.com Service closing transmission channel //finish
+        self.init_transition('FINISH', QUIT_STATE, FINISH_STATE)
 
         # self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
         # self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
@@ -127,12 +134,12 @@ class SmtpClientFsm(object):
     def EHLO_handler(self):
         self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
 
-    def EHLO_write_handler(self, socket, domain):
-        socket.send(f'EHLO {domain}\r\n'.encode())
+    def EHLO_write_handler(self, socket_, domain):
+        socket_.sendall(f'EHLO {domain}\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message. (domain: {domain})\n")
 
     # def GREETING_write_handler(self, socket):
-    #     socket.send("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
+    #     socket.sendall("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
 
     def EHLO_again_handler(self):
         self.logger.log(level=logging.DEBUG, msg="Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.\n")
@@ -143,15 +150,15 @@ class SmtpClientFsm(object):
     def MAIL_FROM_handler(self):
         self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
 
-    def MAIL_FROM_write_handler(self, socket, from_):
-        socket.send(f('MAIL ' + from_ + '\r\n').encode())
+    def MAIL_FROM_write_handler(self, socket_, from_):
+        socket_.sendall(f('MAIL ' + from_ + '\r\n').encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. ({from_})\n")
 
     def RCPT_TO_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
 
-    def RCPT_TO_write_handler(self, socket, to_entry):
-        socket.send(f'RCPT {to_entry}\r\n'.encode())
+    def RCPT_TO_write_handler(self, socket_, to_entry):
+        socket_.sendall(f'RCPT {to_entry}\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to_entry})\n")
 
     def RCPT_TO_additional_handler(self, isWrongFlag):
@@ -164,36 +171,39 @@ class SmtpClientFsm(object):
     def DATA_start_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket is ready to transfer data.\n")
 
-    def DATA_start_write_handler(self, socket):
-        socket.send('DATA\r\n'.encode())
+    def DATA_start_write_handler(self, socket_):
+        socket_.sendall('DATA\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA message.\n")
 
     def DATA_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
 
-    # TODO: 15.01.2020: wrap to cycle in main handler to send all strings at once
-    def DATA_write_handler(self, socket, string_to_send):
+    def DATA_write_handler(self, socket_, string_to_send):
         BUFF_SIZE_BYTES = 4096
         # socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, BUFF_SIZE_BYTES)
         chunks = [string[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
         for cunk in chunks:
-            socket.send(f'{cunk}'.encode())
-        # socket.sendall(allStrings.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent a string of DATA.\n")
+            socket_.sendall(f'{cunk}'.encode())
+        # socket_.sendall(allStrings.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent all DATA from Client.\n")
 
-    def DATA_end_write_handler(self):
-        socket.sendall('.\r\n'.encode())
+    def DATA_end_write_handler(self, socket_):
+        socket_.sendall('.\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent END DATA dot sign.\n")
 
-    def DATA_end_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
+    # def DATA_end_handler(self):
+    #     self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
 
-    def QUIT_write_handler(self, socket:socket.socket):
-        socket.sendall('QUIT\r\n'.encode())
+    def QUIT_handler(self):
+        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (250 OK)\n")
+
+    def QUIT_write_handler(self, socket_):
+        socket_.sendall('QUIT\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent QUIT message.\n")
 
-    def QUIT_handler(self, socket:socket.socket):
+    def FINISH_handler(self):  # , socket_:socket.socket):
         self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
-        socket.close()
+        #socket_.close()
 
     # def ERROR__(self):
     #     self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")

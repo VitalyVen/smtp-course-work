@@ -127,28 +127,6 @@ class WorkingThread(threading.Thread):
         # N.B.: состояние FSM-машины здесь привязано к передаваемому в аргументах сокету(:)
         current_state = clientServerConnection.machine.state
 
-        ##N.B.: client write_to_server states:
-        # if current_state == EHLO_WRITE_STATE:
-        #     clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
-        # elif current_state == MAIL_FROM_WRITE_STATE:
-        #     clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
-        # elif current_state == RCPT_TO_WRITE_STATE:
-        #     clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket, clientServerConnection.mail.to)
-        # elif current_state == DATA_WRITE_STATE:
-        #     clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
-        # elif current_state == DATA_END_WRITE_STATE:
-        #     clientServerConnection.machine.QUIT_write(clientServerConnection.socket, clientServerConnection.mail.file_path)
-        # elif current_state == QUIT_WRITE_STATE:
-        #     clientServerConnection.machine.FINISH(clientServerConnection.socket)
-        #     clientServerConnection.socket.close()
-        #     self.clients.pop(clientServerConnection.socket.connection)
-        # else:
-        #     pass
-        #     # print(current_state)
-        #     ## clientServerConnection.socket.send(f'Unrecognised state to write something to a server'.encode())
-        #     # print('Unrecognised state to write something to a server')
-
-
         if current_state == GREETING_STATE:
             GREETING_matched = re.search(GREETING_pattern, line)
             if GREETING_matched:
@@ -222,76 +200,40 @@ class WorkingThread(threading.Thread):
         elif current_state == DATA_WRITE_STATE:
             clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
             return
-        #elif current_state == DATA_WRITE_STATE:
-            if clientServerConnection.data_start_already_matched:
-                DATA_end_matched = re.search(DATA_end_pattern, line)
-                if DATA_end_matched:
-                    data = DATA_end_matched.group(1)
-                    if data:
-                        clientServerConnection.mail.body += data
-                    clientServerConnection.machine.DATA_end(clientServerConnection.socket)
-                    clientServerConnection.mail.to_file()
-                    clientServerConnection.data_start_already_matched = False
-                else:  # Additional data case
-                    clientServerConnection.mail.body += line
-                    clientServerConnection.machine.DATA_additional(clientServerConnection.socket)
-            else:
-                # check another recepient firstly
-                RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
-                if RCPT_TO_matched:
-                    mail_to = RCPT_TO_matched.group(1)
-                    clientServerConnection.mail.to.append(mail_to)
-                    clientServerConnection.machine.ANOTHER_RECEPIENT(clientServerConnection.socket, mail_to)
-                    return
-                # data start secondly
-                DATA_start_matched = re.search(DATA_start_pattern, line)
-                if DATA_start_matched:
-                    data = DATA_start_matched.group(1)
-                    if data:
-                        clientServerConnection.mail.body += data
-                    clientServerConnection.machine.DATA_start(clientServerConnection.socket)
-                    clientServerConnection.data_start_already_matched = True
-                else:
-                    pass  # TODO: incorrect command to message to client
-
+        elif current_state == DATA_END_WRITE_STATE:
+            clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
             return
-
-
-        QUIT_matched = re.search(QUIT_pattern, line)
-        if QUIT_matched:
-            clientServerConnection.machine.QUIT(clientServerConnection.socket)
+        elif current_state == DATA_END_WRITE_STATE_:
+            clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
             return
-        # Transition possible from any states
-        RSET_matched = re.search(RSET_pattern, line)
-        if RSET_matched:
-            clientServerConnection.machine.RSET(clientServerConnection.socket)
+        elif current_state == DATA_END_STATE:
+            DATA_END_matched = re.search(DATA_END_pattern, line)
+            if DATA_END_matched:
+                clientServerConnection.machine.QUIT()
+                return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
+        elif current_state == QUIT_WRITE_STATE:
+            clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
+            return
+        elif current_state == QUIT_STATE:
+            QUIT_matched = re.search(QUIT_pattern, line)
+            if QUIT_matched:
+                clientServerConnection.machine.FINISH()  #clientServerConnection.machine.FINISH(clientServerConnection.socket)
+                return
+            # else:
+            #     clientServerConnection.machine.ERROR__()
+            #     return
+        elif current_state == FINISH_STATE:
+            clientServerConnection.socket.close()
+            return
         else:
             # pass
             print(current_state)
-            clientServerConnection.socket.send(f'500 Unrecognised command {line}\n'.encode())
+            clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
             print('500 Unrecognised command')
 
-    # def handle_to_server_write(self, clientServerConnection: ClientServerConnection):
-    #     current_state = clientServerConnection.machine.state
-    #     if current_state == EHLO_WRITE_STATE:
-    #         clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.socket.address, clientServerConnection.mail.domain)
-    #     elif current_state == MAIL_FROM_WRITE_STATE:
-    #         clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
-    #     elif current_state == RCPT_TO_WRITE_STATE:
-    #         clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket, clientServerConnection.mail.to)
-    #     elif current_state == DATA_WRITE_STATE:
-    #         clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
-    #     elif current_state == DATA_END_WRITE_STATE:
-    #         clientServerConnection.machine.QUIT_write(clientServerConnection.socket, clientServerConnection.mail.file_path)
-    #     elif current_state == QUIT_WRITE_STATE:
-    #         clientServerConnection.machine.FINISH(clientServerConnection.socket)
-    #         clientServerConnection.socket.close()
-    #         self.clients.pop(clientServerConnection.socket.connection)
-    #     else:
-    #         pass
-    #         # print(current_state)
-    #         ## clientServerConnection.socket.send(f'Unrecognised state to write something to a server'.encode())
-    #         # print('Unrecognised state to write something to a server')
 
     def run(self):
         while True:
