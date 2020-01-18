@@ -44,7 +44,7 @@ class ClientServerConnection():
         So we use value of self.data_start_already_matched=False
         '''
         self.data_start_already_matched = False
-
+        self.receipientsLeft = len(mail.to)
 
 class MailClient(object):
     def __init__(self, logdir ='logs', threads=5):
@@ -114,6 +114,7 @@ class WorkingThread(threading.Thread):
          match exact state with re (regular expression) patterns
          call appropriate handlers for each state
         '''
+        line = ""
         if readFlag:
             try:
                 line = clientServerConnection.socket.readline()
@@ -153,7 +154,10 @@ class WorkingThread(threading.Thread):
                 clientServerConnection.machine.EHLO()
                 return
         elif current_state == EHLO_WRITE_STATE:
-            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, clientServerConnection.mail.domain)
+            HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command)
+            if not HELO_matched:
+                HELO_matched = 'localhost'
+            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched)
             return
         elif current_state == EHLO_STATE:
             EHLO_matched = re.search(EHLO_pattern, line)
@@ -171,19 +175,23 @@ class WorkingThread(threading.Thread):
         elif current_state == MAIL_FROM_STATE:
             MAIL_FROM_matched = re.search(MAIL_FROM_pattern, line)
             if MAIL_FROM_matched:
-                ## clifilesInProcessentServerConnection.mail.from_ = MAIL_FROM_matched.group(1)
-                clientServerConnection.machine.RCPT_TO(clientServerConnection.socket, clientServerConnection.mail.from_)
+                clientServerConnection.machine.RCPT_TO()
                 return
         elif current_state == RCPT_TO_WRITE_STATE:
-            clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket, clientServerConnection.mail.to)
+            indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
+            clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
+                                                         clientServerConnection.mail.to.index(indexOfCurrentReceipient))
+            clientServerConnection.receipientsLeft -= 1
             return
         # TODO:15.01.20: get this method done, at last)):
         elif current_state == RCPT_TO_STATE:
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
+            RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
             if RCPT_TO_matched:
-                mail_to = RCPT_TO_matched.group(1)
-                clientServerConnection.mail.to.append(mail_to)
-                clientServerConnection.machine.RCPT_TO(clientServerConnection.socket, mail_to)
+                clientServerConnection.machine.RCPT_TO_additional(False)
+                return
+            elif RCPT_TO_WRONG_matched:
+                clientServerConnection.machine.RCPT_TO_additional(True)
                 return
         elif current_state == DATA_STATE:
             if clientServerConnection.data_start_already_matched:
@@ -255,38 +263,37 @@ class WorkingThread(threading.Thread):
 
     def run(self):
         while True:
+            #  получение новых писем из папки maildir:
+            filesInProcess = mailDirGlobalQueue.get()
 
-        # получение новых писем из папки maildir:
-        filesInProcess = mailDirGlobalQueue.get()
+            self.clientSockets = []
+            for file in filesInProcess:
+                # clientHelper.socket_init(file_.mx_host, file_.mx_port)
+                m = Mail(to=[])
+                mail = m.from_file(file)
+                mx = clientHelper.get_mx(mail.domain)[0]
+                if mx == '-1':
+                    print(mail.domain + ' error')
+                    continue
+                new_socket = clientHelper.socket_init(host=mx)
+                self.clientSockets.append([])
+                cur_cs_list_index = len(self.clientSockets) - 1
+                self.clientSockets[cur_cs_list_index].append(new_socket)
+                self.clientSockets[cur_cs_list_index].append(mail)
+                # self.connections[socket] = Client(socket,'.', m)
 
-        self.clientSockets = []
-        for file in filesInProcess:
-            # clientHelper.socket_init(file_.mx_host, file_.mx_port)
-            m = Mail(to=[])
-            mail = m.from_file(file)
-            mx = clientHelper.get_mx(mail.domain)[0]
-            if mx == '-1':
-                print(mail.domain + ' error')
-                continue
-            new_socket = clientHelper.socket_init(host=mx)
-            self.clientSockets.append([])
-            cur_cs_list_index = len(self.clientSockets) - 1
-            self.clientSockets[cur_cs_list_index].append(new_socket)
-            self.clientSockets[cur_cs_list_index].append(mail)
-            # self.connections[socket] = Client(socket,'.', m)
-
-        try:
-            while True:
-                self.clientSockets.clear()
-                rfds, wfds, errfds = select.select(self.clientSockets, self.clientSockets, [], 5)
-                for fds in rfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  True)
-                for fds in wfds:
-                    self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  False)
-        except ValueError:
-            pass
+            try:
+                while True:
+                    self.clientSockets.clear()
+                    rfds, wfds, errfds = select.select(self.clientSockets, self.clientSockets, [], 5)
+                    for fds in rfds:
+                        self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      True)
+                    for fds in wfds:
+                        self.handle_talk_to_server_RW(ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      False)
+            except ValueError:
+                pass
 
     def terminate(self) -> None:
         self.active = False

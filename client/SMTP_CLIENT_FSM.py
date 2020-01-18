@@ -49,12 +49,14 @@ from transitions.extensions import GraphMachine as gMachine
       # S: 221 foo.com Service closing transmission channel //finish
 
 GREETING_pattern = re.compile("^220.*")
+HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
 EHLO_pattern = re.compile("^250-.*")
 EHLO_end_pattern = re.compile("^250 .*")
 # AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
-MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
+MAIL_FROM_pattern = re.compile("^250 OK.*") #  re.compile("^250 2\.1\.0 <.*> ok.*")
 # N.B.: as stated in RFC-5321, in typical SMTP transaction scenario there is no distinguishment between server answers for mail_from and rcpt_to client-requests(:)
-RCPT_TO_pattern = re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+RCPT_TO_pattern = re.compile("^250 OK.*")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+RCPT_TO_WRONG_pattern = re.compile("^550 .*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
 DATA_pattern = re.compile("^354.*")
 QUIT_pattern = re.compile("^250 2\.0\.0 Ok.*")
 
@@ -66,38 +68,38 @@ class SmtpClientFsm(object):
 
         # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
         # GREETING_pattern = re.compile("^220.*")
-        self.init_transition('EHLO'       , GREETING_STATE, EHLO_WRITE_STATE)
+        self.init_transition('EHLO', GREETING_STATE, EHLO_WRITE_STATE)
         # C: EHLO bar.com  //ehlo_write
-        self.init_transition('EHLO_write'           , EHLO_WRITE_STATE, EHLO_STATE)
+        self.init_transition('EHLO_write', EHLO_WRITE_STATE, EHLO_STATE)
         # S: 250-foo.com greets bar.com //ehlo
         # S: 250-8BITMIME //ehlo
         # S: 250-SIZE //ehlo
         # S: 250-DSN //ehlo
         # EHLO_pattern = re.compile("^250-.*")
-        self.init_transition('EHLO_again'           , EHLO_STATE, EHLO_STATE)
+        self.init_transition('EHLO_again', EHLO_STATE, EHLO_STATE)
         # S: 250 HELP //ehlo
         # EHLO_end_pattern = re.compile("^250 .*")
         self.init_transition('MAIL_FROM', EHLO_STATE, MAIL_FROM_WRITE_STATE)
         # C: MAIL FROM:<Smith@bar.com>  //mail_from_write
-        self.init_transition('MAIL_FROM_write'      , MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
+        self.init_transition('MAIL_FROM_write', MAIL_FROM_WRITE_STATE, MAIL_FROM_STATE)
         # S: 250 OK  //mail_from
         # MAIL_FROM_pattern = re.compile("^250 2\.1\.0 <.*> ok.*")
-        self.init_transition('RCPT_TO'      , MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
+        self.init_transition('RCPT_TO', MAIL_FROM_STATE, RCPT_TO_WRITE_STATE)
         # C: RCPT TO:<Jones@foo.com> //rcpt_to_write
-        self.init_transition('RCPT_TO_write'      , RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
-        # S: 250 OK  //rcpt_to
+        self.init_transition('RCPT_TO_write', RCPT_TO_WRITE_STATE, RCPT_TO_STATE)
+        # S: 250 OK  //rcpt_to  //OR(:)// # S: 550 No such user here //rcpt_to
         # RCPT_TO_pattern = re.compile("^250 2\.1\.5 <.*> recipient ok.*")
-        self.init_transition('RCPT_TO_additional'      , RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        self.init_transition('RCPT_TO_additional', RCPT_TO_STATE, RCPT_TO_WRITE_STATE) #goto rcpt_to_write if pending recepient only (check outside rcpt_to_handler)
+        ### C: DATA  //data_write
+        self.init_transition('DATA_start', RCPT_TO_STATE, DATA_WRITE_STATE)
         # C: DATA  //data_write
-        self.init_transition('DATA_start'      , RCPT_TO_STATE, DATA_WRITE_STATE)
-
-        self.init_transition('DATA_start_write'      , DATA_WRITE_STATE, DATA_STATE)
-        self.init_transition('DATA_write'      , DATA_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_additional_write'      , DATA_WRITE_STATE, DATA_WRITE_STATE)
-        self.init_transition('DATA_end'      , DATA_WRITE_STATE, DATA_END_WRITE_STATE)
-        self.init_transition('QUIT_write'      , DATA_END_WRITE_STATE, QUIT_STATE)
-        self.init_transition('QUIT'      , QUIT_STATE, QUIT_WRITE_STATE)
-        self.init_transition('FINISH'      , QUIT_WRITE_STATE, FINISH_STATE)
+        self.init_transition('DATA_start_write', DATA_WRITE_STATE, DATA_STATE)
+        self.init_transition('DATA_write', DATA_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_additional_write', DATA_WRITE_STATE, DATA_WRITE_STATE)
+        self.init_transition('DATA_end', DATA_WRITE_STATE, DATA_END_WRITE_STATE)
+        self.init_transition('QUIT_write', DATA_END_WRITE_STATE, QUIT_STATE)
+        self.init_transition('QUIT', QUIT_STATE, QUIT_WRITE_STATE)
+        self.init_transition('FINISH', QUIT_WRITE_STATE, FINISH_STATE)
 
         # self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
         # self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
@@ -141,13 +143,20 @@ class SmtpClientFsm(object):
         socket.send(f('MAIL ' + from_ + '\r\n').encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. ({from_})\n")
 
-    #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
-    def RCPT_TO_write_handler(self, socket, to):
-        socket.sendall(f'RCPT TO:<{to}>\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to})\n")
-
     def RCPT_TO_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
+
+    #TODO: 15.01.2020: wrap to cycle in main handler for many recipients
+    def RCPT_TO_write_handler(self, socket, to_entry):
+        socket.sendall(f'RCPT {to_entry}\r\n'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to_entry})\n")
+
+    def RCPT_TO_additional_handler(self, isWrongFlag):
+        if isWrongFlag:
+            server_message = "No such user here"
+        else:
+            server_message = "OK"
+        self.logger.log(level=logging.DEBUG, msg=f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
 
     def DATA_start_write_handler(self, socket):
         socket.sendall('DATA\r\n'.encode())
