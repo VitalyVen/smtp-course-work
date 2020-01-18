@@ -34,6 +34,8 @@ def test_send_simple_message():
         print(new_socket.recv(1000))
         new_socket.sendall(b'RCPT TO:<cappyru@gmail.com>\r\n')
         print(new_socket.recv(1000))
+        new_socket.sendall(b'RCPT TO:<cappyru@gmail.com>\r\n')
+        print(new_socket.recv(1000))
         new_socket.sendall(b'DATA\r\n')
         print(new_socket.recv(1000))
         new_socket.sendall(
