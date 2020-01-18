@@ -229,7 +229,7 @@ class WorkingThread(threading.Thread):
         # получение новых писем из папки maildir:
         filesInProcess_fromMain = clientHelper.maildir_handler()
 
-        self.clientSockets = []
+        # self.clientSockets = []
         for file in filesInProcess_fromMain:  # filesInProcess:
             # clientHelper.socket_init(file_.mx_host, file_.mx_port)
             m = Mail(to=[])
@@ -253,7 +253,7 @@ class WorkingThread(threading.Thread):
             ## self.connections[socket] = Client(socket,'.', m)
             ## return self.clientSockets
 
-            self.clientServerConnectionList = ClientServerConnection(socket_of_client_type=new_socket, mail=mail)
+            self.clientServerConnectionList.append(ClientServerConnection(socket_of_client_type=new_socket, mail=mail))
 
     def run(self):
         while True:
