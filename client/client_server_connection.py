@@ -8,14 +8,7 @@ class ClientServerConnection():
     # машиной состояний клиента при общении с сервером (:)
 
     def __init__(self, socket_of_client_type: ClientSocket, mail: Mail, logdir: str = 'logs'):
-        self.socket = socket_of_client_type
-        self.machine = SmtpClientFsm(socket_of_client_type.address(), logdir=logdir)
+        self.socket = ClientSocket(socket_of_client_type, socket_of_client_type.getsockname())
+        self.machine = SmtpClientFsm(socket_of_client_type.getsockname(), logdir=logdir)
         self.mail = mail  # Mail(to=[])
-        '''
-        There are two states for data: 
-        1 - we wait start data command "DATA", 
-        2 - data end command "." or additional data.
-        So we use value of self.data_start_already_matched=False
-        '''
-        self.data_start_already_matched = False
         self.receipientsLeft = len(mail.to)

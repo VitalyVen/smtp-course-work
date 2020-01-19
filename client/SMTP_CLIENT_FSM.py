@@ -131,8 +131,10 @@ class SmtpClientFsm(object):
             dest=destination
         )
 
-    def EHLO_handler(self):
-        self.logger.log(level=logging.DEBUG, msg="220 SMTP GREETING FROM 0.0.0.0.0.0.1\n")
+    def EHLO_handler(self, server_domain, server_first_session_textline):
+        self.logger.log(level=logging.DEBUG, msg="******************************NEW_SMTP_SESSION_STARTED******************************\n")
+        self.logger.log(level=logging.DEBUG, msg=f"220 SMTP GREETING FROM {server_domain}\n")
+        self.logger.log(level=logging.DEBUG, msg=f"{server_first_session_textline}\n")
 
     def EHLO_write_handler(self, socket_, domain):
         socket_.sendall(f'EHLO {domain}\r\n'.encode())
@@ -181,7 +183,7 @@ class SmtpClientFsm(object):
     def DATA_write_handler(self, socket_, string_to_send):
         BUFF_SIZE_BYTES = 4096
         # socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, BUFF_SIZE_BYTES)
-        chunks = [string[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
+        chunks = [string_to_send[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
         for cunk in chunks:
             socket_.sendall(f'{cunk}'.encode())
         # socket_.sendall(allStrings.encode())
