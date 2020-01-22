@@ -70,6 +70,14 @@ if __name__ == '__main__':
 
     logger = logging.getLogger()
     logger.addHandler(CustomLogHandler('../logs/logging.log'))
+
+    # +to print to console
+    # (N.B.: https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout):
+    logConsoleFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+    consoleHandler = logging.StreamHandler()
+    consoleHandler.setFormatter(logConsoleFormatter)
+    logger.addHandler(consoleHandler)
+
     logger.setLevel(logging.DEBUG)
 
     logger.info('123')
