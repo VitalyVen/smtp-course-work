@@ -1,0 +1,17 @@
+EHLO:<localhost>
+FROM:<123@bk.ru>
+TO:<55@kostya.ru>
+
+Message-ID: <f2d81fe5af09c5d616086212c17a397347de201c.camel@bk.ru>
+Subject: 123
+From: SBN <123@bk.ru>
+To: 55@kostya.ru
+Date: Sat, 18 Jan 2020 15:45:05 +0300
+Content-Type: text/plain
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: base64
+
+MTIzDQo=
+
+

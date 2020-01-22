@@ -22,12 +22,12 @@ QUIT_WRITE_STATE        = 'quit_write'
 QUIT_STATE              = 'quit'
 FINISH_STATE            = 'finish'
 
-RE_CRLF                 = r"\r(\n)?"
+RE_CRLF                 = r"[\r\n]*"
 RE_EMAIL_ADDRESS        = r'[\w\.-]+@[\w\.-]+'
 RE_EMAIL_OR_EMPTY       = r" ?<(?P<address>.+@.+)>|<>"
 
 # HELO_pattern = re.compile("^(HELO|EHLO) (.*\.\w+|localhost)")
-HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
+HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO):<(.+)>{RE_CRLF}", re.IGNORECASE)
 
 states = [
     GREETING_STATE,
