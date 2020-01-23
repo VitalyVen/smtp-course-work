@@ -43,8 +43,14 @@ def test_rcpnt_to_pattern():
 def test_rcpnt_to_wrong_pattern():
     assert re.search(RCPT_TO_WRONG_pattern, '550 No such user here\r\n')
 
-def test_email_patternf():
-    assert re.match(RCPT_TO_pattern, 'RCPT TO: <jlkjl@coml.com>\r\n').group(1)=='jlkjl@coml.com'
+def test_data_pattern():
+    assert re.search(DATA_pattern, '354 Start mail input; end with <CRLF>.<CRLF>\r\n')
 
-# def test_data_patternf():
-#     assert re.match(DATA_pattern, 'DATA ljljlj.\r\n').group(1)=='ljljlj'
+def test_data_end_pattern():
+    assert re.search(DATA_END_pattern, '250 OK\r\n')
+
+def test_quit_pattern():
+    assert re.search(QUIT_pattern, '221 foo.com Service closing transmission channel\r\n')
+
+
+
