@@ -108,6 +108,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         if readFlag:
             try:
                 line = clientServerConnection.socket.readline()
+                self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
             except socket.timeout:
                 self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
                 self.sock.close()
@@ -119,7 +120,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         if current_state == GREETING_STATE:
             GREETING_matched = re.search(GREETING_pattern, line)
             if GREETING_matched:
-                clientServerConnection.machine.EHLO(GREETING_matched, line)
+                clientServerConnection.machine.EHLO(GREETING_matched.group(2), line)
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
@@ -217,7 +218,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             # pass
 
         # N.B.: [мы можем оказаться в этой части кода только, если блок -elif-+/-else НЕ нашёл совпадений,
-        # т.к. в каждой его ветви стоит return з текущего метода](:)
+        # т.к. в каждой его ветви стоит return из текущего метода](:)
         print(current_state)
         self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())

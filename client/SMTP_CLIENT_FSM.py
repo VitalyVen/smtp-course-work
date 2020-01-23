@@ -48,7 +48,7 @@ from transitions.extensions import GraphMachine as gMachine
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
 
-GREETING_pattern = re.compile("^220.*")
+GREETING_pattern = re.compile("^(220) (.+\.\w+) (.+)$")
 # HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
 EHLO_pattern = re.compile("^250-.*")
 EHLO_end_pattern = re.compile("^250 .*")
@@ -138,7 +138,7 @@ class SmtpClientFsm(object):
 
     def EHLO_write_handler(self, socket_, domain):
         socket_.sendall(f'EHLO {domain}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message. (domain: {domain})\n")
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\rn")
 
     # def GREETING_write_handler(self, socket):
     #     socket.sendall("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())

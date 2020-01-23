@@ -32,6 +32,13 @@ class QueueProcessLogger(multiprocessing.Process):
             '%(asctime)s - LOGLEVEL:%(levelname)s  MESSAGE:%(message)s')
         handler.setFormatter(formatter)
         logger.addHandler(handler)
+
+        # https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout (:)
+        consoleHandler = logging.StreamHandler()
+        logToConsoleFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+        consoleHandler.setFormatter(logToConsoleFormatter)
+        logger.addHandler(consoleHandler)
+
         while self.active:
             try:
                 record = self.queue.get_nowait()

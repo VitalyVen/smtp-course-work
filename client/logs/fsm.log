@@ -1,0 +1,106 @@
+2020-01-18 21:37:22,403 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM 0.0.0.0.0.0.1
+
+2020-01-20 01:04:44,357 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM 0.0.0.0.0.0.1
+
+2020-01-20 01:19:54,228 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM 0.0.0.0.0.0.1
+
+2020-01-20 01:19:59,915 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-20 01:20:05,269 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-20 01:35:04,066 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM 0.0.0.0.0.0.1
+
+2020-01-20 01:42:09,508 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-20 01:42:09,509 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-20 01:42:09,509 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-20 01:42:09,509 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-20 01:56:14,187 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-20 01:56:14,188 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-20 01:56:14,188 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-20 01:56:14,188 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-20 01:56:14,203 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-20 01:58:19,787 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-20 01:58:19,788 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-20 01:58:19,789 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-20 01:58:19,790 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-20 01:58:19,790 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-22 00:19:26,959 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-22 00:19:35,652 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-22 00:20:00,345 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-22 00:21:56,687 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-22 00:23:16,382 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-22 00:47:56,668 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-22 00:47:58,423 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-22 00:48:05,503 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-22 01:00:08,127 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: localhost)
+
+2020-01-22 23:32:15,760 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-22 23:40:41,045 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-22 23:40:41,050 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-22 23:43:27,154 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>)
+
+2020-01-22 23:47:32,048 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-22 23:47:32,049 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-22 23:47:32,049 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-22 23:47:32,049 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>)
+
+2020-01-22 23:52:12,709 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-22 23:53:31,355 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-22 23:53:51,935 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-22 23:55:12,177 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message. (domain: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>)
+
+2020-01-23 00:01:25,132 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-23 00:01:26,567 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM <re.Match object; span=(0, 29), match='220 mxs.mail.ru ESMTP ready \r'>
+
+2020-01-23 00:01:26,571 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 00:03:44,284 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>n
+2020-01-23 00:08:02,769 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-23 00:08:05,051 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM ()
+
+2020-01-23 00:08:05,051 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 00:10:22,999 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>n
