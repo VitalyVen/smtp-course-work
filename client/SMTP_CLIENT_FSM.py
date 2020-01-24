@@ -44,7 +44,7 @@ from transitions.extensions import GraphMachine as gMachine
       # C: Blah blah blah...  //data_write
       # C: ...etc. etc. etc.//data_write
       # C: . //data_end_write
-      # S: 250 OK //quit
+      # S: 250 OK //quit  //OR: //451 4.7.1 Sorry, the service is currently unavailable. Please come back later. 1579832531-mYOsMhiBwJ-KWg009pb  //quit
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
 
@@ -112,9 +112,8 @@ class SmtpClientFsm(object):
         # S: 221 foo.com Service closing transmission channel //finish
         self.init_transition('FINISH', QUIT_STATE, FINISH_STATE)
 
-        # self.init_transition('RSET'      , source='*', destination=HELO_WRITE_STATE)
-        # self.init_transition('RSET_write', source='*', destination=HELO_STATE      )
-        # self.init_transition('ANOTHER_recepient', DATA_END_WRITE_STATE, MAIL_FROM_STATE)
+        self.init_transition('RSET', source='*', destination=EHLO_WRITE_STATE)
+        self.init_transition('ERROR', source='*', destination=ERROR_STATE)
 
     def init_machine(self):
         return gMachine(
@@ -138,7 +137,7 @@ class SmtpClientFsm(object):
 
     def EHLO_write_handler(self, socket_, domain):
         socket_.sendall(f'EHLO {domain}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\rn")
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\r\n")
 
     # def GREETING_write_handler(self, socket):
     #     socket.sendall("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
@@ -207,6 +206,8 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
         #socket_.close()
 
-    # def ERROR__(self):
-    #     self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")
+
+    def ERROR_handler(self):
+        self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")
+
 

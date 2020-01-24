@@ -104,3 +104,123 @@
 
 
 2020-01-23 00:10:22,999 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>n
+2020-01-23 08:46:34,659 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-23 08:46:37,317 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-23 08:46:56,517 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 08:48:14,954 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: <re.Match object; span=(0, 17), match='EHLO:<localhost>\n'>n
+2020-01-23 23:27:43,360 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-23 23:27:57,331 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-23 23:28:01,964 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 23:30:11,630 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-23 23:33:52,178 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-24 05:37:34,954 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:37:34,976 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:37:34,976 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:37:34,976 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:37:34,993 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-24 05:43:24,316 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:43:24,317 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:43:24,317 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:43:24,321 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:43:24,326 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-24 05:44:50,266 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:44:50,269 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:44:50,269 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:44:50,270 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:44:50,281 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-24 05:44:50,281 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:47:10,753 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:47:10,754 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:47:10,754 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:47:10,754 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:47:10,757 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:49:46,790 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:49:46,793 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:49:46,794 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:49:46,796 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:49:46,804 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:52:06,394 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:52:06,394 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:52:06,395 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:52:06,395 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:52:06,395 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:52:53,150 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:52:53,157 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxs.mail.ru
+
+2020-01-24 05:52:53,158 - LOGLEVEL:DEBUG  MESSAGE:220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:52:53,158 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:52:53,158 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:54:54,118 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:54:54,124 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3j.mail.yandex.net (Want to use Yandex.Mail
+
+2020-01-24 05:54:54,124 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront3j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-24 05:54:54,124 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-24 05:54:54,148 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-24 05:58:10,559 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-24 05:58:10,560 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3q.mail.yandex.net (Want to use Yandex.Mail
+
+2020-01-24 05:58:10,560 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront3q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-24 05:58:10,560 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: SmirnovBoris@yandex.ru
+
+2020-01-24 05:58:10,562 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+

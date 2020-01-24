@@ -22,6 +22,8 @@ QUIT_WRITE_STATE        = 'quit_write'
 QUIT_STATE              = 'quit'
 FINISH_STATE            = 'finish'
 
+ERROR_STATE             = 'error_state'
+
 RE_CRLF                 = r"[\r\n]*"
 RE_EMAIL_ADDRESS        = r'[\w\.-]+@[\w\.-]+'
 RE_EMAIL_OR_EMPTY       = r" ?<(?P<address>.+@.+)>|<>"
@@ -50,4 +52,6 @@ states = [
     QUIT_WRITE_STATE,
     QUIT_STATE,
     FINISH_STATE
+
+    , ERROR_STATE
 ]

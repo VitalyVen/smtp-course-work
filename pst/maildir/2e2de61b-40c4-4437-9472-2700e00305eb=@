@@ -1,12 +1,12 @@
-EHLO:<localhost>
-FROM:<123@bk.ru>
-TO:<123@bk.ru>
+EHLO:<SmirnovBoris@yandex.ru>
+FROM:<SmirnovBoris@yandex.ru>
+TO:<SmirnovBoris@yandex.ru>
 
 Message-ID: <a954a5731d902d932ff6cea9c8b22547061bb6cf.camel@bk.ru>
-Subject: 123
-From: SBN <123@bk.ru>
-To: 123@bk.ru
-Date: Sat, 18 Jan 2020 16:33:18 +0300
+Subject: Test_123
+From: SBN <SmirnovBoris@yandex.ru>
+To: SmirnovBoris@yandex.ru
+Date: Fri, 24 Jan 2020 05:57:18 +0300
 Content-Type: multipart/mixed; boundary="=-1EuHcfmuJFvyHAfCsXoI"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0

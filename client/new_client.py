@@ -1,6 +1,7 @@
 import logging
 import select
 import socket
+import sys
 import threading
 import re
 import queue
@@ -71,8 +72,11 @@ class MailClient(object):
             th.terminate()
         for th in self.threads:
             th.join(timeout=2)
+        self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
+        print('gracefull close of the main process')
         self.logger.terminate()
         self.logger.join(timeout=2)
+        sys.exit()
 
 
 # def thread_socket(client: MailClient, clientSockets):
@@ -98,6 +102,13 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         self.logdir = logdir
         self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        for clientServerConnection in self.clientServerConnectionList:
+            clientServerConnection.socket.shutdown()  #TODO: probably change to shutdown only (need to Google it!)
+            clientServerConnection.socket.close()
+            self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
+            print('gracefull close of a thread')
+
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
         '''
          check possible states from clientServerConnection.machine.state
@@ -118,7 +129,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         current_state = clientServerConnection.machine.state
 
         if current_state == GREETING_STATE:
-            GREETING_matched = re.search(GREETING_pattern, line)
+            GREETING_matched = re.match(GREETING_pattern, line)
             if GREETING_matched:
                 clientServerConnection.machine.EHLO(GREETING_matched.group(2), line)
                 return
@@ -127,7 +138,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     return
         elif current_state == EHLO_WRITE_STATE:
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command) or 'localhost'
-            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched)
+            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
             return
         elif current_state == EHLO_STATE:
             EHLO_matched = re.search(EHLO_pattern, line)
@@ -214,16 +225,23 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             clientServerConnection.socket.close()
             # t_d_: pop out socket from clientSockets set
             return
+        elif current_state == ERROR_STATE:
+            clientServerConnection.socket.close()
+            # t_d_: pop out socket from clientSockets set
+            return
         # else:
             # pass
 
         # N.B.: [мы можем оказаться в этой части кода только, если блок -elif-+/-else НЕ нашёл совпадений,
         # т.к. в каждой его ветви стоит return из текущего метода](:)
-        print(current_state)
+        # print('current_state: ' + current_state)
         self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
         print('500 Unrecognised command')
         self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
+        print('last state: ' + current_state)
+        clientServerConnection.machine.ERROR()
+        # current_state = ERROR_STATE
 
 
     def checkMaildirAndCreateNewSocket(self):
@@ -270,16 +288,16 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                 for clientServerConnection in self.clientServerConnectionList:
                   list_of_sockets.append(clientServerConnection.socket.connection) #= [x for [x, y] in self.clientSockets]
 
-
-                rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
-                for fds in rfds:
-                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
-                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  True)
-                for fds in wfds:
-                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
-                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  False)
+                if list_of_sockets:
+                    rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
+                    for fds in rfds:
+                        self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
+                                                      # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      True)
+                    for fds in wfds:
+                        self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
+                                                      # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      False)
             # except ValueError:
             #     pass
 

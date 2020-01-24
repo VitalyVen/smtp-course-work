@@ -521,3 +521,2128 @@
 2020-01-23 00:39:24,485 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
 
 
+2020-01-23 08:39:28,948 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-23 08:39:30,006 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-23 08:39:44,381 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+500 5.5.1 Invalid command
+
+
+2020-01-23 08:45:39,353 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 08:49:05,299 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 501 5.5.4 Invalid argument
+
+
+2020-01-23 23:27:35,085 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-23 23:31:41,532 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-23 23:36:49,082 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-23 23:36:50,050 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-23 23:37:50,543 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 
+
+2020-01-23 23:54:19,124 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,940 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:37:34,952 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,952 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:34,952 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,952 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:34,982 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,982 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:34,990 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,998 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:34,999 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,999 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:34,999 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:34,999 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,000 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,000 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,000 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,000 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,010 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,010 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,010 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,011 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,011 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,011 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,016 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,016 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,017 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:37:35,017 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,017 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,022 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,022 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,022 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,023 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,023 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,023 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,023 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,023 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,024 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,030 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,031 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,033 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,034 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,034 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,034 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,035 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,035 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,041 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,049 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,050 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,050 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,050 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,050 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,050 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,051 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,052 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,053 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,053 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,053 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,053 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,053 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,064 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,068 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,068 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,068 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,068 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,069 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,069 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,069 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,069 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,078 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,079 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,079 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,081 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,094 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,095 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,095 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,095 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,095 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,095 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,096 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,096 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,096 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,096 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,096 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,097 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,097 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,097 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,097 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,109 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,110 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,110 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,110 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,111 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,111 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,111 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,111 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,111 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,112 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,112 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,114 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,115 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,115 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,115 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,115 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,116 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,116 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,116 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,116 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,116 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,117 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,117 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,129 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,130 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,130 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,130 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,130 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,131 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,131 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,132 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,132 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,132 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,133 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,133 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,133 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,133 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,133 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,142 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,142 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,142 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,142 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,142 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,143 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,144 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,144 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,144 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,144 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,162 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,162 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,162 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,171 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,171 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,171 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,171 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,171 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,173 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,175 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,175 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,176 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,176 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,179 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,179 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,180 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,181 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,181 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,181 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,181 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,185 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,190 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,191 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,192 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,192 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,192 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,195 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,195 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,195 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,196 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,196 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,196 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,202 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,202 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,203 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,203 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,204 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,205 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,205 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,205 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,205 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,205 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,209 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,209 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,209 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,213 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,213 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,213 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,214 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,215 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,216 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,216 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,216 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,224 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,225 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,225 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,225 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,225 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,225 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,226 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,230 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,234 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,234 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,237 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,237 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,238 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,238 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,238 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,239 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,239 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,239 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,239 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,239 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,245 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,245 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,247 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,250 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,251 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,252 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,252 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,252 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,257 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,257 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,259 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,260 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+2020-01-24 05:37:35,265 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,267 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,268 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,270 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,272 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,272 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,272 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,272 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,272 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,274 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,274 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,274 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,274 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,275 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,275 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,275 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,275 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,277 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,277 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,280 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+2020-01-24 05:37:35,281 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,281 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,282 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,283 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,284 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,285 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,287 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,287 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,287 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,287 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,287 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,288 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,289 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,289 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,289 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,292 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,293 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,293 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,294 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,295 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,297 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+2020-01-24 05:37:35,297 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,297 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,298 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,298 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,298 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,298 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,303 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,304 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,307 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,315 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,317 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,318 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,318 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,318 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,318 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,319 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid comma
+
+2020-01-24 05:37:35,319 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,319 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,319 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,322 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,322 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): nd
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,323 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,324 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,324 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,326 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,326 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,326 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,329 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,336 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,337 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid comma
+
+2020-01-24 05:37:35,338 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,339 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,339 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,339 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,339 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): nd
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,339 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,341 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,341 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,341 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,342 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,342 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,342 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,342 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid comma
+
+2020-01-24 05:37:35,344 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,345 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,345 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,345 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,348 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,350 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,350 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,351 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,351 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): nd
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,353 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,353 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,356 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,356 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,356 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,357 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,357 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,357 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,357 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,358 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,474 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,475 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,475 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,475 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,475 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,475 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,476 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,476 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,476 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,476 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,476 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,477 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,477 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,477 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,477 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,478 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,479 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,479 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,479 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,479 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,479 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,481 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,481 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,483 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,484 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,484 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,484 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,485 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,485 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,485 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,485 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid c
+
+2020-01-24 05:37:35,702 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,703 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,703 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,703 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,703 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): ommand
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,703 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,704 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,704 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,704 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,704 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,704 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:37:35,705 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,706 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,707 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,854 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,855 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,856 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,857 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,857 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,857 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,858 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,859 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,859 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,859 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,859 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,860 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,860 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,861 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,861 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,861 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:37:35,861 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:37:35,862 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:43:24,302 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:43:24,332 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:43:24,340 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:43:24,341 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:44:50,250 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:44:50,278 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:44:50,283 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:44:50,284 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:47:10,746 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:47:10,751 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:47:10,757 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:47:10,761 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:49:46,776 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:49:46,800 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:49:46,800 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:49:46,801 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:49:46,810 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-24 05:52:06,362 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:52:06,376 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:52:06,381 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:52:06,381 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+
+
+2020-01-24 05:52:06,390 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-24 05:52:53,134 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxs.mail.ru ESMTP ready 
+
+
+2020-01-24 05:52:53,148 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:52:53,155 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:52:53,170 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxs.mail.ru
+250-SIZE 73400320
+250-8BITMIME
+250 STARTTLS
+500 5.5.1 Invalid command
+
+
+2020-01-24 05:52:53,183 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-24 05:54:54,102 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront3j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-24 05:54:54,125 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:54:54,125 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:54:54,147 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-24 05:58:10,546 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront3q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-24 05:58:10,562 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-24 05:58:10,563 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-24 05:58:10,565 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront3q.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-24 05:58:10,588 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
