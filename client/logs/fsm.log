@@ -683,3 +683,233 @@ OK
 
 2020-01-25 13:22:26,120 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
 
+2020-01-25 13:25:55,671 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:25:55,675 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1g.mail.yandex.net
+
+2020-01-25 13:25:55,682 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:25:55,684 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:25:56,468 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:25:56,483 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:25:59,353 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:26:01,348 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:26:05,827 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:26:09,427 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:26:25,882 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:26:31,603 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:28:01,950 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:28:49,115 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 13:29:26,715 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:29:26,716 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront5g.mail.yandex.net
+
+2020-01-25 13:29:26,717 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront5g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:29:26,726 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:29:27,325 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:29:27,341 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:29:30,524 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:29:31,373 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:29:33,104 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:29:35,245 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:29:41,552 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:29:45,014 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:30:03,210 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:31:46,643 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:31:46,644 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront4o.mail.yandex.net
+
+2020-01-25 13:31:46,644 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront4o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:31:46,653 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:31:47,281 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:31:47,300 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:31:48,612 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:31:49,336 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:31:50,719 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:31:53,303 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:31:58,851 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:32:01,327 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:32:23,669 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:34:24,055 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 13:35:09,140 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:35:09,141 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3j.mail.yandex.net
+
+2020-01-25 13:35:09,141 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront3j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:35:09,160 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:35:09,782 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:35:09,796 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:35:11,451 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:35:12,723 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:35:14,729 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:35:16,225 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:35:21,198 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:35:24,080 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:35:34,588 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:41:53,845 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:41:53,845 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront4g.mail.yandex.net
+
+2020-01-25 13:41:53,846 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront4g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:41:53,846 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:41:54,867 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:41:54,881 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:41:57,805 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:41:58,522 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:42:00,739 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:42:04,133 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:42:11,440 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:42:21,783 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:42:24,733 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:43:17,267 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:43:17,273 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront5o.mail.yandex.net
+
+2020-01-25 13:43:17,274 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront5o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:43:17,274 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:43:17,916 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:43:17,924 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:43:19,501 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:43:20,200 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:43:22,099 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:43:24,418 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:43:33,175 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:43:35,043 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:43:41,320 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:45:11,691 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 13:45:41,241 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:45:41,243 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1g.mail.yandex.net
+
+2020-01-25 13:45:41,244 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:45:41,258 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:45:41,927 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:45:41,940 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:45:43,380 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:45:44,043 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:45:46,005 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:45:52,696 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:46:02,586 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:46:06,851 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:46:14,650 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:51:47,438 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:51:47,443 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront6q.mail.yandex.net
+
+2020-01-25 13:51:47,445 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront6q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:51:47,461 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:51:48,059 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:51:48,075 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:51:50,443 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:51:51,016 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:51:52,588 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:51:54,454 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:52:00,331 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:52:01,554 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:52:10,084 - LOGLEVEL:DEBUG  MESSAGE:Socket sent END DATA dot sign.
+
+2020-01-25 13:52:34,419 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for DATA end (
+250 OK
+)
+
+2020-01-25 13:52:44,600 - LOGLEVEL:DEBUG  MESSAGE:Socket sent QUIT message.
+
+2020-01-25 13:53:16,299 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.
+

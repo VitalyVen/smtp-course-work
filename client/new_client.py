@@ -205,8 +205,12 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             return
         elif current_state == DATA_END_STATE:
             DATA_END_matched = re.search(DATA_END_pattern, line)
+            SERVICE_UNAVAILABLE_matched = re.search(SERVICE_UNAVAILABLE_pattern, line)
             if DATA_END_matched:
-                clientServerConnection.machine.QUIT()
+                clientServerConnection.machine.QUIT('250 OK')
+                return
+            elif SERVICE_UNAVAILABLE_matched:
+                clientServerConnection.machine.QUIT('451 4.7.1 Sorry, the service is currently unavailable. Please come back later.')
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()

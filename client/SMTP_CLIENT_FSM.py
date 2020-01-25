@@ -60,6 +60,7 @@ RCPT_TO_WRONG_pattern = re.compile("^(550).*$") #re.compile("^250 2\.1\.5 <.*> r
 DATA_pattern = re.compile("^(354).*$")
 DATA_END_pattern = re.compile("^(250).*$")
 QUIT_pattern = re.compile("^(221).*$")  # re.compile("^250 2\.0\.0 Ok.*")
+SERVICE_UNAVAILABLE_pattern = re.compile("^(451).*$")
 
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
@@ -189,14 +190,15 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent all DATA from Client.\n")
 
     def DATA_end_write_handler(self, socket_):
-        socket_.sendall('.\r\n'.encode())
+        socket_.sendall('\r\n.\r\n'.encode())
+        # socket_.send('\r\n.\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent END DATA dot sign.\n")
 
     # def DATA_end_handler(self):
     #     self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
 
-    def QUIT_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (250 OK)\n")
+    def QUIT_handler(self, answer_text):
+        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (\n{answer_text}\n)\n")
 
     def QUIT_write_handler(self, socket_):
         socket_.sendall('QUIT\r\n'.encode())
