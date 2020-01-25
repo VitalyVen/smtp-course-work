@@ -2,7 +2,7 @@ import socket
 from server_config import READ_TIMEOUT
 
 class ClientSocket(object):
-    def __init__(self, connection:socket.socket, address):
+    def __init__(self, connection: socket.socket, address):
         self.connection = connection
         self.address = address
 

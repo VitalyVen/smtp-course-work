@@ -3298,3 +3298,49 @@
 
 
 2020-01-25 13:53:39,794 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 13:59:00,958 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront5g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:59:00,961 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 13:59:00,961 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 13:59:00,994 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 16:26:41,203 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 16:30:40,008 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 16:33:29,092 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 16:56:22,103 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 16:58:07,668 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 17:02:51,464 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 17:09:01,523 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+421 4.4.2 mxfront8q.mail.yandex.net Error: timeout exceeded
+
+
+2020-01-25 17:09:01,524 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 17:09:08,591 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 17:21:09,109 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront11g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 17:21:13,834 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront11g.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 17:21:17,104 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 17:21:21,307 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.5 <SmirnovBoris@yandex.ru> recipient ok
+
+
+2020-01-25 17:21:25,531 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 354 Enter mail, end with "." on a line by itself
+
+
+2020-01-25 17:21:34,595 - LOGLEVEL:DEBUG  MESSAGE:current_state is data_end
+2020-01-25 17:21:37,181 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 17:21:41,859 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.0.0 Ok: queued on mxfront11g.mail.yandex.net as 1579962092-pi0AxJhtVe-LFxOJVEH
+502 5.5.2 Syntax error, command unrecognized.
+
+
+2020-01-25 17:21:44,679 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
