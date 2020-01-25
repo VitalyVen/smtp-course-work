@@ -201,7 +201,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
             return
         elif current_state == DATA_END_WRITE_STATE:
-            clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
+            clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
             return
         elif current_state == DATA_END_STATE:
             DATA_END_matched = re.search(DATA_END_pattern, line)

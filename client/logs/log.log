@@ -3064,3 +3064,45 @@
 
 
 2020-01-25 13:17:15,800 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 13:18:36,516 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:18:37,140 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront8j.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 13:18:37,780 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 13:18:45,503 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.5 <SmirnovBoris@yandex.ru> recipient ok
+
+
+2020-01-25 13:18:50,256 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 354 Enter mail, end with "." on a line by itself
+
+
+2020-01-25 13:21:09,540 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront7q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:21:10,943 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront7q.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 13:21:12,262 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 13:21:16,127 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.5 <SmirnovBoris@yandex.ru> recipient ok
+
+
+2020-01-25 13:21:39,343 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 354 Enter mail, end with "." on a line by itself
+
+

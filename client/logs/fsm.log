@@ -633,3 +633,53 @@ OK
 
 2020-01-25 13:17:03,808 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
 
+2020-01-25 13:18:36,524 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:18:36,532 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront8j.mail.yandex.net
+
+2020-01-25 13:18:36,533 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront8j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:18:36,540 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:18:37,136 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:18:37,147 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:18:42,710 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:18:44,871 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:18:46,868 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:18:49,252 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:18:55,039 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:18:57,918 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:21:09,552 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:21:09,555 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront7q.mail.yandex.net
+
+2020-01-25 13:21:09,556 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront7q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:21:09,565 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:21:10,941 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:21:10,952 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:21:13,586 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:21:15,506 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:21:32,816 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:21:35,626 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:22:22,680 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:22:26,120 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
