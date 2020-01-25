@@ -184,10 +184,13 @@ class SmtpClientFsm(object):
         BUFF_SIZE_BYTES = 4096
         # socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, BUFF_SIZE_BYTES)
         chunks = [string_to_send[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
-        for cunk in chunks:
-            socket_.sendall(f'{cunk}'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
+        for chunk in chunks:
+            # chunk = chunk.rstrip()
+            socket_.sendall(f'{chunk}'.encode())
+            self.logger.log(level=logging.DEBUG, msg=f"DATA sent (body chunk):\n{chunk}")
         # socket_.sendall(allStrings.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent all DATA from Client.\n")
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
 
     def DATA_end_write_handler(self, socket_):
         socket_.sendall('\r\n.\r\n'.encode())
