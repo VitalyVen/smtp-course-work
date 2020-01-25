@@ -293,3 +293,343 @@
 
 2020-01-25 11:46:55,831 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
 
+2020-01-25 11:50:45,346 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:50:45,348 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront10o.mail.yandex.net
+
+2020-01-25 11:50:45,552 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront10o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:50:49,567 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:50:58,774 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 11:51:06,079 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message. (FROM:<zgreen3@gmail.com>
+)
+
+2020-01-25 12:00:15,871 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:00:15,878 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront8j.mail.yandex.net
+
+2020-01-25 12:00:16,655 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront8j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:00:26,444 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:00:41,324 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:00:52,184 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:01:05,793 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:03:09,554 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:03:09,555 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront2j.mail.yandex.net
+
+2020-01-25 12:03:10,147 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront2j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:03:27,668 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:04:01,298 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:04:24,214 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:05:53,342 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:14:08,294 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:14:08,302 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3q.mail.yandex.net
+
+2020-01-25 12:14:09,356 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront3q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:14:20,723 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:14:33,805 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:15:07,584 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:15:54,353 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:19:57,066 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:19:57,067 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront10j.mail.yandex.net
+
+2020-01-25 12:19:57,938 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront10j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:20:10,004 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:20:24,574 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:20:38,440 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:20:50,835 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:22:23,738 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message. (to: TO:<SmirnovBoris@yandex.ru>
+)
+
+2020-01-25 12:23:30,538 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 12:24:27,410 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:24:27,416 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront10j.mail.yandex.net
+
+2020-01-25 12:24:27,551 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront10j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:24:29,849 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:24:33,648 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:24:36,649 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:24:55,311 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:25:06,927 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 12:25:39,305 - LOGLEVEL:DEBUG  MESSAGE:Socket (again) received answer for additional RCPT TO message:
+OK
+
+2020-01-25 12:26:27,548 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:26:27,548 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1j.mail.yandex.net
+
+2020-01-25 12:26:27,548 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:26:27,549 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:26:27,556 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:27:43,100 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:27:43,101 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront4q.mail.yandex.net
+
+2020-01-25 12:27:43,101 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront4q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:27:43,101 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:27:43,105 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:28:27,362 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:28:27,367 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3g.mail.yandex.net
+
+2020-01-25 12:28:28,218 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront3g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:28:40,739 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:28:55,397 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:29:20,688 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:29:30,838 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:29:39,252 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 12:30:41,806 - LOGLEVEL:DEBUG  MESSAGE:Socket (again) received answer for additional RCPT TO message:
+OK
+
+2020-01-25 12:33:08,622 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:33:08,623 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront2g.mail.yandex.net
+
+2020-01-25 12:33:08,817 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront2g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:33:10,790 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:33:14,894 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:33:17,529 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:33:21,696 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:33:41,074 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 12:35:42,025 - LOGLEVEL:DEBUG  MESSAGE:Socket (again) received answer for additional RCPT TO message:
+OK
+
+2020-01-25 12:40:21,145 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:40:21,151 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1o.mail.yandex.net
+
+2020-01-25 12:40:21,839 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:40:33,899 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:41:08,481 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:41:20,093 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:41:46,227 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:42:01,851 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 12:44:46,900 - LOGLEVEL:DEBUG  MESSAGE:Socket (again) received answer for additional RCPT TO message:
+OK
+
+2020-01-25 12:45:58,614 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:45:58,615 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront8g.mail.yandex.net
+
+2020-01-25 12:45:58,615 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:45:58,647 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:45:58,659 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:50:02,889 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:50:02,890 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1o.mail.yandex.net
+
+2020-01-25 12:50:02,890 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:50:02,908 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:50:36,371 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:51:09,163 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:51:09,164 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront9j.mail.yandex.net
+
+2020-01-25 12:51:09,169 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront9j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:51:09,180 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:51:27,151 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:52:19,514 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:52:19,514 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront2o.mail.yandex.net
+
+2020-01-25 12:52:19,515 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront2o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:52:19,518 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:52:55,757 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:54:40,338 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:54:40,339 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1o.mail.yandex.net
+
+2020-01-25 12:54:40,340 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:54:40,340 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:54:51,102 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 12:56:49,871 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:56:49,872 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront2j.mail.yandex.net
+
+2020-01-25 12:56:49,872 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront2j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:56:49,887 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:56:50,807 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:56:50,838 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:56:55,131 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 12:56:57,313 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 12:57:07,606 - LOGLEVEL:DEBUG  MESSAGE:Socket (again) received answer for additional RCPT TO message:
+OK
+
+2020-01-25 12:58:55,463 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 12:58:55,464 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront10g.mail.yandex.net
+
+2020-01-25 12:58:55,464 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront10g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 12:58:55,485 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 12:58:56,625 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 12:58:56,634 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 12:59:07,834 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:01:52,481 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:02:45,763 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:02:45,764 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront9g.mail.yandex.net
+
+2020-01-25 13:02:45,765 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront9g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:02:45,771 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:02:46,565 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:02:46,574 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:02:49,560 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:02:59,003 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:10:48,468 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:10:48,469 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront9q.mail.yandex.net
+
+2020-01-25 13:10:48,470 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront9q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:10:48,479 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:10:49,240 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:10:49,260 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:11:08,756 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:11:12,360 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:11:43,517 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:12:08,085 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:12:59,191 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:14:29,474 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+
+2020-01-25 13:15:53,963 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 13:15:53,963 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront8g.mail.yandex.net
+
+2020-01-25 13:15:53,964 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 13:15:53,971 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 13:15:55,222 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 13:15:55,229 - LOGLEVEL:DEBUG  MESSAGE:Socket sent MAIL FROM message: FROM:<zgreen3@gmail.com>
+
+2020-01-25 13:16:00,638 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for RCPT TO message.
+
+2020-01-25 13:16:04,850 - LOGLEVEL:DEBUG  MESSAGE:Socket sent RCPT TO message: TO:<SmirnovBoris@yandex.ru>
+
+2020-01-25 13:16:14,892 - LOGLEVEL:DEBUG  MESSAGE:Socket is ready to transfer data.
+
+2020-01-25 13:16:27,292 - LOGLEVEL:DEBUG  MESSAGE:Socket sent DATA message.
+
+2020-01-25 13:16:55,818 - LOGLEVEL:DEBUG  MESSAGE:Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)
+
+2020-01-25 13:17:03,808 - LOGLEVEL:DEBUG  MESSAGE:Socket sent all DATA from Client.
+

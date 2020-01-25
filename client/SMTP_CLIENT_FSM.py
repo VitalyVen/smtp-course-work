@@ -152,15 +152,15 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
 
     def MAIL_FROM_write_handler(self, socket_, from_):
-        socket_.sendall(f'MAIL {from_}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. ({from_})\n")
+        socket_.sendall(f'MAIL {from_}'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message: {from_}")
 
     def RCPT_TO_handler(self):
         self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
 
     def RCPT_TO_write_handler(self, socket_, to_entry):
-        socket_.sendall(f'RCPT {to_entry}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message. (to: {to_entry})\n")
+        socket_.sendall(f'RCPT {to_entry}'.encode())
+        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message: {to_entry}")
 
     def RCPT_TO_additional_handler(self, isWrongFlag):
         if isWrongFlag:

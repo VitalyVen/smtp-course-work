@@ -168,20 +168,20 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         elif current_state == RCPT_TO_WRITE_STATE:
             indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
             clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
-                                                         clientServerConnection.mail.to.index(indexOfCurrentReceipient))
+                                                         clientServerConnection.mail.to[indexOfCurrentReceipient])
             clientServerConnection.receipientsLeft -= 1
             return
         elif current_state == RCPT_TO_STATE:
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
-            if RCPT_TO_matched:
+            if clientServerConnection.receipientsLeft == 0:
+                clientServerConnection.machine.DATA_start()
+                return
+            elif RCPT_TO_matched:
                 clientServerConnection.machine.RCPT_TO_additional(False)
                 return
             elif RCPT_TO_WRONG_matched:
                 clientServerConnection.machine.RCPT_TO_additional(True)
-                return
-            elif clientServerConnection.receipientsLeft == 0:
-                clientServerConnection.machine.DATA_start()
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
