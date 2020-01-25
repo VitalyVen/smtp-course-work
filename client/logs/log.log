@@ -2646,3 +2646,77 @@
 
 
 2020-01-24 05:58:10,588 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-24 08:57:11,268 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront3q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 10:35:35,333 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 10:35:35,334 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 10:35:35,343 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 10:35:35,365 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 10:36:34,016 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront3j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 10:40:03,389 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront4o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 10:44:34,657 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront2o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 10:59:22,034 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront5g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:00:21,761 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront5g.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 11:06:15,456 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront2q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:06:56,577 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront2q.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 11:10:51,070 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:21:16,792 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+2020-01-25 11:22:08,284 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront1q.mail.yandex.net
+
+2020-01-25 11:41:56,613 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront9j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:42:40,646 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront9j.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 11:46:42,718 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront11g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:46:52,802 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront11g.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 11:47:30,199 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process

@@ -5,7 +5,7 @@ from client_state import HELO_pattern_CLIENT
 
 # HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO):<(.+)>{RE_CRLF}", re.IGNORECASE)
 
-# GREETING_pattern = re.compile("^220 .* .*")
+# GREETING_pattern = re.compile("^(220) (.+\.\w+)\s+(.+)$")
 # # HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
 # EHLO_pattern = re.compile("^250-.*")
 # EHLO_end_pattern = re.compile("^250 .*")
@@ -23,8 +23,9 @@ def test_hello_pattern_CLIENT():
     assert re.match(HELO_pattern_CLIENT, 'EHLO:<comnew.com>\r\n').group(2)=='comnew.com'
 
 def test_greeting_pattern():
+    # GREETING_pattern = re.compile("^(220) (\S+\.\S+)(.*)$")
     assert re.match(GREETING_pattern, '220 mxs.mail.ru ESMTP ready\r\n').group(1)=='220'
-    assert re.match(GREETING_pattern, '220 mxs.mail.ru ESMTP ready\r\n').group(2)=='mxs.mail.ru'
+    assert re.search(GREETING_pattern, '220 mxfront9q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)\r\n').group(2)=='mxfront9q.mail.yandex.net'
 
 def test_ehlo_pattern():
     # EHLO_NOT_matched = re.search(EHLO_pattern, '230-foo.com greets bar.com\r\n')
@@ -33,6 +34,13 @@ def test_ehlo_pattern():
 
 def test_ehlo_end_pattern():
     assert re.search(EHLO_end_pattern, '250 HELP\r\n')
+
+def test_ehlo_ON_LARGE_STRING_pattern():
+    assert re.search(EHLO_pattern, '250-8BITMIME\r\n250-PIPELINING\r\n250-SIZE 42991616\r\n250-STARTTLS\r\n250-DSN\r\n250 ENHANCEDSTATUSCODES\r\n')
+
+def test_ehlo_end_ON_LARGE_STRING_pattern():
+    EHLO_end_pattern = re.compile(".*(250 ).*")
+    assert re.search(EHLO_end_pattern, '250-8BITMIME\r\n250-PIPELINING\r\n250-SIZE 42991616\r\n250-STARTTLS\r\n250-DSN\r\n250 ENHANCEDSTATUSCODES\r\n')
 
 def test_mail_from_pattern():
     assert re.search(MAIL_FROM_pattern, '250 OK\r\n')

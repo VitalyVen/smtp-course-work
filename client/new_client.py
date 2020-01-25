@@ -126,6 +126,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                 return
 
         # N.B.: состояние FSM-машины здесь привязано к передаваемому в аргументах сокету(:)
+
         current_state = clientServerConnection.machine.state
 
         if current_state == GREETING_STATE:
@@ -141,14 +142,14 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
             return
         elif current_state == EHLO_STATE:
-            EHLO_matched = re.search(EHLO_pattern, line)
-            if EHLO_matched:
-                clientServerConnection.machine.EHLO_again()
+            EHLO_end_matched = re.search(EHLO_end_pattern, line)
+            if EHLO_end_matched:
+                clientServerConnection.machine.MAIL_FROM()
                 return
             else:
-                EHLO_end_matched = re.search(EHLO_end_pattern, line)
-                if EHLO_end_matched:
-                    clientServerConnection.machine.MAIL_FROM()
+                EHLO_matched = re.search(EHLO_pattern, line)
+                if EHLO_matched:
+                    clientServerConnection.machine.EHLO_again()
                     return
                 # else:
                 #     clientServerConnection.machine.ERROR__()

@@ -224,3 +224,72 @@
 
 2020-01-24 05:58:10,562 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
 
+2020-01-25 10:35:35,346 - LOGLEVEL:DEBUG  MESSAGE:FSM SMTP-client ERROR state has occured!
+
+2020-01-25 10:37:25,174 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 10:37:29,316 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront3j.mail.yandex.net (Want to use Yandex.Mail
+
+2020-01-25 10:59:47,850 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 10:59:47,860 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront5g.mail.yandex.net
+
+2020-01-25 10:59:49,315 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront5g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:00:12,303 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:00:32,603 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-25 11:06:24,977 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:06:24,978 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront2q.mail.yandex.net
+
+2020-01-25 11:06:25,601 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront2q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:06:41,399 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:07:32,675 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-25 11:11:05,726 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:11:05,736 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront8g.mail.yandex.net
+
+2020-01-25 11:11:08,711 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:12:14,612 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:21:20,645 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:21:20,666 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront1q.mail.yandex.net
+
+2020-01-25 11:21:21,394 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront1q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+2020-01-25 11:21:38,976 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:22:16,276 - LOGLEVEL:DEBUG  MESSAGE:Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.
+
+2020-01-25 11:41:59,488 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:41:59,489 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront9j.mail.yandex.net
+
+2020-01-25 11:42:00,285 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront9j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:42:17,294 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:43:43,253 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+
+2020-01-25 11:46:44,563 - LOGLEVEL:DEBUG  MESSAGE:******************************NEW_SMTP_SESSION_STARTED******************************
+
+2020-01-25 11:46:44,564 - LOGLEVEL:DEBUG  MESSAGE:220 SMTP GREETING FROM mxfront11g.mail.yandex.net
+
+2020-01-25 11:46:44,913 - LOGLEVEL:DEBUG  MESSAGE:220 mxfront11g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 11:46:48,897 - LOGLEVEL:DEBUG  MESSAGE:Socket sent EHLO message: EHLO: localhost
+
+2020-01-25 11:46:55,831 - LOGLEVEL:DEBUG  MESSAGE:Socket received answer for MAIL FROM message.
+

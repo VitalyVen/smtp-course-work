@@ -48,18 +48,18 @@ from transitions.extensions import GraphMachine as gMachine
       # C: QUIT //quit_write
       # S: 221 foo.com Service closing transmission channel //finish
 
-GREETING_pattern = re.compile("^(220) (.+\.\w+) (.+)$")
+GREETING_pattern = re.compile("^(220) (\S+\.\S+)(.*)$")
 # HELO_pattern_CLIENT = re.compile(f"^(HELO|EHLO) (.+){RE_CRLF}", re.IGNORECASE)
-EHLO_pattern = re.compile("^250-.*")
-EHLO_end_pattern = re.compile("^250 .*")
+EHLO_pattern = re.compile("^(250-).*")
+EHLO_end_pattern = re.compile(".*(250 ).*")
 # AUTH_pattern = re.compile("^235 2\.7\.0 Authentication successful\..*")
-MAIL_FROM_pattern = re.compile("^250.*") #  re.compile("^250 2\.1\.0 <.*> ok.*")
+MAIL_FROM_pattern = re.compile("^(250).*$") #  re.compile("^250 2\.1\.0 <.*> ok.*")
 # N.B.: as stated in RFC-5321, in typical SMTP transaction scenario there is no distinguishment between server answers for mail_from and rcpt_to client-requests(:)
-RCPT_TO_pattern = re.compile("^250.*")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
-RCPT_TO_WRONG_pattern = re.compile("^550.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
-DATA_pattern = re.compile("^354.*")
-DATA_END_pattern = re.compile("^250.*")
-QUIT_pattern = re.compile("^221.*")  # re.compile("^250 2\.0\.0 Ok.*")
+RCPT_TO_pattern = re.compile("^(250).*$")  #  re.compile("^250 2\.1\.0 <.*> ok.*") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+RCPT_TO_WRONG_pattern = re.compile("^(550).*$") #re.compile("^250 2\.1\.5 <.*> recipient ok.*")
+DATA_pattern = re.compile("^(354).*$")
+DATA_END_pattern = re.compile("^(250).*$")
+QUIT_pattern = re.compile("^(221).*$")  # re.compile("^250 2\.0\.0 Ok.*")
 
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
@@ -152,7 +152,7 @@ class SmtpClientFsm(object):
         self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
 
     def MAIL_FROM_write_handler(self, socket_, from_):
-        socket_.sendall(f('MAIL ' + from_ + '\r\n').encode())
+        socket_.sendall(f'MAIL {from_}\r\n'.encode())
         self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message. ({from_})\n")
 
     def RCPT_TO_handler(self):
