@@ -1,6 +1,7 @@
 import logging
 import select
 import socket
+import sys
 import threading
 import re
 import queue
@@ -67,12 +68,15 @@ class MailClient(object):
                 self.__exit__(type(e), e, e.__traceback__)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        for th in self.threads:
-            th.terminate()
-        for th in self.threads:
-            th.join(timeout=2)
+        # for th in self.threads:
+        #     th.terminate()
+        # for th in self.threads:
+        #     th.join(timeout=2)
+        self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
+        print('gracefull close of the main process')
         self.logger.terminate()
         self.logger.join(timeout=2)
+        # sys.exit()
 
 
 # def thread_socket(client: MailClient, clientSockets):
@@ -98,45 +102,56 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         self.logdir = logdir
         self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        for clientServerConnection in self.clientServerConnectionList:
+            clientServerConnection.socket.shutdown()  #TODO: probably change to shutdown only (need to Google it!)
+            clientServerConnection.socket.close()
+            self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
+            print('gracefull close of a thread')
+
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
         '''
          check possible states from clientServerConnection.machine.state
          match exact state with re (regular expression) patterns
          call appropriate handlers for each state
         '''
+        clientServerConnection.socket.connection.setblocking(0)
+
         line = ""
         if readFlag:
             try:
                 line = clientServerConnection.socket.readline()
+                self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
             except socket.timeout:
                 self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
-                self.sock.close()
+                clientServerConnection.socket.close()
                 return
 
         # N.B.: состояние FSM-машины здесь привязано к передаваемому в аргументах сокету(:)
+
         current_state = clientServerConnection.machine.state
 
         if current_state == GREETING_STATE:
-            GREETING_matched = re.search(GREETING_pattern, line)
+            GREETING_matched = re.match(GREETING_pattern, line)
             if GREETING_matched:
-                clientServerConnection.machine.EHLO(GREETING_matched, line)
+                clientServerConnection.machine.EHLO(GREETING_matched.group(2), line)
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == EHLO_WRITE_STATE:
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command) or 'localhost'
-            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched)
+            clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
             return
         elif current_state == EHLO_STATE:
-            EHLO_matched = re.search(EHLO_pattern, line)
-            if EHLO_matched:
-                clientServerConnection.machine.EHLO_again()
+            EHLO_end_matched = re.search(EHLO_end_pattern, line)
+            if EHLO_end_matched:
+                clientServerConnection.machine.MAIL_FROM()
                 return
             else:
-                EHLO_end_matched = re.search(EHLO_end_pattern, line)
-                if EHLO_end_matched:
-                    clientServerConnection.machine.MAIL_FROM()
+                EHLO_matched = re.search(EHLO_pattern, line)
+                if EHLO_matched:
+                    clientServerConnection.machine.EHLO_again()
                     return
                 # else:
                 #     clientServerConnection.machine.ERROR__()
@@ -155,20 +170,20 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         elif current_state == RCPT_TO_WRITE_STATE:
             indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
             clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
-                                                         clientServerConnection.mail.to.index(indexOfCurrentReceipient))
+                                                         clientServerConnection.mail.to[indexOfCurrentReceipient])
             clientServerConnection.receipientsLeft -= 1
             return
         elif current_state == RCPT_TO_STATE:
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
-            if RCPT_TO_matched:
+            if clientServerConnection.receipientsLeft == 0:
+                clientServerConnection.machine.DATA_start()
+                return
+            elif RCPT_TO_matched:
                 clientServerConnection.machine.RCPT_TO_additional(False)
                 return
             elif RCPT_TO_WRONG_matched:
                 clientServerConnection.machine.RCPT_TO_additional(True)
-                return
-            elif clientServerConnection.receipientsLeft == 0:
-                clientServerConnection.machine.DATA_start()
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
@@ -188,12 +203,16 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
             return
         elif current_state == DATA_END_WRITE_STATE:
-            clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
+            clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
             return
         elif current_state == DATA_END_STATE:
             DATA_END_matched = re.search(DATA_END_pattern, line)
+            SERVICE_UNAVAILABLE_matched = re.search(SERVICE_UNAVAILABLE_pattern, line)
             if DATA_END_matched:
-                clientServerConnection.machine.QUIT()
+                clientServerConnection.machine.QUIT('250 OK')
+                return
+            elif SERVICE_UNAVAILABLE_matched:
+                clientServerConnection.machine.QUIT('451 4.7.1 Sorry, the service is currently unavailable. Please come back later.')
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
@@ -210,6 +229,14 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == FINISH_STATE:
+            # N.B.: for gracefull shutdown of the socket(:)
+            clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
+            clientServerConnection.socket.close()
+            # t_d_: pop out socket from clientSockets set
+            return
+        elif current_state == ERROR_STATE:
+            # N.B.: for gracefull shutdown of the socket(:)
+            clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
             clientServerConnection.socket.close()
             # t_d_: pop out socket from clientSockets set
             return
@@ -217,12 +244,15 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             # pass
 
         # N.B.: [мы можем оказаться в этой части кода только, если блок -elif-+/-else НЕ нашёл совпадений,
-        # т.к. в каждой его ветви стоит return з текущего метода](:)
-        print(current_state)
+        # т.к. в каждой его ветви стоит return из текущего метода](:)
+        # print('current_state: ' + current_state)
         self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
         print('500 Unrecognised command')
         self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
+        print('last state: ' + current_state)
+        clientServerConnection.machine.ERROR()
+        # current_state = ERROR_STATE
 
 
     def checkMaildirAndCreateNewSocket(self):
@@ -260,71 +290,82 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             new_client_server_connection = ClientServerConnection(socket_of_client_type=new_socket, mail=mail)
             self.clientServerConnectionList.append(new_client_server_connection)
 
+    def poll_change_read_write(self, poll, sock, read=False, write=False):
+        if not read and not write:
+            raise RuntimeError("poll error")
+        mask = 0
+        # N.B.: переключаем события логическим ИЛИ:
+        if read:
+            mask |= select.POLLIN
+        if write:
+            mask |= select.POLLOUT
+        poll.register(sock, mask)
+
     def run(self):
-        while True:
-            # try:
+        try:
+            while True:
                 # self.clientSockets.clear()
                 self.checkMaildirAndCreateNewSocket()
                 list_of_sockets = []
                 for clientServerConnection in self.clientServerConnectionList:
                   list_of_sockets.append(clientServerConnection.socket.connection) #= [x for [x, y] in self.clientSockets]
 
+                if list_of_sockets:
+                    rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
+                    for fds in rfds:
+                        # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+                        socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        self.handle_talk_to_server_RW(socket_conn_,
+                                                      # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      True)
+                    for fds in wfds:
+                        # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+                        socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        self.handle_talk_to_server_RW(socket_conn_,
+                                                      # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      False)
+        except (KeyboardInterrupt, ValueError, socket.timeout) as e_0:
+            print(e_0)
 
-                rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
-                for fds in rfds:
-                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
-                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  True)
-                for fds in wfds:
-                    self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList)),  #.socket.connection,
-                                                  # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                  False)
-            # except ValueError:
-            #     pass
-
-
-            # try:
-            #     _EVENT_READ = select.POLLIN
-            #     _EVENT_WRITE = select.POLLOUT
-            #     pollerSockets = select.poll()
-            #
-            #     while True:  # for make terminate() work
-            #         fdVsEventRead = pollerSockets.poll(3)
-            #         list_sockets=self.checkMaildirAndCreateNewSocket()
-            #         for sock in list_sockets:
-            #             pollerSockets.register(sock, select.POLLIN)
-            #
-            #         for descriptor, Event in fdVsEventRead:
-            #             if Event == _EVENT_READ:
-            #                     socketFromDescriptor = serv.clients.socket(descriptor)
-            #                     data = serv.clients.data
-            #                     poll_change_read_write(pollerSockets, socketFromDescriptor, read=True)
-            #
-            #
-            #             if Event == _EVENT_WRITE:
-            #                 socketFromDescriptor = serv.clients.socket(descriptor)
-            #                 data = serv.clients.data
-            #
-            #                 serv.handle_client_write(serv.clients[socketFromDescriptor])
-            #                 poll_change_read_write(pollerSockets, socketFromDescriptor, read=True)
-            #
-            #
-            # except (KeyboardInterrupt, ValueError, socket.timeout) as e:
-            #     print(e)
+        # try:
+        #     _EVENT_READ = select.POLLIN
+        #     _EVENT_WRITE = select.POLLOUT
+        #
+        #     pollerSockets = select.poll()
+        #     while True:
+        #         self.checkMaildirAndCreateNewSocket()
+        #         list_of_sockets = []
+        #         for clientServerConnection in self.clientServerConnectionList:
+        #             list_of_sockets.append(clientServerConnection.socket.connection)
+        #
+        #         # изначально регистрируем / устанавливаем все сокеты на чтение:
+        #         for sock in list_of_sockets:
+        #             pollerSockets.register(sock, select.POLLIN)
+        #
+        #         tuple_of_fds_and_events = pollerSockets.poll()  # .poll(timeout=3.0)
+        #         for fds, Event in tuple_of_fds_and_events:
+        #             if Event == _EVENT_READ:
+        #                 # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+        #
+        #                 socket_conn_ = next(filter(lambda x: x.socket.connection.fileno() == fds, self.clientServerConnectionList))
+        #
+        #                 self.handle_talk_to_server_RW(socket_conn_, True)
+        #
+        #                 self.poll_change_read_write(pollerSockets,
+        #                                             next(filter(lambda x: x.socket.connection.fileno() == fds, self.clientServerConnectionList)).socket.connection,
+        #                                             read=False, write=True)
+        #             elif Event == _EVENT_WRITE:
+        #                 # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+        #                 self.handle_talk_to_server_RW(next(filter(lambda x: x.socket.connection.fileno() == fds, self.clientServerConnectionList)).socket.connection, False)
+        #
+        #                 self.poll_change_read_write(pollerSockets, pollerSockets,
+        #                                             next(filter(lambda x: x.socket.connection.fileno() == fds, self.clientServerConnectionList)).socket.connection,
+        #                                             read=True, write=False)
+        # except (KeyboardInterrupt, ValueError, socket.timeout) as e_1:
+        #     print(e_1)
 
     def terminate(self) -> None:
         self.active = False
-
-    # def poll_change_read_write(self.poll,self.sock, self.read=False, self.write=False):
-    #     if not read and not write:
-    #         raise RuntimeError("poll error")
-    #     mask = 0
-    #     if read:
-    #         mask |= select.POLLIN
-    #     if write:
-    #         mask |= select.POLLOUT
-    #
-    #     poll.register(sock, mask)
 
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
@@ -350,44 +391,3 @@ if __name__ == '__main__':
                 fakeThread.run()
             except KeyboardInterrupt as e:
                 mainMailClient.__exit__(type(e), e, e.__traceback__)
-
-    #  with MailServer() as client:
-    #     soc = []
-    #     context = ssl._create_stdlib_context()
-    #     client_sockets = socket.create_connection(("smtp.yandex.ru", 465), 5,
-    #                                               None)
-    #     client_sockets = context.wrap_socket(client_sockets,
-    #                                          server_hostname="smtp.yandex.ru")
-    #     client_sockets2 = socket.create_connection(("smtp.yandex.ru", 465), 5,
-    #                                                None)
-    #     client_sockets2 = context.wrap_socket(client_sockets2,
-    #                                           server_hostname="smtp.yandex.ru")
-    #     soc.append(client_sockets)
-    #     soc.append(client_sockets2)
-    #     while True:
-    #         rfds, wfds, errfds = select.select(soc, [], [], 100)
-    #         if len(rfds) != 0:
-    #             for fds in rfds:
-    #                 # serv.handle_client(serv.clients[fds])
-    #                 print(fds.recv())
-    #                 print(fds.send(b'ehlo [127.0.1.1]\r\n'))
-
-    # https://stackoverflow.com/questions/33397024/mail-client-in-python-using-sockets-onlyno-smtplib (:)
-
-    # import client.utils as cu
-    #
-    # clientHelper = cu.ClientHelper()
-    # filesInProcess = clientHelper.maildir_handler()
-    #
-    # clientSockets = set()
-    # for file in filesInProcess:
-    #     # clientHelper.socket_init(file_.mx_host, file_.mx_port)
-    #     m = Mail(to=[])
-    #     mail = m.from_file(file)
-    #     mx = clientHelper.get_mx(mail.domain)[0]
-    #     if mx == '-1':
-    #         print(mail.domain + ' error')
-    #         continue
-    #     socket = clientHelper.socket_init(mx)
-    #     clientSockets.add(socket)
-    #     # self.connections[socket] = Client(socket,'.', m)
