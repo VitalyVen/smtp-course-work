@@ -326,6 +326,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
     def run(self):
         global isNotFirstClientRead
         try:
+            not_first_iteration = False
             while True:
                 # self.clientSockets.clear()
                 print('before self.checkMaildirAndCreateNewSocket()')
@@ -347,6 +348,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                     print('after select.select(...)')
                     for fds in rfds:
                         isNotFirstClientRead = True
+                        # not_first_iteration = True
                         # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
                         print('inside rfds')
                         socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
@@ -357,6 +359,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                         print('inside rfds after handle_talk_to_server_RW')
                     if isNotFirstClientRead:
                         for fds in wfds:
+                          # if not_first_iteration:
                             # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
                             print('inside wfds')
                             socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
