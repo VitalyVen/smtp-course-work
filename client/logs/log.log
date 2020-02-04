@@ -3344,3 +3344,223 @@
 
 
 2020-01-25 17:21:44,679 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 17:43:22,507 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 17:43:22,530 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 17:43:22,531 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 17:43:22,539 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 18:11:49,977 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront10o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 18:11:59,590 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront10o.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 18:12:06,774 - LOGLEVEL:DEBUG  MESSAGE:current_state is mail_from
+2020-01-25 18:12:08,622 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 18:12:17,121 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 18:12:17,475 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 18:15:21,220 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront2o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 18:15:24,904 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront2o.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 18:15:29,527 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 18:15:39,145 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.5 <SmirnovBoris@yandex.ru> recipient ok
+
+
+2020-01-25 18:29:38,539 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront9g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 18:30:52,771 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 421 4.4.2 mxfront9g.mail.yandex.net Error: timeout exceeded
+
+
+2020-01-25 18:30:52,772 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 18:30:54,157 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 18:31:52,428 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront4g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 18:31:52,437 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 18:31:52,437 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 18:31:52,440 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 18:33:05,424 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront2j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 18:33:07,614 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront2j.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 18:33:17,310 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.0 <zgreen3@gmail.com> ok
+
+
+2020-01-25 18:33:26,226 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250 2.1.5 <SmirnovBoris@yandex.ru> recipient ok
+
+
+2020-01-25 18:33:31,717 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 354 Enter mail, end with "." on a line by itself
+
+
+2020-01-25 18:33:42,498 - LOGLEVEL:DEBUG  MESSAGE:current_state is data_end
+2020-01-25 18:33:42,946 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:00:39,994 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 19:00:39,999 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:00:39,999 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront11g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:00:40,011 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 19:01:23,983 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront9j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:01:23,996 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:01:23,996 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:01:24,004 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 19:17:48,400 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 19:17:48,402 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:18:30,774 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront12g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:18:30,795 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:18:30,813 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:28:07,261 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront10g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:28:07,283 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:28:07,283 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:30:08,996 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:30:09,020 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:30:09,020 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:33:12,919 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront5g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:33:12,957 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:33:12,958 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 19:46:42,430 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 19:55:35,715 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 19:55:35,730 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 19:55:35,747 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 20:00:54,460 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 20:00:54,464 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 20:02:41,163 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:03:09,346 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:03:55,293 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:04:21,251 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:05:51,571 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront6o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 20:05:51,590 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 20:05:51,600 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 20:05:51,646 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront6o.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-01-25 20:05:51,659 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:06:37,448 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1q.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 20:06:37,461 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 20:06:37,462 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 20:11:27,948 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-01-25 20:11:27,949 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-01-25 20:11:27,955 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront6o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 20:11:27,973 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-01-25 20:13:55,079 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront3g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-01-25 20:13:55,093 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-01-25 20:13:55,093 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 20:22:11,663 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront6j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 20:22:11,680 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-02-03 20:22:11,680 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 20:22:11,696 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront9o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 20:22:11,697 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 20:22:11,703 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 20:22:11,731 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-02-03 20:26:33,552 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront11g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 20:26:33,580 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 20:26:33,593 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 20:28:59,188 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront10j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 20:34:29,180 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-02-03 20:34:44,994 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-02-03 20:36:35,280 - LOGLEVEL:DEBUG  MESSAGE:current_state is greeting
+2020-02-03 20:36:35,281 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:00:44,760 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-02-03 21:01:26,129 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1j.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:01:26,139 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:01:26,139 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:05:31,000 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront1o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:05:31,023 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:05:31,046 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:08:44,604 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront8g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:08:44,608 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:08:44,608 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:13:07,913 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront2o.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:13:07,923 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:13:07,924 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:15:55,435 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront13g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:15:55,455 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:15:55,471 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server
+2020-02-03 21:15:55,489 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 250-mxfront13g.mail.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 42991616
+250-STARTTLS
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+
+2020-02-03 21:17:22,947 - LOGLEVEL:DEBUG  MESSAGE:gracefull close of the main process
+2020-02-03 21:18:43,196 - LOGLEVEL:DEBUG  MESSAGE:clientServerConnection.socket.readLine(): 220 mxfront9g.mail.yandex.net (Want to use Yandex.Mail for your domain? Visit http://pdd.yandex.ru)
+
+
+2020-02-03 21:18:43,270 - LOGLEVEL:DEBUG  MESSAGE:current_state is ehlo
+2020-02-03 21:18:43,292 - LOGLEVEL:DEBUG  MESSAGE:Sent response: "500 Unrecognised command" to the server

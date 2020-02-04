@@ -29,6 +29,8 @@ class ClientHelper(object):
         sock.settimeout(60)
         server_address = (str(host), port)
         sock.connect(server_address)
+        # делаем наши сокеты неблокирующими:
+        sock.setblocking(0)
 
         # b = self.sock.sendall(f'ehlo {host}\r\n'.encode()) #?
 

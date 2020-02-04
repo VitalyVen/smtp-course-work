@@ -65,7 +65,7 @@ SERVICE_UNAVAILABLE_pattern = re.compile("^(451).*$")
 class SmtpClientFsm(object):
     def __init__(self, name, logdir):
         self.name = name
-        self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
+        # self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
         self.machine = self.init_machine()
 
         # S: 220 foo.com Simple Mail Transfer Service Ready //greetings
@@ -132,87 +132,111 @@ class SmtpClientFsm(object):
         )
 
     def EHLO_handler(self, server_domain, server_first_session_textline):
-        self.logger.log(level=logging.DEBUG, msg="******************************NEW_SMTP_SESSION_STARTED******************************\n")
-        self.logger.log(level=logging.DEBUG, msg=f"220 SMTP GREETING FROM {server_domain}\n")
-        self.logger.log(level=logging.DEBUG, msg=f"{server_first_session_textline}\n")
+        #self.logger.log(level=logging.DEBUG, msg="******************************NEW_SMTP_SESSION_STARTED******************************\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"220 SMTP GREETING FROM {server_domain}\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"server_first_session_textline: {server_first_session_textline}\n")
+        print("******************************NEW_SMTP_SESSION_STARTED******************************\n")
+        print("220 SMTP GREETING FROM {server_domain}\n")
+        print("server_first_session_textline: {server_first_session_textline}\n")
 
     def EHLO_write_handler(self, socket_, domain):
+        print('in EHLO_write_handler, before socket_.sendall(...EHLO...)')
         socket_.sendall(f'EHLO {domain}\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\r\n")
+        print('in EHLO_write_handler, after socket_.sendall(...EHLO...)')
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\r\n")
+        print("Socket sent EHLO message: EHLO: {domain}\r\n")
 
     # def GREETING_write_handler(self, socket):
     #     socket.sendall("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
 
     def EHLO_again_handler(self):
-        self.logger.log(level=logging.DEBUG, msg="Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.\n")
+        #self.logger.log(level=logging.DEBUG, msg="Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.\n")
+        print("Socket received: (EHLO) 250 ENHANCEDSTATUSCODES.\n")
 
     # def HELO_handler(self, socket, address, domain):
-    #     self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
+    #     #self.logger.log(level=logging.DEBUG, msg="domain: {} connected".format(domain))
+    #         print("domain: connected: " + domain)
 
     def MAIL_FROM_handler(self):
-        self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
+        #self.logger.log(level=logging.DEBUG, msg="Socket received answer for MAIL FROM message.\n")
+        print("Socket received answer for MAIL FROM message.\n")
 
     def MAIL_FROM_write_handler(self, socket_, from_):
         socket_.sendall(f'MAIL {from_}'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message: {from_}")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message: {from_}")
+        print("Socket sent MAIL FROM message: {from_}")
 
     def RCPT_TO_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
+        print("Socket received answer for RCPT TO message.\n")
 
     def RCPT_TO_write_handler(self, socket_, to_entry):
         socket_.sendall(f'RCPT {to_entry}'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message: {to_entry}")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message: {to_entry}")
+        print("Socket sent RCPT TO message: {to_entry}")
 
     def RCPT_TO_additional_handler(self, isWrongFlag):
         if isWrongFlag:
             server_message = "No such user here"
         else:
             server_message = "OK"
-        self.logger.log(level=logging.DEBUG, msg=f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
+        print("Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
 
     def DATA_start_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket is ready to transfer data.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket is ready to transfer data.\n")
+        print("Socket is ready to transfer data.\n")
 
     def DATA_start_write_handler(self, socket_):
         socket_.sendall('DATA\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA message.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent DATA message.\n")
+        print("Socket sent DATA message.\n")
 
     def DATA_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
+        print("Socket recieved answer for DATA message (354 Start mail input; end with <CRLF>.<CRLF>)\n")
 
     def DATA_write_handler(self, socket_, string_to_send):
         BUFF_SIZE_BYTES = 4096
         # socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, BUFF_SIZE_BYTES)
         chunks = [string_to_send[i: i + BUFF_SIZE_BYTES] for i in range(0, len(string_to_send), BUFF_SIZE_BYTES)]
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
+        print("Socket sending all DATA from Client.\n")
         for chunk in chunks:
             # chunk = chunk.rstrip()
             socket_.sendall(f'{chunk}'.encode())
-            self.logger.log(level=logging.DEBUG, msg=f"DATA sent (body chunk):\n{chunk}")
+            #self.logger.log(level=logging.DEBUG, msg=f"DATA sent (body chunk):\n{chunk}")
+            print("DATA sent (body chunk):\n{chunk}")
         # socket_.sendall(allStrings.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
+        print("Socket sending all DATA from Client.\n")
 
     def DATA_end_write_handler(self, socket_):
         socket_.sendall('\r\n.\r\n'.encode())
         # socket_.send('\r\n.\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent END DATA dot sign.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent END DATA dot sign.\n")
+        print("Socket sent END DATA dot sign.\n")
 
     # def DATA_end_handler(self):
-    #     self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
+    #     #self.logger.log(level=logging.DEBUG, msg=f"Socket recieved answer for DATA end (250 OK)\n")
+    # print("Socket recieved answer for DATA end (250 OK)\n")
 
     def QUIT_handler(self, answer_text):
-        self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (\n{answer_text}\n)\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (\n{answer_text}\n)\n")
+        print("Socket received answer for DATA end (\n{answer_text}\n)\n")
 
     def QUIT_write_handler(self, socket_):
         socket_.sendall('QUIT\r\n'.encode())
-        self.logger.log(level=logging.DEBUG, msg=f"Socket sent QUIT message.\n")
+        #self.logger.log(level=logging.DEBUG, msg=f"Socket sent QUIT message.\n")
+        print("Socket sent QUIT message.\n")
 
     def FINISH_handler(self):  # , socket_:socket.socket):
-        self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
+        #self.logger.log(level=logging.DEBUG, msg='Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n')
+        print("Socket recieved answer for QUIT message. (221 Service closing transmission channel) Closing socket.\n")
         #socket_.close()
 
 
     def ERROR_handler(self):
-        self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")
-
+        #self.logger.log(level=logging.DEBUG, msg=f"FSM SMTP-client ERROR state has occured!\n")
+        print("FSM SMTP-client ERROR state has occured!\n")
 
