@@ -63,7 +63,8 @@ class Mail():
             helo_string = f.readline()
             from_ = f.readline()
             to_list = []
-            to = f.readline()           # TODO: multiple recipients (client)
+            # N.B.: check code for multiple recipients (client):
+            to = f.readline()
             to_list.append(to)
             domain_matched = re.search(domain_pattern, to)
             if domain_matched:

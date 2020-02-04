@@ -135,6 +135,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             GREETING_matched = re.match(GREETING_pattern, line)
             if GREETING_matched:
                 clientServerConnection.machine.EHLO(GREETING_matched.group(2), line)
+                print('current readLine() in GREETING_STATE: ' + line)
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
@@ -142,16 +143,20 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         elif current_state == EHLO_WRITE_STATE:
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command) or 'localhost'
             clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
+            print('current readLine() in EHLO_WRITE_STATE: ' + line)
+            print('current HELO_matched.group(2): ' + HELO_matched.group(2))
             return
         elif current_state == EHLO_STATE:
             EHLO_end_matched = re.search(EHLO_end_pattern, line)
             if EHLO_end_matched:
                 clientServerConnection.machine.MAIL_FROM()
+                print('current readLine() in EHLO_STATE EHLO_end_matched: ' + line)
                 return
             else:
                 EHLO_matched = re.search(EHLO_pattern, line)
                 if EHLO_matched:
                     clientServerConnection.machine.EHLO_again()
+                    print('current readLine() in EHLO_STATE EHLO_matched: ' + line)
                     return
                 # else:
                 #     clientServerConnection.machine.ERROR__()
@@ -236,7 +241,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             return
         elif current_state == ERROR_STATE:
             # N.B.: for gracefull shutdown of the socket(:)
-            clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
+            # clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
             clientServerConnection.socket.close()
             # t_d_: pop out socket from clientSockets set
             return
@@ -248,6 +253,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         # print('current_state: ' + current_state)
         self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
+        print('current readLine(): ' + line)
         print('500 Unrecognised command')
         self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
         print('last state: ' + current_state)
@@ -306,6 +312,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             while True:
                 # self.clientSockets.clear()
                 self.checkMaildirAndCreateNewSocket()
+
                 list_of_sockets = []
                 for clientServerConnection in self.clientServerConnectionList:
                   list_of_sockets.append(clientServerConnection.socket.connection) #= [x for [x, y] in self.clientSockets]
@@ -314,16 +321,22 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                     rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
                     for fds in rfds:
                         # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+                        print('inside rfds')
                         socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        print('inside rfds after socket_conn_')
                         self.handle_talk_to_server_RW(socket_conn_,
                                                       # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                       True)
+                        print('inside rfds after handle_talk_to_server_RW')
                     for fds in wfds:
                         # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+                        print('inside wfds')
                         socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        print('inside wfds after socket_conn_')
                         self.handle_talk_to_server_RW(socket_conn_,
                                                       # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                       False)
+                        print('inside wfds after handle_talk_to_server_RW')
         except (KeyboardInterrupt, ValueError, socket.timeout) as e_0:
             print(e_0)
 

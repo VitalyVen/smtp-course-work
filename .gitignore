@@ -52,3 +52,9 @@ Mkfile.old
 dkms.conf
 /.idea/
 /venv/
+
+# Logs
+*.log
+/client/logs/
+/client/logs/log.log
+/client/logs/fsm.log
