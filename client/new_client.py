@@ -12,7 +12,7 @@ from SMTP_CLIENT_FSM import *
 from client_server_connection import ClientServerConnection
 from utils import ClientHelper
 
-from client_state import * #GREETING_STATE as GREETING_STATE
+from client_state import *  # GREETING_STATE as GREETING_STATE
 # from client_state import EHLO_WRITE_STATE as EHLO_WRITE_STATE
 # from client_state import MAIL_FROM_WRITE_STATE as MAIL_FROM_WRITE_STATE
 # from client_state import RCPT_TO_WRITE_STATE as RCPT_TO_WRITE_STATE
@@ -35,14 +35,14 @@ from common.mail import Mail
 mailDirGlobalQueue = multiprocessing.Queue()
 
 
-isNotFirstClientRead = False
+# isNotFirstClientRead = False
 
 class MailClient(object):
-    def __init__(self, logdir ='logs', threads=5):
+    def __init__(self, logdir='logs', threads=5):
         self.threads_cnt = threads
         self.threads = []
         # self.logdir = logdir
-        #self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
+        # self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
     def __enter__(self):
         return self
@@ -50,7 +50,7 @@ class MailClient(object):
     def getMailFromMailDir(self):
         pass
 
-    def sendMailInAThread(self, blocking=True):
+    def sendMailInAThread(self, blocking=False):
         # это главный метод класса, в нём реализована многопоточность
         # (параллельный вызов WorkingThread() в количестве threads_cnt потоков)
         for i in range(self.threads_cnt):
@@ -59,11 +59,11 @@ class MailClient(object):
             th.daemon = True
             th.name = 'Working Thread {}'.format(i)
             th.start()
-        #self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
+        # self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
         while blocking:
             # pass
-        # each thread finishes when main process will be finished (exit context manager)
-        # so we should do nothing with blocking=True or other actions in main thread (:)
+            # each thread finishes when main process will be finished (exit context manager)
+            # so we should do nothing with blocking=True or other actions in main thread (:)
             try:
                 # N.B.: можно заменить на select по файловым дескрипторам:
                 sleep(1)
@@ -75,10 +75,10 @@ class MailClient(object):
         #     th.terminate()
         # for th in self.threads:
         #     th.join(timeout=2)
-        #self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
+        # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
         print('gracefull close of the main process')
-        #self.logger.terminate()
-        #self.logger.join(timeout=2)
+        # self.logger.terminate()
+        # self.logger.join(timeout=2)
         # sys.exit()
 
 
@@ -94,22 +94,22 @@ class MailClient(object):
 #         pass
 
 
-class WorkingThread(): #WorkingThread(threading.Thread):
+class WorkingThread():  # WorkingThread(threading.Thread):
 
-    def __init__(self, mainClientFromArg: MailClient, logdir ='logs', *args, **kwargs):
+    def __init__(self, mainClientFromArg: MailClient, logdir='logs', *args, **kwargs):
         super(WorkingThread, self).__init__(*args, **kwargs)
         self.active = True
         self.mailClientMain = mainClientFromArg
         # self.clientSockets = []
         self.clientServerConnectionList = []
         self.logdir = logdir
-        #self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
+        # self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         for clientServerConnection in self.clientServerConnectionList:
-            clientServerConnection.socket.shutdown()  #TODO: probably change to shutdown only (need to Google it!)
+            clientServerConnection.socket.shutdown()  # TODO: probably change to shutdown only (need to Google it!)
             clientServerConnection.socket.close()
-            #self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
+            # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
             print('gracefull close of a thread')
 
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
@@ -118,17 +118,19 @@ class WorkingThread(): #WorkingThread(threading.Thread):
          match exact state with re (regular expression) patterns
          call appropriate handlers for each state
         '''
-        # clientServerConnection.socket.connection.setblocking(0)
+        clientServerConnection.socket.connection.setblocking(0)
 
-        print('inside handle_talk_to_server_RW, after setblocking is set to null for clientServerConnection, readFlag: ' + str(readFlag))
+        print(
+            'inside handle_talk_to_server_RW, after setblocking is set to null for clientServerConnection, readFlag: ' + str(
+                readFlag))
 
         line = ""
         if readFlag:
             try:
                 line = clientServerConnection.socket.readline()
-                #self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
+                # self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
             except socket.timeout:
-                #self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
+                # self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
                 clientServerConnection.socket.close()
                 return
 
@@ -138,12 +140,12 @@ class WorkingThread(): #WorkingThread(threading.Thread):
         print('inside handle_talk_to_server_RW, AFTER current_state is set, current_state: ' + current_state)
 
         if current_state == GREETING_STATE:
-            # # N.B.: waiting until socket is ready to read (if socket ready to write is triggered first):
-            # if not readFlag:
-            #     print('if not readFlag code part')
-            #     clientServerConnection.socket.sendall(f''.encode())
-            #     print('if not readFlag code part, after clientServerConnection.socket.sendall(f"".encode())')
-            #     return
+            # N.B.: waiting until socket is ready to read (if socket ready to write is triggered first):
+            if not readFlag:
+                print('if not readFlag code part in GREETING_STATE')
+                # clientServerConnection.socket.sendall(f'WAITING_GREETING'.encode())
+                # print('if not readFlag code part, after clientServerConnection.socket.sendall(f"WAITING_GREETING".encode())')
+                return
             GREETING_matched = re.match(GREETING_pattern, line)
             if GREETING_matched:
                 print('if GREETING_matched, GREETING_matched.group(2): ' + GREETING_matched.group(2))
@@ -154,6 +156,9 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == EHLO_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in EHLO_WRITE_STATE')
+                return
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command) or 'localhost'
             clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
             print('current readLine() in EHLO_WRITE_STATE: ' + line)
@@ -161,6 +166,9 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             return
         elif current_state == EHLO_STATE:
             print('enter EHLO_STATE')
+            if not readFlag:
+                print('if not readFlag code part in EHLO_STATE')
+                return
             EHLO_end_matched = re.search(EHLO_end_pattern, line)
             if EHLO_end_matched:
                 clientServerConnection.machine.MAIL_FROM()
@@ -176,9 +184,16 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                 #     clientServerConnection.machine.ERROR__()
                 #     return
         elif current_state == MAIL_FROM_WRITE_STATE:
-            clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket, clientServerConnection.mail.from_)
+            if readFlag:
+                print('if readFlag code part in MAIL_FROM_WRITE_STATE')
+                return
+            clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket,
+                                                           clientServerConnection.mail.from_)
             return
         elif current_state == MAIL_FROM_STATE:
+            if not readFlag:
+                print('if not readFlag code part in MAIL_FROM_STATE')
+                return
             MAIL_FROM_matched = re.search(MAIL_FROM_pattern, line)
             if MAIL_FROM_matched:
                 clientServerConnection.machine.RCPT_TO()
@@ -187,12 +202,18 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == RCPT_TO_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in RCPT_TO_WRITE_STATE')
+                return
             indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
             clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
                                                          clientServerConnection.mail.to[indexOfCurrentReceipient])
             clientServerConnection.receipientsLeft -= 1
             return
         elif current_state == RCPT_TO_STATE:
+            if not readFlag:
+                print('if not readFlag code part in RCPT_TO_STATE')
+                return
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
             if clientServerConnection.receipientsLeft == 0:
@@ -208,9 +229,15 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == DATA_STRING_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in DATA_STRING_WRITE_STATE')
+                return
             clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
             return
         elif current_state == DATA_STATE:
+            if not readFlag:
+                print('if not readFlag code part in DATA_STATE')
+                return
             DATA_matched = re.search(DATA_pattern, line)
             if DATA_matched:
                 clientServerConnection.machine.DATA()
@@ -219,61 +246,76 @@ class WorkingThread(): #WorkingThread(threading.Thread):
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == DATA_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in DATA_WRITE_STATE')
+                return
             clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
             return
         elif current_state == DATA_END_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in DATA_END_WRITE_STATE')
+                return
             clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
             return
         elif current_state == DATA_END_STATE:
+            if not readFlag:
+                print('if not readFlag code part in DATA_END_STATE')
+                return
             DATA_END_matched = re.search(DATA_END_pattern, line)
             SERVICE_UNAVAILABLE_matched = re.search(SERVICE_UNAVAILABLE_pattern, line)
             if DATA_END_matched:
                 clientServerConnection.machine.QUIT('250 OK')
                 return
             elif SERVICE_UNAVAILABLE_matched:
-                clientServerConnection.machine.QUIT('451 4.7.1 Sorry, the service is currently unavailable. Please come back later.')
+                clientServerConnection.machine.QUIT(
+                    '451 4.7.1 Sorry, the service is currently unavailable. Please come back later.')
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == QUIT_WRITE_STATE:
+            if readFlag:
+                print('if readFlag code part in QUIT_WRITE_STATE')
+                return
             clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
             return
         elif current_state == QUIT_STATE:
+            if not readFlag:
+                print('if not readFlag code part in QUIT_STATE')
+                return
             QUIT_matched = re.search(QUIT_pattern, line)
             if QUIT_matched:
-                clientServerConnection.machine.FINISH()  #clientServerConnection.machine.FINISH(clientServerConnection.socket)
+                clientServerConnection.machine.FINISH()  # clientServerConnection.machine.FINISH(clientServerConnection.socket)
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == FINISH_STATE:
             # N.B.: for gracefull shutdown of the socket(:)
-            clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
-            clientServerConnection.socket.close()
+            clientServerConnection.socket.connection.shutdown(socket.SHUT_RDWR)
+            clientServerConnection.socket.connection.close()
             # t_d_: pop out socket from clientSockets set
             return
         elif current_state == ERROR_STATE:
             # N.B.: for gracefull shutdown of the socket(:)
-            # clientServerConnection.socket.shutdown(socket.SHUT_RDWR)
-            clientServerConnection.socket.close()
+            # clientServerConnection.socket.connection.shutdown(socket.SHUT_RDWR)
+            clientServerConnection.socket.connection.close()
             # t_d_: pop out socket from clientSockets set
             return
         # else:
-            # pass
+        # pass
 
         # N.B.: [мы можем оказаться в этой части кода только, если блок -elif-+/-else НЕ нашёл совпадений,
         # т.к. в каждой его ветви стоит return из текущего метода](:)
         # print('current_state: ' + current_state)
-        #self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
+        # self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
         print('current readLine(): ' + line)
         print('500 Unrecognised command')
-        #self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
+        # self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
         print('last state: ' + current_state)
         clientServerConnection.machine.ERROR()
         # current_state = ERROR_STATE
-
 
     def checkMaildirAndCreateNewSocket(self):
         #  получение новых писем из папки maildir:
@@ -294,7 +336,10 @@ class WorkingThread(): #WorkingThread(threading.Thread):
                 print(mail.domain + ' error')
                 continue
             new_socket = clientHelper.socket_init(host=mx)
-
+            print("mail.domain is: " + str(mail.domain))
+            print("mx is: " + str(mx))
+            print("mail.to is: " + str(mail.to))
+            print("mail.from_ is: " + str(mail.from_))
             # client = ClientServerConnection(socket_of_client_type=ClientSocket(new_socket, new_socket.getsockname()), mail=mail) #logdir (!!!)
             ## serv.clients[connection] = client
 
@@ -324,50 +369,55 @@ class WorkingThread(): #WorkingThread(threading.Thread):
     # isNotFirstClientRead = False
 
     def run(self):
-        global isNotFirstClientRead
+        # global isNotFirstClientRead
         try:
-            not_first_iteration = False
+            # not_first_iteration = False
             while True:
                 # self.clientSockets.clear()
-                print('before self.checkMaildirAndCreateNewSocket()')
+                # print('before self.checkMaildirAndCreateNewSocket()')
                 self.checkMaildirAndCreateNewSocket()
                 print('after self.checkMaildirAndCreateNewSocket()')
 
                 list_of_sockets = []
                 for clientServerConnection in self.clientServerConnectionList:
-                  print('before list_of_sockets.append(...)')
-                  list_of_sockets.append(clientServerConnection.socket.connection) #= [x for [x, y] in self.clientSockets]
-                  print(clientServerConnection.socket.connection)
-                  print(clientServerConnection.socket.connection.fileno())
-                  print('after list_of_sockets.append(...)')
+                    # print('before list_of_sockets.append(...)')
+                    list_of_sockets.append(
+                        clientServerConnection.socket.connection)  # = [x for [x, y] in self.clientSockets]
+                    # print(clientServerConnection.socket.connection)
+                    # print(clientServerConnection.socket.connection.fileno())
+                    # print('after list_of_sockets.append(...)')
 
+                # print('list_of_sockets: ' + str(list_of_sockets))
                 if list_of_sockets:
-                    print('before select.select(...)')
-                    print('list_of_sockets len(): ' + str(len(list_of_sockets)))
+                    # print('before select.select(...)')
+                    # print('list_of_sockets len(): ' + str(len(list_of_sockets)))
                     rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
-                    print('after select.select(...)')
+                    # print('after select.select(...)')
                     for fds in rfds:
-                        isNotFirstClientRead = True
+                        # isNotFirstClientRead = True
                         # not_first_iteration = True
                         # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
                         print('inside rfds')
-                        socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
-                        print('inside rfds after socket_conn_')
+                        socket_conn_ = next(
+                            filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        # print('inside rfds after socket_conn_')
                         self.handle_talk_to_server_RW(socket_conn_,
                                                       # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
                                                       True)
-                        print('inside rfds after handle_talk_to_server_RW')
-                    if isNotFirstClientRead:
-                        for fds in wfds:
-                          # if not_first_iteration:
-                            # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
-                            print('inside wfds')
-                            socket_conn_ = next(filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
-                            print('inside wfds after socket_conn_')
-                            self.handle_talk_to_server_RW(socket_conn_,
-                                                          # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
-                                                          False)
-                            print('inside wfds after handle_talk_to_server_RW')
+                        # print('inside rfds after handle_talk_to_server_RW')
+                # if isNotFirstClientRead:
+                    for fds in wfds:
+                        # print('inside wfds0')
+                    # if not_first_iteration:
+                        # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
+                        # print('inside wfds')
+                        socket_conn_ = next(
+                            filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
+                        # print('inside wfds after socket_conn_')
+                        self.handle_talk_to_server_RW(socket_conn_,
+                                                      # ClientServerConnection(self.clientSockets[fds][0], self.clientSockets[fds][1]),
+                                                      False)
+                        # print('inside wfds after handle_talk_to_server_RW')
                     for fds in errfds:
                         print('Here is one of error fds (errfds), error fd: ' + fds)
         except (KeyboardInterrupt, ValueError, socket.timeout) as e_0:
@@ -413,6 +463,7 @@ class WorkingThread(): #WorkingThread(threading.Thread):
     def terminate(self) -> None:
         self.active = False
 
+
 if __name__ == '__main__':
     with MailClient(threads=1) as mainMailClient:
         # th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
@@ -425,7 +476,7 @@ if __name__ == '__main__':
         #     ## # получение новых писем из папки maildir:
         #     ## filesInProcess_fromMain = clientHelper.maildir_handler()
         #     ## mailDirGlobalQueue.put(filesInProcess_fromMain)
-        #     ## # mainMailClient.sendMailInAThread()
+        #     ## # mainMailClient.sendMailInAThread(True)
         #     try:
         #         sleep(0.1)
         #     except KeyboardInterrupt as e:
