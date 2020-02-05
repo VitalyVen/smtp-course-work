@@ -249,7 +249,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             if readFlag:
                 print('if readFlag code part in DATA_WRITE_STATE')
                 return
-            clientServerConnection.machine.DATA_write(clientServerConnection.socket, clientServerConnection.mail.body)
+            clientServerConnection.machine.DATA_write(clientServerConnection.socket, '\n'.join(clientServerConnection.mail.body))
             return
         elif current_state == DATA_END_WRITE_STATE:
             if readFlag:

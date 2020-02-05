@@ -7,18 +7,21 @@ from server_config import DEFAULT_USER_DIR, SERVER_DOMAIN, DEFAULT_SUPR_DIR#, MA
 from state import RE_EMAIL_ADDRESS
 from server.state import domain_pattern
 
+# N.B.: произвольная верхняя граница числа получателей письма:
+MAX_RECIPIENTS = 100
+
 @dataclass
-class Mail():
-    to:list
-    body:str = ''
-    from_:str = ''
-    domain:str = ''
-    helo_command:str = ''
+class Mail:
+    to: list
+    body: str = ''
+    from_: str = ''
+    domain: str = ''
+    helo_command: str = ''
     file_path: str = ''
 
     @property
     def mail(self):
-        mail = f"{self.helo_command}:<{self.domain}>\r\n"
+        mail = f"{self.helo_MAX_RECIPIENTScommand}:<{self.domain}>\r\n"
         mail+= f"FROM:<{self.from_}>\r\n"
         for i in self.to:
             mail+= f"TO:<{i}>\r\n"

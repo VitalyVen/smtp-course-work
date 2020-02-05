@@ -136,7 +136,7 @@ class SmtpClientFsm(object):
         #self.logger.log(level=logging.DEBUG, msg=f"220 SMTP GREETING FROM {server_domain}\n")
         #self.logger.log(level=logging.DEBUG, msg=f"server_first_session_textline: {server_first_session_textline}\n")
         print("******************************NEW_SMTP_SESSION_STARTED******************************\n")
-        print("220 SMTP GREETING FROM {server_domain}\n")
+        print(f"220 SMTP GREETING FROM {server_domain}\n")
         print("server_first_session_textline: {server_first_session_textline}\n")
 
     def EHLO_write_handler(self, socket_, domain):
@@ -144,7 +144,7 @@ class SmtpClientFsm(object):
         socket_.sendall(f'EHLO {domain}\r\n'.encode())
         print('in EHLO_write_handler, after socket_.sendall(...EHLO...)')
         #self.logger.log(level=logging.DEBUG, msg=f"Socket sent EHLO message: EHLO: {domain}\r\n")
-        print("Socket sent EHLO message: EHLO: {domain}\r\n")
+        print(f"Socket sent EHLO message: EHLO: {domain}\r\n")
 
     # def GREETING_write_handler(self, socket):
     #     socket.sendall("220 SMTP GREETING FROM 0.0.0.0.0.0.1\n".encode())
@@ -164,7 +164,7 @@ class SmtpClientFsm(object):
     def MAIL_FROM_write_handler(self, socket_, from_):
         socket_.sendall(f'MAIL {from_}'.encode())
         #self.logger.log(level=logging.DEBUG, msg=f"Socket sent MAIL FROM message: {from_}")
-        print("Socket sent MAIL FROM message: {from_}")
+        print(f"Socket sent MAIL FROM message: {from_}")
 
     def RCPT_TO_handler(self):
         #self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for RCPT TO message.\n")
@@ -173,7 +173,7 @@ class SmtpClientFsm(object):
     def RCPT_TO_write_handler(self, socket_, to_entry):
         socket_.sendall(f'RCPT {to_entry}'.encode())
         #self.logger.log(level=logging.DEBUG, msg=f"Socket sent RCPT TO message: {to_entry}")
-        print("Socket sent RCPT TO message: {to_entry}")
+        print(f"Socket sent RCPT TO message: {to_entry}")
 
     def RCPT_TO_additional_handler(self, isWrongFlag):
         if isWrongFlag:
@@ -181,7 +181,7 @@ class SmtpClientFsm(object):
         else:
             server_message = "OK"
         #self.logger.log(level=logging.DEBUG, msg=f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
-        print("Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
+        print(f"Socket (again) received answer for additional RCPT TO message:\n{server_message}\n")
 
     def DATA_start_handler(self):
         #self.logger.log(level=logging.DEBUG, msg=f"Socket is ready to transfer data.\n")
@@ -204,9 +204,10 @@ class SmtpClientFsm(object):
         print("Socket sending all DATA from Client.\n")
         for chunk in chunks:
             # chunk = chunk.rstrip()
-            socket_.sendall(f'{chunk}'.encode())
+            socket_.send(f'{chunk}'.encode())
+            # socket_.sendall(f'{chunk}'.encode())
             #self.logger.log(level=logging.DEBUG, msg=f"DATA sent (body chunk):\n{chunk}")
-            print("DATA sent (body chunk):\n{chunk}")
+            print(f"DATA sent (body chunk):\n{chunk}")
         # socket_.sendall(allStrings.encode())
         #self.logger.log(level=logging.DEBUG, msg=f"Socket sending all DATA from Client.\n")
         print("Socket sending all DATA from Client.\n")
@@ -223,7 +224,7 @@ class SmtpClientFsm(object):
 
     def QUIT_handler(self, answer_text):
         #self.logger.log(level=logging.DEBUG, msg=f"Socket received answer for DATA end (\n{answer_text}\n)\n")
-        print("Socket received answer for DATA end (\n{answer_text}\n)\n")
+        print(f"Socket received answer for DATA end (\n{answer_text}\n)\n")
 
     def QUIT_write_handler(self, socket_):
         socket_.sendall('QUIT\r\n'.encode())
