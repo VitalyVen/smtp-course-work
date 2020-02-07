@@ -32,17 +32,38 @@ from client_socket import ClientSocket
 from common.custom_logger_proc import QueueProcessLogger
 from common.mail import Mail
 
-mailDirGlobalQueue = multiprocessing.Queue()
+# additional imports for logging:
+import logging
+from logging import handlers
+import multiprocessing
+from logger_listener_process import listener_process
+
+# mailDirGlobalQueue = multiprocessing.Queue()
 
 
 # isNotFirstClientRead = False
 
+# используем имя модуля для логирования
+from worker_logging_test_process import worker_logging_test_process
+
+new_client_logger = logging.getLogger(__name__)
+
+
+def logger_root_configurer(logger_queue):
+    queue_handler = handlers.QueueHandler(logger_queue)
+    root = logging.getLogger()
+    root.addHandler(queue_handler)
+    # пока реализован только один уровень логирования:
+    root.setLevel(logging.DEBUG)
+
+
 class MailClient(object):
-    def __init__(self, logdir='logs', threads=5):
+    def __init__(self, logger, threads=5):  # logdir='logs'):
         self.threads_cnt = threads
         self.threads = []
         # self.logdir = logdir
         # self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
+        self.logger = logger
 
     def __enter__(self):
         return self
@@ -59,7 +80,7 @@ class MailClient(object):
             th.daemon = True
             th.name = 'Working Thread {}'.format(i)
             th.start()
-        # self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
+        self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
         while blocking:
             # pass
             # each thread finishes when main process will be finished (exit context manager)
@@ -75,8 +96,8 @@ class MailClient(object):
         #     th.terminate()
         # for th in self.threads:
         #     th.join(timeout=2)
-        # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
-        print('gracefull close of the main process')
+        self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
+        # print('gracefull close of the main process')
         # self.logger.terminate()
         # self.logger.join(timeout=2)
         # sys.exit()
@@ -96,21 +117,22 @@ class MailClient(object):
 
 class WorkingThread():  # WorkingThread(threading.Thread):
 
-    def __init__(self, mainClientFromArg: MailClient, logdir='logs', *args, **kwargs):
+    def __init__(self, mainClientFromArg: MailClient, logger_from_main_class, *args, **kwargs): # logdir='logs', *args, **kwargs):
         super(WorkingThread, self).__init__(*args, **kwargs)
         self.active = True
         self.mailClientMain = mainClientFromArg
         # self.clientSockets = []
         self.clientServerConnectionList = []
-        self.logdir = logdir
+        #self.logdir = logdir
         # self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
+        self.logger = logger_from_main_class
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         for clientServerConnection in self.clientServerConnectionList:
             clientServerConnection.socket.shutdown()  # TODO: probably change to shutdown only (need to Google it!)
             clientServerConnection.socket.close()
-            # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
-            print('gracefull close of a thread')
+            self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
+            # print('gracefull close of a thread')
 
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
         '''
@@ -120,79 +142,79 @@ class WorkingThread():  # WorkingThread(threading.Thread):
         '''
         clientServerConnection.socket.connection.setblocking(0)
 
-        print(
-            'inside handle_talk_to_server_RW, after setblocking is set to null for clientServerConnection, readFlag: ' + str(
-                readFlag))
+        # print(
+        #     'inside handle_talk_to_server_RW, after setblocking is set to null for clientServerConnection, readFlag: ' + str(
+        #         readFlag))
 
         line = ""
         if readFlag:
             try:
                 line = clientServerConnection.socket.readline()
-                # self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
+                self.logger.log(level=logging.DEBUG, msg=f"clientServerConnection.socket.readLine(): {line}\n")
             except socket.timeout:
-                # self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
+                self.logger.log(level=logging.WARNING, msg=f'Timeout on clientServerConnection read')
                 clientServerConnection.socket.close()
                 return
 
         # N.B.: состояние FSM-машины здесь привязано к передаваемому в аргументах сокету(:)
 
         current_state = clientServerConnection.machine.state
-        print('inside handle_talk_to_server_RW, AFTER current_state is set, current_state: ' + current_state)
+        # print('inside handle_talk_to_server_RW, AFTER current_state is set, current_state: ' + current_state)
 
         if current_state == GREETING_STATE:
             # N.B.: waiting until socket is ready to read (if socket ready to write is triggered first):
             if not readFlag:
-                print('if not readFlag code part in GREETING_STATE')
+                # print('if not readFlag code part in GREETING_STATE')
                 # clientServerConnection.socket.sendall(f'WAITING_GREETING'.encode())
                 # print('if not readFlag code part, after clientServerConnection.socket.sendall(f"WAITING_GREETING".encode())')
                 return
             GREETING_matched = re.match(GREETING_pattern, line)
             if GREETING_matched:
-                print('if GREETING_matched, GREETING_matched.group(2): ' + GREETING_matched.group(2))
+                # print('if GREETING_matched, GREETING_matched.group(2): ' + GREETING_matched.group(2))
                 clientServerConnection.machine.EHLO(GREETING_matched.group(2), line)
-                print('current readLine() in GREETING_STATE: ' + line)
+                # print('current readLine() in GREETING_STATE: ' + line)
                 return
             # else:
             #     clientServerConnection.machine.ERROR__()
             #     return
         elif current_state == EHLO_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in EHLO_WRITE_STATE')
+                # print('if readFlag code part in EHLO_WRITE_STATE')
                 return
             HELO_matched = re.search(HELO_pattern_CLIENT, clientServerConnection.mail.helo_command) or 'localhost'
             clientServerConnection.machine.EHLO_write(clientServerConnection.socket, HELO_matched.group(2))
-            print('current readLine() in EHLO_WRITE_STATE: ' + line)
-            print('current HELO_matched.group(2): ' + HELO_matched.group(2))
+            # print('current readLine() in EHLO_WRITE_STATE: ' + line)
+            # print('current HELO_matched.group(2): ' + HELO_matched.group(2))
             return
         elif current_state == EHLO_STATE:
-            print('enter EHLO_STATE')
+            # print('enter EHLO_STATE')
             if not readFlag:
-                print('if not readFlag code part in EHLO_STATE')
+                # print('if not readFlag code part in EHLO_STATE')
                 return
             EHLO_end_matched = re.search(EHLO_end_pattern, line)
             if EHLO_end_matched:
                 clientServerConnection.machine.MAIL_FROM()
-                print('current readLine() in EHLO_STATE EHLO_end_matched: ' + line)
+                # print('current readLine() in EHLO_STATE EHLO_end_matched: ' + line)
                 return
             else:
                 EHLO_matched = re.search(EHLO_pattern, line)
                 if EHLO_matched:
                     clientServerConnection.machine.EHLO_again()
-                    print('current readLine() in EHLO_STATE EHLO_matched: ' + line)
+                    # print('current readLine() in EHLO_STATE EHLO_matched: ' + line)
                     return
                 # else:
                 #     clientServerConnection.machine.ERROR__()
                 #     return
         elif current_state == MAIL_FROM_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in MAIL_FROM_WRITE_STATE')
+                # print('if readFlag code part in MAIL_FROM_WRITE_STATE')
                 return
             clientServerConnection.machine.MAIL_FROM_write(clientServerConnection.socket,
                                                            clientServerConnection.mail.from_)
             return
         elif current_state == MAIL_FROM_STATE:
             if not readFlag:
-                print('if not readFlag code part in MAIL_FROM_STATE')
+                # print('if not readFlag code part in MAIL_FROM_STATE')
                 return
             MAIL_FROM_matched = re.search(MAIL_FROM_pattern, line)
             if MAIL_FROM_matched:
@@ -203,7 +225,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             #     return
         elif current_state == RCPT_TO_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in RCPT_TO_WRITE_STATE')
+                # print('if readFlag code part in RCPT_TO_WRITE_STATE')
                 return
             indexOfCurrentReceipient = len(clientServerConnection.mail.to) - clientServerConnection.receipientsLeft
             clientServerConnection.machine.RCPT_TO_write(clientServerConnection.socket,
@@ -212,7 +234,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             return
         elif current_state == RCPT_TO_STATE:
             if not readFlag:
-                print('if not readFlag code part in RCPT_TO_STATE')
+                # print('if not readFlag code part in RCPT_TO_STATE')
                 return
             RCPT_TO_matched = re.search(RCPT_TO_pattern, line)
             RCPT_TO_WRONG_matched = re.search(RCPT_TO_WRONG_pattern, line)
@@ -230,13 +252,13 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             #     return
         elif current_state == DATA_STRING_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in DATA_STRING_WRITE_STATE')
+                # print('if readFlag code part in DATA_STRING_WRITE_STATE')
                 return
             clientServerConnection.machine.DATA_start_write(clientServerConnection.socket)
             return
         elif current_state == DATA_STATE:
             if not readFlag:
-                print('if not readFlag code part in DATA_STATE')
+                # print('if not readFlag code part in DATA_STATE')
                 return
             DATA_matched = re.search(DATA_pattern, line)
             if DATA_matched:
@@ -247,19 +269,19 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             #     return
         elif current_state == DATA_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in DATA_WRITE_STATE')
+                # print('if readFlag code part in DATA_WRITE_STATE')
                 return
             clientServerConnection.machine.DATA_write(clientServerConnection.socket, '\n'.join(clientServerConnection.mail.body))
             return
         elif current_state == DATA_END_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in DATA_END_WRITE_STATE')
+                # print('if readFlag code part in DATA_END_WRITE_STATE')
                 return
             clientServerConnection.machine.DATA_end_write(clientServerConnection.socket)
             return
         elif current_state == DATA_END_STATE:
             if not readFlag:
-                print('if not readFlag code part in DATA_END_STATE')
+                # print('if not readFlag code part in DATA_END_STATE')
                 return
             DATA_END_matched = re.search(DATA_END_pattern, line)
             SERVICE_UNAVAILABLE_matched = re.search(SERVICE_UNAVAILABLE_pattern, line)
@@ -275,13 +297,13 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             #     return
         elif current_state == QUIT_WRITE_STATE:
             if readFlag:
-                print('if readFlag code part in QUIT_WRITE_STATE')
+                # print('if readFlag code part in QUIT_WRITE_STATE')
                 return
             clientServerConnection.machine.QUIT_write(clientServerConnection.socket)
             return
         elif current_state == QUIT_STATE:
             if not readFlag:
-                print('if not readFlag code part in QUIT_STATE')
+                # print('if not readFlag code part in QUIT_STATE')
                 return
             QUIT_matched = re.search(QUIT_pattern, line)
             if QUIT_matched:
@@ -307,13 +329,13 @@ class WorkingThread():  # WorkingThread(threading.Thread):
 
         # N.B.: [мы можем оказаться в этой части кода только, если блок -elif-+/-else НЕ нашёл совпадений,
         # т.к. в каждой его ветви стоит return из текущего метода](:)
-        # print('current_state: ' + current_state)
-        # self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
+        # # print('current_state: ' + current_state)
+        self.logger.log(level=logging.DEBUG, msg=f'current_state is {current_state}')
         clientServerConnection.socket.sendall(f'500 Unrecognised command {line}\n'.encode())
-        print('current readLine(): ' + line)
-        print('500 Unrecognised command')
-        # self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
-        print('last state: ' + current_state)
+        # print('current readLine(): ' + line)
+        # print('500 Unrecognised command')
+        self.logger.log(level=logging.DEBUG, msg=f'Sent response: "500 Unrecognised command" to the server')
+        # print('last state: ' + current_state)
         clientServerConnection.machine.ERROR()
         # current_state = ERROR_STATE
 
@@ -336,10 +358,10 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                 print(mail.domain + ' error')
                 continue
             new_socket = clientHelper.socket_init(host=mx)
-            print("mail.domain is: " + str(mail.domain))
-            print("mx is: " + str(mx))
-            print("mail.to is: " + str(mail.to))
-            print("mail.from_ is: " + str(mail.from_))
+            # print("mail.domain is: " + str(mail.domain))
+            # print("mx is: " + str(mx))
+            # print("mail.to is: " + str(mail.to))
+            # print("mail.from_ is: " + str(mail.from_))
             # client = ClientServerConnection(socket_of_client_type=ClientSocket(new_socket, new_socket.getsockname()), mail=mail) #logdir (!!!)
             ## serv.clients[connection] = client
 
@@ -352,7 +374,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
 
             ## self.connections[socket] = Client(socket,'.', m)
             ## return self.clientSockets
-            new_client_server_connection = ClientServerConnection(socket_of_client_type=new_socket, mail=mail)
+            new_client_server_connection = ClientServerConnection(socket_of_client_type=new_socket, mail=mail, logger_from_main_class=self.logger)
             self.clientServerConnectionList.append(new_client_server_connection)
 
     def poll_change_read_write(self, poll, sock, read=False, write=False):
@@ -376,7 +398,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                 # self.clientSockets.clear()
                 # print('before self.checkMaildirAndCreateNewSocket()')
                 self.checkMaildirAndCreateNewSocket()
-                print('after self.checkMaildirAndCreateNewSocket()')
+                # print('after self.checkMaildirAndCreateNewSocket()')
 
                 list_of_sockets = []
                 for clientServerConnection in self.clientServerConnectionList:
@@ -397,7 +419,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                         # isNotFirstClientRead = True
                         # not_first_iteration = True
                         # N.B.: ...next(...) returns clientServerConnection.socket.connection for connection == fds(:)
-                        print('inside rfds')
+                        # print('inside rfds')
                         socket_conn_ = next(
                             filter(lambda x: x.socket.connection == fds, self.clientServerConnectionList))
                         # print('inside rfds after socket_conn_')
@@ -465,7 +487,15 @@ class WorkingThread():  # WorkingThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    with MailClient(threads=1) as mainMailClient:
+    # настраиваем логирование из отдельного процесса (сначала создаём очередь максимально возможной длины):
+    multiprocessing_log_queue = multiprocessing.Queue(-1)
+    log_listener_process = multiprocessing.Process(target=listener_process, args=(multiprocessing_log_queue,))
+    log_listener_process.start()
+    logger_root_configurer(multiprocessing_log_queue)
+
+    # new_client_logger.debug('Logging from main, 0')
+
+    with MailClient(threads=1, logger=new_client_logger) as mainMailClient:
         # th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
         # ## kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
         # th.daemon = True
@@ -482,9 +512,26 @@ if __name__ == '__main__':
         #     except KeyboardInterrupt as e:
         #         mainMailClient.__exit__(type(e), e, e.__traceback__)
 
-        fakeThread = WorkingThread(mainClientFromArg=mainMailClient)
+        # new_client_logger.debug('Logging from main, 1')
+        # mainMailClient.logger.log(level=logging.DEBUG, msg=f'Logging from main, 1.2, from self.logger')
+
+        # # N.B.: код для тестирования многопроцессного логирования / журналирования, НАЧАЛО:
+        # mainMailClient.logger.debug('TEST Logging from main')
+        # workers = []
+        # for i in range(3):
+        #     worker = multiprocessing.Process(target=worker_logging_test_process, args=(multiprocessing_log_queue,))
+        #     workers.append(worker)
+        #     worker.start()
+        # # for w in workers:
+        # #     w.join()
+        # # mainMailClient.logger.debug('TEST main function ends')
+        # # N.B.: код для тестирования многопроцессного логирования / журналирования, КОНЕЦ:
+
+        fakeThread = WorkingThread(mainClientFromArg=mainMailClient, logger_from_main_class=mainMailClient.logger)
         while True:
             try:
+                mainMailClient.logger.debug('TEST main function, before fakeThread.run()')
                 fakeThread.run()
+                # logger.debug('never get here: Logging from main, 2, after fakeThread.run()')
             except KeyboardInterrupt as e:
                 mainMailClient.__exit__(type(e), e, e.__traceback__)
