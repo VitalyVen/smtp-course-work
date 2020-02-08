@@ -58,3 +58,10 @@ dkms.conf
 /client/logs/
 /client/logs/log.log
 /client/logs/fsm.log
+/report/smtp_client_report_SBN/tex/static/ER-diagram field.xml
+/report/smtp_client_report_SBN/tex/static/ER_diagram_field.png
+/report/smtp_client_report_SBN/tex/static/physical.png
+/report/smtp_client_report_SBN/tex/static/Untitled Diagram.drawio
+/report/smtp_client_report_SBN/tex/static/server_dot.png
+/report/smtp_client_report_SBN/tex/static/server_dot.aux
+/report/smtp_client_report_SBN/tex/static/Server_Class_Diagram.png

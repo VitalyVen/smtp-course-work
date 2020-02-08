@@ -1,5 +1,6 @@
 import socket
 import logging
+
 from client_state import *
 from common.custom_logger_proc import QueueProcessLogger
 # from transitions import Machine
@@ -63,7 +64,7 @@ QUIT_pattern = re.compile("^(221).*$")  # re.compile("^250 2\.0\.0 Ok.*")
 SERVICE_UNAVAILABLE_pattern = re.compile("^(451).*$")
 
 class SmtpClientFsm(object):
-    def __init__(self, name, logger_from_main_class):  # logdir):
+    def __init__(self, name, logger_from_main_class=None):  # logdir):
         self.name = name
         self.logger = logger_from_main_class
         # self.logger = QueueProcessLogger(filename=f'{logdir}/fsm.log')
