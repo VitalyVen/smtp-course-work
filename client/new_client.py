@@ -57,6 +57,10 @@ def logger_root_configurer(logger_queue):
     root.setLevel(logging.DEBUG)
 
 
+def exit_main():
+    print('gracefull close of the main process')
+    sys.exit()
+
 class MailClient(object):
     def __init__(self, logger, threads=5):  # logdir='logs'):
         self.threads_cnt = threads
@@ -71,33 +75,33 @@ class MailClient(object):
     def getMailFromMailDir(self):
         pass
 
-    def sendMailInAThread(self, blocking=False):
-        # это главный метод класса, в нём реализована многопоточность
-        # (параллельный вызов WorkingThread() в количестве threads_cnt потоков)
-        for i in range(self.threads_cnt):
-            th = WorkingThread(self)
-            # kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
-            th.daemon = True
-            th.name = 'Working Thread {}'.format(i)
-            th.start()
-        self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
-        while blocking:
-            # pass
-            # each thread finishes when main process will be finished (exit context manager)
-            # so we should do nothing with blocking=True or other actions in main thread (:)
-            try:
-                # N.B.: можно заменить на select по файловым дескрипторам:
-                sleep(1)
-            except KeyboardInterrupt as e:
-                self.__exit__(type(e), e, e.__traceback__)
+    # def sendMailInAThread(self, blocking=False):
+    #     # это главный метод класса, в нём реализована многопоточность
+    #     # (параллельный вызов WorkingThread() в количестве threads_cnt потоков)
+    #     for i in range(self.threads_cnt):
+    #         th = WorkingThread(self)
+    #         # kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
+    #         th.daemon = True
+    #         th.name = 'Working Thread {}'.format(i)
+    #         th.start()
+    #     self.logger.log(level=logging.DEBUG, msg=f'Started {self.threads_cnt} threads')
+    #     while blocking:
+    #         # pass
+    #         # each thread finishes when main process will be finished (exit context manager)
+    #         # so we should do nothing with blocking=True or other actions in main thread (:)
+    #         try:
+    #             # N.B.: можно заменить на select по файловым дескрипторам:
+    #             sleep(1)
+    #         except KeyboardInterrupt as e:
+    #             self.__exit__(type(e), e, e.__traceback__)
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self):  #, exc_type, exc_val, exc_tb):
         # for th in self.threads:
         #     th.terminate()
         # for th in self.threads:
         #     th.join(timeout=2)
-        self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
-        # print('gracefull close of the main process')
+        # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of the main process')
+        print('gracefull close of the main process')
         # self.logger.terminate()
         # self.logger.join(timeout=2)
         # sys.exit()
@@ -127,12 +131,13 @@ class WorkingThread():  # WorkingThread(threading.Thread):
         # self.logger = QueueProcessLogger(filename=f'{logdir}/log.log')
         self.logger = logger_from_main_class
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self):  #, exc_type, exc_val, exc_tb):
         for clientServerConnection in self.clientServerConnectionList:
-            clientServerConnection.socket.shutdown()  # TODO: probably change to shutdown only (need to Google it!)
+            clientServerConnection.socket.shutdown(1)
             clientServerConnection.socket.close()
-            self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a thread')
-            # print('gracefull close of a thread')
+            # self.logger.log(level=logging.DEBUG, msg=f'gracefull close of a clientServerConnection')
+            print('gracefull close of a clientServerConnection')
+        raise ValueError('to the main_thread of the main_process')
 
     def handle_talk_to_server_RW(self, clientServerConnection: ClientServerConnection, readFlag):
         '''
@@ -271,7 +276,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
             if readFlag:
                 # print('if readFlag code part in DATA_WRITE_STATE')
                 return
-            clientServerConnection.machine.DATA_write(clientServerConnection.socket, '\n'.join(clientServerConnection.mail.body))
+            clientServerConnection.machine.DATA_write(clientServerConnection.socket, ''.join(clientServerConnection.mail.body))
             return
         elif current_state == DATA_END_WRITE_STATE:
             if readFlag:
@@ -410,7 +415,7 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                     # print('after list_of_sockets.append(...)')
 
                 # print('list_of_sockets: ' + str(list_of_sockets))
-                if list_of_sockets:
+                if list_of_sockets and all(socket_in_list.fileno() > 0 for socket_in_list in list_of_sockets):
                     # print('before select.select(...)')
                     # print('list_of_sockets len(): ' + str(len(list_of_sockets)))
                     rfds, wfds, errfds = select.select(list_of_sockets, list_of_sockets, [], 5)
@@ -443,6 +448,8 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                     for fds in errfds:
                         print('Here is one of error fds (errfds), error fd: ' + fds)
         except (KeyboardInterrupt, ValueError, socket.timeout) as e_0:
+            # print('exit_main')
+            self.__exit__()
             print(e_0)
 
         # try:
@@ -487,51 +494,57 @@ class WorkingThread():  # WorkingThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    # настраиваем логирование из отдельного процесса (сначала создаём очередь максимально возможной длины):
-    multiprocessing_log_queue = multiprocessing.Queue(-1)
-    log_listener_process = multiprocessing.Process(target=listener_process, args=(multiprocessing_log_queue,))
-    log_listener_process.start()
-    logger_root_configurer(multiprocessing_log_queue)
+    try:
+        # настраиваем логирование из отдельного процесса (сначала создаём очередь максимально возможной длины):
+        multiprocessing_log_queue = multiprocessing.Queue(-1)
+        log_listener_process = multiprocessing.Process(target=listener_process, args=(multiprocessing_log_queue,))
+        log_listener_process.start()
+        logger_root_configurer(multiprocessing_log_queue)
 
-    # new_client_logger.debug('Logging from main, 0')
+        # new_client_logger.debug('Logging from main, 0')
 
-    with MailClient(threads=1, logger=new_client_logger) as mainMailClient:
-        # th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
-        # ## kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
-        # th.daemon = True
-        # th.name = 'Working Thread {}'
-        # th.start()
-        # while True:
-        #     ## clientHelper = ClientHelper()
-        #     ## # получение новых писем из папки maildir:
-        #     ## filesInProcess_fromMain = clientHelper.maildir_handler()
-        #     ## mailDirGlobalQueue.put(filesInProcess_fromMain)
-        #     ## # mainMailClient.sendMailInAThread(True)
-        #     try:
-        #         sleep(0.1)
-        #     except KeyboardInterrupt as e:
-        #         mainMailClient.__exit__(type(e), e, e.__traceback__)
+        with MailClient(threads=1, logger=new_client_logger) as mainMailClient:
+            # th = WorkingThread(mainClientFromArg=mainMailClient) #threading.Thread(target=run,args=(self,))
+            # ## kill thread gracefully by adding kill() method of a thread to exit() method of MailClient object:
+            # th.daemon = True
+            # th.name = 'Working Thread {}'
+            # th.start()
+            # while True:
+            #     ## clientHelper = ClientHelper()
+            #     ## # получение новых писем из папки maildir:
+            #     ## filesInProcess_fromMain = clientHelper.maildir_handler()
+            #     ## mailDirGlobalQueue.put(filesInProcess_fromMain)
+            #     ## # mainMailClient.sendMailInAThread(True)
+            #     try:
+            #         sleep(0.1)
+            #     except KeyboardInterrupt as e:
+            #         mainMailClient.__exit__(type(e), e, e.__traceback__)
 
-        # new_client_logger.debug('Logging from main, 1')
-        # mainMailClient.logger.log(level=logging.DEBUG, msg=f'Logging from main, 1.2, from self.logger')
+            # new_client_logger.debug('Logging from main, 1')
+            # mainMailClient.logger.log(level=logging.DEBUG, msg=f'Logging from main, 1.2, from self.logger')
 
-        # # N.B.: код для тестирования многопроцессного логирования / журналирования, НАЧАЛО:
-        # mainMailClient.logger.debug('TEST Logging from main')
-        # workers = []
-        # for i in range(3):
-        #     worker = multiprocessing.Process(target=worker_logging_test_process, args=(multiprocessing_log_queue,))
-        #     workers.append(worker)
-        #     worker.start()
-        # # for w in workers:
-        # #     w.join()
-        # # mainMailClient.logger.debug('TEST main function ends')
-        # # N.B.: код для тестирования многопроцессного логирования / журналирования, КОНЕЦ:
-
-        fakeThread = WorkingThread(mainClientFromArg=mainMailClient, logger_from_main_class=mainMailClient.logger)
-        while True:
-            try:
-                mainMailClient.logger.debug('TEST main function, before fakeThread.run()')
-                fakeThread.run()
-                # logger.debug('never get here: Logging from main, 2, after fakeThread.run()')
-            except KeyboardInterrupt as e:
-                mainMailClient.__exit__(type(e), e, e.__traceback__)
+            # # N.B.: код для тестирования многопроцессного логирования / журналирования, НАЧАЛО:
+            # mainMailClient.logger.debug('TEST Logging from main')
+            # workers = []
+            # for i in range(3):
+            #     worker = multiprocessing.Process(target=worker_logging_test_process, args=(multiprocessing_log_queue,))
+            #     workers.append(worker)
+            #     worker.start()
+            # # for w in workers:
+            # #     w.join()
+            # # mainMailClient.logger.debug('TEST main function ends')
+            # # N.B.: код для тестирования многопроцессного логирования / журналирования, КОНЕЦ:
+            fakeThread = WorkingThread(mainClientFromArg=mainMailClient, logger_from_main_class=mainMailClient.logger)
+            while True:
+                try:
+                    # mainMailClient.logger.debug('TEST main function, before fakeThread.run()')
+                    fakeThread.run()
+                    # logger.debug('never get here: Logging from main, 2, after fakeThread.run()')
+                except (KeyboardInterrupt, ValueError) as e:
+                    print('TEST main function, before mainMailClient.__exit__(...)')
+                    mainMailClient.logger.debug('TEST main function, before mainMailClient.__exit__(...)')
+                    mainMailClient.__exit__()  #(type(e), e, e.__traceback__)
+                    raise ValueError('to the main_process exception handler')
+    except (KeyboardInterrupt, ValueError) as e:
+        print('Before exit_main()')
+        exit_main()

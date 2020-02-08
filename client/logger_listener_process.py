@@ -22,12 +22,21 @@ def listener_configurer():
     root.addHandler(console_handler)
     root.setLevel(logging.DEBUG)
 
+def __exit__():
+    logging.shutdown
+    print('gracefull close of the logger process')
+
 
 def listener_process(queue):
-    listener_configurer()
-    while True:
-        while not queue.empty():
-            record = queue.get()
-            listener_logger = logging.getLogger(record.name)
-            listener_logger.handle(record)
-        sleep(1)
+    try:
+        listener_configurer()
+        while True:
+            while not queue.empty():
+                record = queue.get()
+                listener_logger = logging.getLogger(record.name)
+                listener_logger.handle(record)
+            sleep(1)
+    except (KeyboardInterrupt, ValueError) as e_0:
+        __exit__()
+        print(e_0)
+

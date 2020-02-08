@@ -23,6 +23,10 @@ class ClientHelper(object):
         # self.sock.close()
         pass
 
+    def __exit__(self):
+        # self.sock.close()
+        pass
+
     def socket_init(self, host, port=25):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
