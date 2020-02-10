@@ -404,7 +404,8 @@ class WorkingThread():  # WorkingThread(threading.Thread):
                 # print('before self.checkMaildirAndCreateNewSocket()')
                 self.checkMaildirAndCreateNewSocket()
                 # print('after self.checkMaildirAndCreateNewSocket()')
-
+                if not self.clientServerConnectionList:
+                    sleep(1)
                 list_of_sockets = []
                 for clientServerConnection in self.clientServerConnectionList:
                     # print('before list_of_sockets.append(...)')
